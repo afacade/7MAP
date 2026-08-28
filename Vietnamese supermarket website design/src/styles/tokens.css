@@ -1,0 +1,95 @@
+/**
+ * Design tokens — the single source for every colour, radius and measure in the
+ * storefront. Values come straight from the handoff and have been
+ * contrast-checked; do not re-derive them.
+ *
+ * The palette is a 60/30/10 system: warm whites carry the page, a single orange
+ * carries brand and action, and teal appears only on status.
+ */
+
+:root {
+  /* ---------------------------------------------------------- 60 · base --- */
+  --c-base: #ffffff;
+  --c-off-white: #fdfcfb; /* footer top, table headers, search field */
+  --c-warm-tint: #faf7f5; /* image wells */
+  --c-warm-tint-2: #f7f2ef; /* cart thumbnails */
+
+  /* -------------------------------------------------------- 30 · orange --- */
+  --c-orange: #b4522f; /* text-bearing orange — 5.0:1 with white */
+  --c-orange-brand: #d97757; /* brand/decorative ONLY — never behind small white text */
+  --c-orange-hover: #8f3f22; /* hover on any --c-orange fill */
+  --c-orange-text: #a64e30; /* orange text <=16px on white/tint — 5.4:1 */
+  --c-orange-display: #c2603f; /* PDP price only (25–34px, large-text rule) */
+  --c-orange-tint: #fbede6; /* active chips, pills, stepper hover */
+  --c-orange-tint-2: #fff4ef; /* selected payment method */
+  --c-orange-panel: #fff9f6; /* flash panel, help card, ship note, order confirmed */
+  --c-orange-border: #f0ddd3;
+  --c-orange-border-2: #f5e7df; /* flash card gaps, progress track */
+
+  /* Image-well grounds behind the hero and promo banners. */
+  --c-well-hero: #f7e3d9;
+  --c-well-banner: #f0e7e1;
+
+  /* ---------------------------------------------------------- 10 · teal --- */
+  --c-teal: #0b7d71; /* badges, countdown, in-stock, free shipping — 4.9:1 */
+
+  /* ------------------------------------------------------------- neutral -- */
+  --c-ink: #1f1b18; /* body text and headings — text only, never a surface */
+  --c-ink-2: #5c5249; /* secondary text, form labels */
+  --c-muted: #8a7d75; /* metadata, helper text */
+  --c-muted-2: #a69a92; /* struck was-prices, footer meta */
+  --c-border: #ede7e3; /* card and input borders */
+  --c-border-light: #f5f1ee; /* row dividers, nav top rule */
+  --c-radio: #d5ccc6; /* unselected radio ring */
+  --c-on-orange: #ffffff; /* all labels on orange — never alpha whites */
+
+  /* ---------------------------------------------------------- typography -- */
+  --font-sans: 'Be Vietnam Pro', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --fs-page-h1: clamp(24px, 2.5vw, 33px);
+  --fs-hero-h1: clamp(27px, 3.1vw, 44px);
+  --fs-section-h2: clamp(21px, 2vw, 26px);
+  --fs-band-h2: clamp(20px, 1.9vw, 25px);
+  --fs-pdp-price: clamp(25px, 2.5vw, 34px);
+  --fs-view-h1: clamp(23px, 2.2vw, 29px);
+
+  --ls-tight: -0.03em;
+  --ls-snug: -0.025em;
+  --ls-flat: -0.02em;
+  --ls-eyebrow: 0.06em;
+  --ls-eyebrow-wide: 0.08em;
+
+  /* --------------------------------------------------------- dimensions -- */
+  --page-max: 1280px;
+  --page-max-cart: 1180px;
+  --page-max-checkout: 1080px;
+  --page-pad: 24px;
+  --section-gap: 44px;
+  --sticky-top: 150px; /* clears the sticky header + nav */
+
+  --gap-grid: 16px;
+  --gap-cats: 14px;
+  --gap-sidebar: 28px;
+  --gap-footer: 36px;
+
+  --r-sm: 6px;
+  --r-input: 9px;
+  --r-card: 11px;
+  --r-panel: 14px;
+  --r-large: 16px;
+  --r-hero: 18px;
+  --r-pill: 999px;
+
+  /* The only two shadows in the system, both hover-only. */
+  --shadow-card: 0 8px 24px rgba(31, 27, 24, 0.07);
+  --shadow-tile: 0 6px 20px rgba(217, 119, 87, 0.12);
+
+  /* Product cards per row on wide screens. main.js adds .cols-3 to <html> when
+     config.productsPerRow is 3; the responsive rules in pages.css list both
+     selectors so narrow breakpoints still win. */
+  --products-per-row: 4;
+}
+
+:root.cols-3 {
+  --products-per-row: 3;
+}

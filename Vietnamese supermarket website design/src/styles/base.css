@@ -1,0 +1,159 @@
+/** Reset, page frame, typography defaults, and the focus treatment. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--c-base);
+  color: var(--c-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-base);
+}
+
+main {
+  flex: 1;
+}
+
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--c-orange-display);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--c-orange-text);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Prices and quantities line up between rows. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The prototype relied on default focus rings; keyboard users get a visible,
+   on-brand ring everywhere, and pointer users get none. */
+:focus-visible {
+  outline: 2px solid var(--c-orange-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.u-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--c-base);
+  color: var(--c-orange-text);
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 12px 18px;
+  border: 1.5px solid var(--c-orange-brand);
+  border-radius: var(--r-input);
+}
+
+.skip-link:focus {
+  left: 12px;
+  top: 12px;
+}
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Hover is the only motion in the system besides the countdown and the pulsing
+   dot — and neither should run for visitors who ask for less of it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Shared page shells. */
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+  width: 100%;
+}
+
+.page--cart {
+  max-width: var(--page-max-cart);
+}
+
+.page--checkout {
+  max-width: var(--page-max-checkout);
+}
+
+.page-top {
+  padding-top: 30px;
+}
+
+.page-top--tight {
+  padding-top: 26px;
+}
