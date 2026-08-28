@@ -22,8 +22,9 @@ from pathlib import Path
 ROOT = Path(__file__).parent.resolve()
 
 # Directories whose contents are served as files. Anything else falls back to
-# index.html so client-side routes resolve.
-STATIC_PREFIXES = ("/src/", "/public/", "/images/")
+# index.html so client-side routes resolve — the same behaviour GitHub Pages
+# gets from 404.html.
+STATIC_PREFIXES = ("/src/", "/images/", "/design_handoff_7map_storefront/")
 
 
 class StorefrontHandler(SimpleHTTPRequestHandler):
@@ -40,10 +41,6 @@ class StorefrontHandler(SimpleHTTPRequestHandler):
     }
 
     def translate_path(self, path: str) -> str:
-        # /images/... is a convenience alias for /public/images/...
-        if path.startswith("/images/"):
-            path = "/public" + path
-
         translated = super().translate_path(path)
 
         # A request for a route (not a file) gets the app shell.

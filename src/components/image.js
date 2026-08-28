@@ -1,4 +1,5 @@
 import { h } from '../core/dom.js';
+import { asset } from '../core/base.js';
 
 /**
  * An image well: a warm-tinted, fixed-ratio frame with a real `<img>` inside.
@@ -23,7 +24,7 @@ export function imageWell({
 }) {
   const img = h('img', {
     class: 'well__img',
-    src,
+    src: asset(src),
     alt,
     loading: eager ? 'eager' : 'lazy',
     decoding: 'async',

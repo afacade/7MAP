@@ -4,6 +4,7 @@ import { getProduct } from '../data/products.js';
 import { addToCart } from '../core/store.js';
 import { announce } from '../core/announce.js';
 import { imageWell } from '../components/image.js';
+import { asset } from '../core/base.js';
 import { relatedCard } from '../components/product-card.js';
 import { decorate, productSpecs, relatedProducts } from '../lib/catalog.js';
 
@@ -60,7 +61,7 @@ function productGallery(d, { t }) {
       thumb.setAttribute('aria-pressed', String(isCurrent));
     }
     main.classList.remove('is-missing');
-    mainImg.src = src;
+    mainImg.src = asset(src);
   }
 
   return h(

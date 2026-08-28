@@ -39,12 +39,55 @@ choice was made because there is no Node toolchain on this machine; the code is
 structured so a port to React/Next is mechanical (see *Architecture* below).
 
 `server.py` exists rather than `python -m http.server` because the router uses
-real paths, so deep links and refreshes must fall back to `index.html`. In
-production, configure the same fallback:
+real paths, so deep links and refreshes must fall back to `index.html`.
+
+## Deploying
+
+Live at **<https://afacade.github.io/7MAP/>**, served by GitHub Pages from the
+root of `main`. Push to `main` and Pages republishes; there is nothing to build.
+
+Two things make that work, and both matter if you move the site:
+
+**1. The base path.** GitHub Pages serves this repo from a *subpath*, not the
+domain root, so `/src/main.js` would resolve to `afacade.github.io/src/main.js`
+and 404 — which is exactly what a blank page looks like. `index.html` sets a
+`<base>` tag before the first stylesheet is parsed:
+
+```js
+var SUBPATH = '/7MAP/';
+if (location.pathname.indexOf(SUBPATH) === 0) { /* use it as the base */ }
+```
+
+The test is the URL, not the hostname, so local development, GitHub Pages and a
+future custom domain (which serves at the root) all work untouched. On the JS
+side, [`src/core/base.js`](src/core/base.js) reads that value back; `asset()`
+prefixes image URLs and `routes` prefixes every link. **Nothing should ever emit
+a bare root-absolute URL** — run it through `asset()`.
+
+If the repo is renamed, change `SUBPATH` in `index.html` **and** `404.html`.
+
+**2. Deep links.** GitHub Pages has no rewrite rules, so it serves `404.html`
+for any path without a file — which is every client-side route. `404.html` is a
+copy of `index.html`, so the shell loads and the router renders the right view
+with the URL intact. **Re-copy it whenever `index.html` changes:**
+
+```bash
+cp index.html 404.html
+```
+
+`.nojekyll` keeps Pages from running the files through Jekyll.
+
+The one wart: Pages returns HTTP 404 for those routes even though the page
+renders correctly. Harmless for visitors, not ideal for search engines — see the
+prerendering note under *What still needs doing*.
+
+### Anywhere else
 
 - **nginx** — `try_files $uri $uri/ /index.html;`
 - **Apache** — `FallbackResource /index.html`
 - **Netlify / Vercel / Cloudflare Pages** — a catch-all rewrite to `/index.html`
+
+Served from a domain root, `SUBPATH` never matches and the base stays `/`.
 
 ## Architecture
 
@@ -72,7 +115,8 @@ src/
     base.css          reset, type, focus rings
     components.css    chrome, buttons, cards, form controls
     pages.css         per-view layout + the responsive plan
-public/images/        photography goes here — see its README
+images/               all 56 photographs — see its README
+404.html              generated copy of index.html for GitHub Pages deep links
 ```
 
 A page is a function of `(ctx) → DOM node`, where `ctx` is

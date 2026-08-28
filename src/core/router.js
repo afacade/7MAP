@@ -1,3 +1,5 @@
+import { asset, stripBase } from './base.js';
+
 /**
  * History-API router.
  *
@@ -17,7 +19,8 @@
  * fall back to index.html — server.py does this; see README.md for nginx/Apache.
  */
 
-export const routes = {
+/** Route paths as the app thinks of them — no base prefix. */
+const PATHS = {
   home: '/',
   categories: '/danh-muc',
   product: '/san-pham',
@@ -26,6 +29,14 @@ export const routes = {
   contact: '/lien-he',
   policies: '/chinh-sach',
 };
+
+/**
+ * The same routes as browser URLs, base included. These are what goes into an
+ * `href`; `PATTERNS` below match the base-stripped path instead.
+ */
+export const routes = Object.fromEntries(
+  Object.entries(PATHS).map(([name, path]) => [name, asset(path)]),
+);
 
 const PATTERNS = [
   { name: 'home', re: /^\/$/ },
@@ -41,7 +52,7 @@ let listeners = new Set();
 
 /** Parse the current location into `{ name, params, query, path }`. */
 export function currentRoute() {
-  const path = decodeURI(window.location.pathname) || '/';
+  const path = stripBase(decodeURI(window.location.pathname)) || '/';
   const query = Object.fromEntries(new URLSearchParams(window.location.search));
 
   for (const { name, re, keys } of PATTERNS) {

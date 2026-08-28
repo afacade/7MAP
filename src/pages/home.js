@@ -2,6 +2,7 @@ import { h } from '../core/dom.js';
 import { routes, href } from '../core/router.js';
 import { config, storeInfo } from '../config.js';
 import { imageWell } from '../components/image.js';
+import { asset } from '../core/base.js';
 import { productCard, bestSellerCard, flashCard } from '../components/product-card.js';
 import { flashCountdown } from '../components/countdown.js';
 import {
@@ -60,7 +61,7 @@ function storeBanner({ t }) {
       { class: 'home-banner__link', href: href(routes.categories, { cat: 'food' }) },
       h('img', {
         class: 'home-banner__img',
-        src: '/images/banner.jpg',
+        src: asset('/images/banner.jpg'),
         alt: t('bannerAlt'),
         decoding: 'async',
       }),

@@ -2,7 +2,7 @@
  * Catalogue — the store's real products.
  *
  * Every record here is backed by a real photograph supplied by the shop
- * (public/images/…). Names, pack sizes and units were read off the packaging in
+ * (images/…). Names, pack sizes and units were read off the packaging in
  * those photos.
  *
  * ⚠ PRICES ARE ESTIMATES. The shop has not supplied a price list yet, so each
@@ -17,7 +17,7 @@
  *               'suggested' → Gợi ý cho bạn
  *   rank      position within the best-seller shelf (1–5)
  *   descVi/En longer copy for the product page and the best-seller cards
- *   image     path under public/
+ *   image     site-root path; resolved against the base by asset()
  */
 const RAW = [
   // ---------------------------------------------------- Sản phẩm bán chạy ---
