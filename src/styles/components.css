@@ -353,18 +353,41 @@
 
 /* ======================================================= image wells ===== */
 
+/* The well fills its frame absolutely. Its own children are all absolutely
+   positioned, so a relative well would collapse to zero height and the image
+   would never be visible. Every parent (.product-card__media, .pdp__main,
+   .category-tile__media, .cart-row__thumb, .contact-map …) sets the ratio or
+   size and is itself positioned. */
 .well {
-  position: relative;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  background: var(--c-warm-tint);
+  background: var(--c-base);
 }
 
+/* The shop's photography is supplier packshots on white, in mixed ratios
+   (698×595, 1024×1024, 1280×960). `contain` keeps every product whole — `cover`
+   would crop 15–25% off the sides of the landscape ones and ruin the several
+   shots that carry printed callouts. On a white well the letterboxing is
+   invisible, because the photos are on white too. */
 .well__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  padding: 4%;
+}
+
+/* Decorative, edge-to-edge imagery — hero, promo banners, the store map — where
+   filling the frame matters more than showing the whole shot. */
+.well--cover {
+  background: var(--c-warm-tint);
+}
+
+.well--cover .well__img {
   object-fit: cover;
+  padding: 0;
 }
 
 /* Photography has not been supplied yet. Until a file exists at the record's

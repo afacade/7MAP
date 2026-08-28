@@ -191,8 +191,17 @@ hard-codes a threshold or a phone number.
 ## Fidelity notes
 
 Colours, type scale, spacing, radii and copy come from the handoff and were
-contrast-checked there; `tokens.css` is the single source. Three places
+contrast-checked there; `tokens.css` is the single source. Four places
 deliberately depart from the prototype:
+
+0. **Image wells are white and fit the photo whole** (`object-fit: contain`),
+   where the design specified a warm tint (`#FAF7F5`) filled edge to edge. The
+   shop's photography is supplier packshots on white in mixed ratios — 698×595,
+   1024×1024, 1280×960 — so `cover` cropped 15–25% off the sides of the
+   landscape ones and cut the printed callouts off several. White wells make the
+   letterboxing invisible, since the photos are on white too. Hero, promo and map
+   imagery still uses `cover` via `.well--cover`. One line in `components.css`
+   to revert if you prefer the tint.
 
 1. **Money formatting follows the active language** — `175.000₫` in Vietnamese,
    `175,000₫` in English. The prototype used `vi-VN` grouping in both, which put

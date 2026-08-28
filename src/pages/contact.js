@@ -59,6 +59,7 @@ function detailsColumn({ t, lang }) {
       imageWell({
         src: '/images/store-map.jpg',
         alt: t('mapAlt'),
+        className: 'well--cover',
         label: t('imagePending'),
         hint: 'Map screenshot of the store location, 1200×600',
       }),

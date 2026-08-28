@@ -95,7 +95,7 @@ function heroRow(ctx) {
             imageWell({
               src: '/images/hero.jpg',
               alt: '',
-              className: 'well--hero',
+              className: 'well--cover well--hero',
               label: t('imagePending'),
               hint: 'Hero image — aisle or promo shot, 900×760',
               eager: true,
@@ -138,7 +138,7 @@ function promo({ t, url, image, hint, eyebrow, title, sub }) {
     h(
       'div',
       { class: 'promo__media' },
-      imageWell({ src: image, alt: '', className: 'well--banner', label: t('imagePending'), hint }),
+      imageWell({ src: image, alt: '', className: 'well--cover well--banner', label: t('imagePending'), hint }),
     ),
     h(
       'div',
