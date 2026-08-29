@@ -38,7 +38,7 @@
 /* Five across at full width, so the shop's descriptions get room to breathe. */
 .best-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--best-per-row), minmax(0, 1fr));
   gap: var(--gap-grid);
 }
 
@@ -1251,8 +1251,9 @@
     --products-per-row: 3;
   }
 
-  .best-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  :root,
+  :root.cols-3 {
+    --best-per-row: 3;
   }
 
   .category-grid {
@@ -1308,8 +1309,12 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .flash__grid,
-  .best-grid {
+  :root,
+  :root.cols-3 {
+    --best-per-row: 2;
+  }
+
+  .flash__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1492,6 +1497,86 @@
     flex-direction: column;
     gap: 6px;
   }
+
+  /* ---- touch targets ----
+     Controls sized for a mouse are hard to hit with a thumb. Everything
+     interactive on a phone gets at least a 44px edge. */
+
+  .carousel__btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .carousel__dot {
+    /* The dot stays small visually but the tappable box does not. */
+    height: 24px;
+    background: transparent;
+    position: relative;
+    width: 20px;
+  }
+
+  .carousel__dot::after {
+    content: '';
+    position: absolute;
+    inset: 50% 50% auto auto;
+    transform: translate(50%, -50%);
+    width: 7px;
+    height: 7px;
+    border-radius: var(--r-pill);
+    background: var(--c-border);
+  }
+
+  .carousel__dot.is-active {
+    width: 28px;
+  }
+
+  .carousel__dot.is-active::after {
+    width: 18px;
+    background: var(--c-orange);
+  }
+
+  .stepper--sm {
+    width: 132px;
+  }
+
+  .stepper--sm .stepper__btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .cart-row__remove {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0;
+    margin: -10px -6px 0 0;
+  }
+
+  .lang-toggle__btn {
+    padding: 7px 14px;
+  }
+
+  .product-card__add,
+  .flash-card__add {
+    padding: 13px 10px;
+  }
+
+  .filter-link {
+    padding: 12px 11px;
+  }
+
+  .site-nav__link {
+    padding: 14px 14px;
+  }
+
+  /* The section header stacks on a phone, so the carousel arrows land under the
+     title — give them the full width and space them out. */
+  .section-head .carousel__controls {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 /* Small phones: paired layouts stack. Product grids stay 2-up here — a 390px
@@ -1525,9 +1610,13 @@
     --products-per-row: 1;
   }
 
+  :root,
+  :root.cols-3 {
+    --best-per-row: 1;
+  }
+
   .category-grid,
-  .flash__grid,
-  .best-grid {
+  .flash__grid {
     grid-template-columns: 1fr;
   }
 }

@@ -5,20 +5,18 @@ import { imageWell } from '../components/image.js';
 import { asset } from '../core/base.js';
 import { productCard, bestSellerCard, flashCard } from '../components/product-card.js';
 import { flashCountdown } from '../components/countdown.js';
-import {
-  decorate,
-  decorateCategories,
-  bestSellers,
-  shelfProducts,
-  flashProducts,
-} from '../lib/catalog.js';
+import { carousel } from '../components/carousel.js';
+import { decorate, bestSellers, shelfProducts, flashProducts } from '../lib/catalog.js';
 
 /**
  * Home.
  *
- * Everything the shop curated lives here, in the order they asked for:
- * their banner, then the departments, then the three shelves they grouped
- * by hand — best sellers, "Gợi ý riêng cho bạn", "Gợi ý cho bạn".
+ * Everything the shop curated lives here, in the order they asked for: their
+ * banner, then the three shelves they grouped by hand — best sellers,
+ * "Gợi ý riêng cho bạn", "Gợi ý cho bạn".
+ *
+ * Each shelf shows at most two rows; anything beyond that becomes a carousel
+ * page, swipeable on touch and driven by the arrows in the section header.
  *
  * The hero panel, promo banners and flash sale from the design prototype are
  * behind config flags; see src/config.js for why they are off.
@@ -30,7 +28,6 @@ export function homePage(ctx) {
     storeBanner(ctx),
     config.showHeroPanel || config.showPromoBanners ? heroRow(ctx) : null,
     trustStrip(ctx),
-    categorySection(ctx),
     bestSellerSection(ctx),
     config.showFlashSale ? flashSection(ctx) : null,
     shelfSection(ctx, {
@@ -178,40 +175,6 @@ function trustStrip({ t }) {
   );
 }
 
-/* -------------------------------------------------------- category grid -- */
-
-function categorySection(ctx) {
-  const { t, lang } = ctx;
-  const cats = decorateCategories(lang, t);
-
-  return h(
-    'section',
-    { class: 'section section--spaced' },
-    sectionHead({ title: t('catsTitle'), sub: t('catsSub'), ctaLabel: t('viewAll'), ctaUrl: routes.categories }),
-    h(
-      'div',
-      { class: 'category-grid' },
-      ...cats.map((cat) =>
-        h(
-          'a',
-          { class: 'category-tile', href: href(routes.categories, { cat: cat.id }) },
-          h(
-            'div',
-            { class: 'category-tile__media' },
-            imageWell({ src: cat.image, alt: '', label: t('imagePending') }),
-          ),
-          h(
-            'div',
-            null,
-            h('div', { class: 'category-tile__name' }, cat.name),
-            h('div', { class: 'category-tile__count' }, cat.countLabel),
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
 /* --------------------------------------------------------- best sellers -- */
 
 function bestSellerSection(ctx) {
@@ -219,11 +182,20 @@ function bestSellerSection(ctx) {
   const items = bestSellers().map((p) => decorate(p, lang, t));
   if (!items.length) return null;
 
+  const shelf = carousel({
+    items,
+    renderItem: (item) => bestSellerCard(item, ctx),
+    ctx,
+    gridClass: 'best-grid',
+    colsVar: '--best-per-row',
+    label: t('featTitle'),
+  });
+
   return h(
     'section',
     { class: 'section section--spaced' },
-    sectionHead({ title: t('featTitle'), sub: t('featSub'), ctaLabel: t('viewAll'), ctaUrl: routes.categories }),
-    h('div', { class: 'best-grid' }, ...items.map((item) => bestSellerCard(item, ctx))),
+    sectionHead({ title: t('featTitle'), sub: t('featSub'), controls: shelf.controls }),
+    shelf.node,
   );
 }
 
@@ -235,16 +207,20 @@ function shelfSection(ctx, { shelf, title, sub }) {
   const items = shelfProducts(shelf).map((p) => decorate(p, lang, t));
   if (!items.length) return null;
 
+  const strip = carousel({
+    items,
+    renderItem: (item) => productCard(item, ctx),
+    ctx,
+    gridClass: 'product-grid',
+    colsVar: '--products-per-row',
+    label: title,
+  });
+
   return h(
     'section',
     { class: 'section section--spaced' },
-    sectionHead({
-      title,
-      sub,
-      ctaLabel: t('viewAll'),
-      ctaUrl: routes.categories,
-    }),
-    h('div', { class: 'product-grid' }, ...items.map((item) => productCard(item, ctx))),
+    sectionHead({ title, sub, controls: strip.controls }),
+    strip.node,
   );
 }
 
@@ -321,7 +297,7 @@ function bandField(label, value) {
 
 /* ---------------------------------------------------------------- utils -- */
 
-function sectionHead({ title, sub, ctaLabel, ctaUrl }) {
+function sectionHead({ title, sub, controls, ctaLabel, ctaUrl }) {
   return h(
     'div',
     { class: 'section-head' },
@@ -331,6 +307,6 @@ function sectionHead({ title, sub, ctaLabel, ctaUrl }) {
       h('h2', { class: 'section-head__title' }, title),
       h('p', { class: 'section-head__sub' }, sub),
     ),
-    ctaUrl && h('a', { class: 'btn btn--outline btn--sm', href: ctaUrl }, ctaLabel),
+    controls || (ctaUrl && h('a', { class: 'btn btn--outline btn--sm', href: ctaUrl }, ctaLabel)),
   );
 }

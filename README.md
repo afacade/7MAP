@@ -15,14 +15,32 @@ Everything the shop curated is on the front page, in the order they asked for:
 
 1. **Banner** — their own artwork, full width, linking to the rice shelf
 2. **Trust strip** — delivery, COD, Zalo ordering, warranty
-3. **Danh mục nổi bật** — the departments that currently hold stock
-4. **Sản phẩm bán chạy** — the top 5, each with the description written for it
-5. **Gợi ý riêng cho bạn** — the 36 household, clothing and food items
-6. **Gợi ý cho bạn** — the 14 travel and outdoor items
-7. **Store band** — address, hours, hotline
+3. **Sản phẩm bán chạy** — the top 5, each with the description written for it
+4. **Gợi ý riêng cho bạn** — the 36 household, clothing and food items
+5. **Gợi ý cho bạn** — the 14 travel and outdoor items
+6. **Store band** — address, hours, hotline
 
 The shelves are driven by a `shelf` field on each product record, so moving an
 item between them is a one-word edit in `src/data/products.js`.
+
+### Two rows, then a carousel
+
+Every shelf shows **at most two rows**; the rest becomes carousel pages, driven
+by the arrows and dots in the section header. [`components/carousel.js`](src/components/carousel.js)
+is built on native scroll-snap rather than transforms, which buys a real swipe
+gesture on touch, keyboard scrolling, and off-screen slides that are *scrolled
+to* rather than `display:none` — so nothing leaves the accessibility tree.
+
+Page size is `2 × columns`, and columns come from the stylesheet
+(`--products-per-row`, `--best-per-row`), so the slides re-chunk when a
+breakpoint changes: 36 products are 5 pages of 8 on a desktop and 9 pages of 4
+on a phone. The current page is tracked explicitly rather than derived from
+`scrollLeft`, so the arrows respond immediately instead of waiting on a scroll
+event that a smooth scroll has not produced yet.
+
+The department grid ("Danh mục nổi bật") was removed from the home page at the
+shop's request. Departments are still reachable from the nav and the category
+sidebar.
 
 ## Running it
 

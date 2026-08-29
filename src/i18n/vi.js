@@ -53,6 +53,10 @@ export default {
   catsTitle: 'Danh mục nổi bật',
   catsSub: '10 nhóm hàng, hơn 4.000 mặt hàng tại quầy',
   viewAll: 'Xem tất cả',
+  carouselPrev: 'Xem các sản phẩm trước', // (new)
+  carouselNext: 'Xem các sản phẩm tiếp theo', // (new)
+  carouselSlide: 'Nhóm {n} trên {total}', // (new)
+  carouselGoTo: 'Tới nhóm {n} trên {total}', // (new)
   flashTitle: 'Giờ vàng giảm giá',
   flashSub: 'Số lượng có hạn mỗi ngày',
   endsIn: 'Kết thúc sau',

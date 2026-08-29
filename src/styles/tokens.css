@@ -88,6 +88,11 @@
      config.productsPerRow is 3; the responsive rules in pages.css list both
      selectors so narrow breakpoints still win. */
   --products-per-row: 4;
+
+  /* Best-seller cards carry a description, so they get their own count. Both
+     variables are read by the carousel to decide how many products fit a page —
+     the stylesheet stays the single source of truth for layout. */
+  --best-per-row: 5;
 }
 
 :root.cols-3 {

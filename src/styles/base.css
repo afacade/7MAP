@@ -12,6 +12,10 @@ html {
 
 body {
   margin: 0;
+  /* Stop the grey flash on tap; :hover/:focus-visible already show state. */
+  -webkit-tap-highlight-color: transparent;
+  /* A long Vietnamese product name must never widen the page. */
+  overflow-wrap: break-word;
   background: var(--c-base);
   color: var(--c-ink);
   font-family: var(--font-sans);

@@ -555,6 +555,104 @@
   border-color: var(--c-orange);
 }
 
+/* ========================================================= carousel ====== */
+
+/* Paged product shelf. Native scroll-snap does the work: a real swipe gesture
+   on touch, keyboard scrolling, and off-screen slides that are scrolled to
+   rather than hidden — so nothing leaves the accessibility tree. */
+.carousel__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* Keep a horizontal swipe inside the shelf instead of triggering the
+     browser's back gesture. */
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel__track:focus-visible {
+  outline: 2px solid var(--c-orange-brand);
+  outline-offset: 4px;
+  border-radius: var(--r-panel);
+}
+
+/* Exactly one viewport wide, no gap between slides — the arrows scroll by
+   clientWidth, so any gap would drift the snap points. */
+.carousel__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.carousel--single .carousel__track {
+  overflow-x: visible;
+}
+
+.carousel__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.carousel__controls[hidden] {
+  display: none;
+}
+
+.carousel__btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--c-border);
+  background: var(--c-base);
+  color: var(--c-ink);
+  border-radius: var(--r-input);
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+}
+
+.carousel__btn:hover:not(:disabled) {
+  border-color: var(--c-orange-brand);
+  color: var(--c-orange-text);
+}
+
+.carousel__btn:disabled {
+  color: var(--c-muted-2);
+  border-color: var(--c-border-light);
+  cursor: default;
+}
+
+.carousel__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.carousel__dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--c-border);
+}
+
+.carousel__dot:hover {
+  background: var(--c-muted-2);
+}
+
+.carousel__dot.is-active {
+  background: var(--c-orange);
+  width: 18px;
+}
+
 /* ====================================================== section head ===== */
 
 .section {
