@@ -427,11 +427,13 @@
   align-items: start;
 }
 
-.store-band a {
+/* Plain links inside the band sit on orange, so they are white — but not the
+   CTA, which is a white button and keeps its orange label. */
+.store-band a:not(.btn) {
   color: var(--c-on-orange);
 }
 
-.store-band a:hover {
+.store-band a:not(.btn):hover {
   color: var(--c-on-orange);
   text-decoration: underline;
 }
@@ -873,7 +875,7 @@
 
 .summary__note {
   font-size: 12px;
-  color: var(--c-muted);
+  color: var(--c-ink-2); /* muted grey only reaches 3.8:1 on the warm panel */
   line-height: 1.5;
   background: var(--c-orange-panel);
   border: 1px solid var(--c-orange-border);
@@ -1435,6 +1437,16 @@
     order: 3;
     flex-basis: 100%;
     max-width: none;
+  }
+
+  /* On a phone the wordmark carries the brand on its own; repeating the name
+     beside it pushed the header onto a third row. */
+  .brand__text {
+    display: none;
+  }
+
+  .brand__logo {
+    height: 24px;
   }
 
   .header__actions {

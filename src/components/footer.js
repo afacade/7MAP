@@ -2,6 +2,7 @@ import { h } from '../core/dom.js';
 import { routes, policyHref } from '../core/router.js';
 import { storeInfo } from '../config.js';
 import { DEFAULT_POLICY_SLUG } from '../data/policies.js';
+import { asset } from '../core/base.js';
 
 export function siteFooter({ t }) {
   return h(
@@ -16,7 +17,7 @@ export function siteFooter({ t }) {
         h(
           'div',
           { class: 'site-footer__brand' },
-          h('span', { class: 'site-footer__tile', 'aria-hidden': 'true' }, '7M'),
+          h('img', { class: 'site-footer__logo', src: asset('/images/logo-7map.png'), alt: '', width: '360', height: '77' }),
           h('span', { class: 'site-footer__name' }, storeInfo.name),
         ),
         h('p', { class: 'site-footer__about' }, t('footAbout')),

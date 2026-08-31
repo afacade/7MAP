@@ -1,8 +1,8 @@
-# Siêu Thị 7Map — storefront
+# Bách Hoá & Thời Trang 7MAP — storefront
 
-Customer-facing storefront for **Siêu Thị 7Map** (Vựa Gạo Bảy Mập), a rice
-merchant and general supermarket at 442-444 Đ. Kinh Dương Vương, An Lạc, Bình
-Tân, Ho Chi Minh City. Customers browse the departments, see what the shop has
+Customer-facing storefront for **Bách Hoá & Thời Trang 7MAP** (Vựa Gạo Bảy Mập),
+a rice merchant, grocery and clothing store at 442-444 Đ. Kinh Dương Vương, An
+Lạc, Bình Tân, Ho Chi Minh City. Customers browse the departments, see what the shop has
 picked out, and place an order that staff confirm by phone or Zalo.
 
 Built from [`design_handoff_7map_storefront/`](design_handoff_7map_storefront/README.md),
@@ -15,9 +15,9 @@ Everything the shop curated is on the front page, in the order they asked for:
 
 1. **Banner** — their own artwork, full width, linking to the rice shelf
 2. **Trust strip** — delivery, COD, Zalo ordering, warranty
-3. **Sản phẩm bán chạy** — the top 5, each with the description written for it
-4. **Gợi ý riêng cho bạn** — the 36 household, clothing and food items
-5. **Gợi ý cho bạn** — the 14 travel and outdoor items
+3. **Gợi ý cho bạn** — the 14 travel and outdoor items
+4. **Sản phẩm bán chạy** — the top 5, each with the description written for it
+5. **Gợi ý riêng cho bạn** — the 36 household, clothing and food items
 6. **Store band** — address, hours, hotline
 
 The shelves are driven by a `shelf` field on each product record, so moving an
@@ -208,9 +208,31 @@ hard-codes a threshold or a phone number.
 
 ## Fidelity notes
 
-Colours, type scale, spacing, radii and copy come from the handoff and were
-contrast-checked there; `tokens.css` is the single source. Four places
-deliberately depart from the prototype:
+`tokens.css` is the single source for colour, type scale, spacing and radii.
+
+**The orange is not the handoff's.** The design shipped an earthy orange
+(`#B4522F` / `#D97757`); the shop asked for a bright one. The scale is now
+derived from **#EE4723 — the dominant colour of their own banner artwork**
+(28% of its saturated pixels). That hue only reaches 3.8:1 with white, so it
+cannot carry small white text; the tokens keep the hue at 10.6° and vary
+lightness to hit the ratio each role needs:
+
+| Token | Value | Role |
+|---|---|---|
+| `--c-orange` | `#DC3511` | fills carrying white text — 4.6:1 |
+| `--c-orange-brand` | `#EE4723` | the banner colour, **decorative only** — 3.8:1 |
+| `--c-orange-hover` | `#A9280D` | hover on any orange fill — 7.0:1 |
+| `--c-orange-text` | `#D13210` | orange text ≤16px — 5.0:1 |
+| `--c-orange-display` | `#F05432` | large text only (≥22px bold) — 3.5:1 |
+
+Every text/background pair on all seven pages is audited in the browser and
+passes WCAG AA. Two of the handoff's own neutrals did **not** pass and were
+darkened: `--c-muted` `#8A7D75`→`#6F645E` (was 3.9:1) and `--c-muted-2`
+`#A69A92`→`#807268` (was 2.7:1). The logo tiles moved from the decorative brand
+colour to `--c-orange`, because the white "7M" on them is 17px bold — not large
+text, so it needs 4.5:1.
+
+Four further places deliberately depart from the prototype:
 
 0. **Image wells are white and fit the photo whole** (`object-fit: contain`),
    where the design specified a warm tint (`#FAF7F5`) filled edge to edge. The

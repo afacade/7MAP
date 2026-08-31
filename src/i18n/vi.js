@@ -12,7 +12,7 @@ export default {
   langLabel: 'Ngôn ngữ', // (new)
 
   // Header + nav
-  tagline: 'Siêu thị tổng hợp · TP.HCM',
+  tagline: 'Bách hoá & thời trang · TP.HCM',
   searchPh: 'Tìm mì gói, nồi cơm điện, tã em bé…',
   searchBtn: 'Tìm',
   searchLabel: 'Tìm sản phẩm', // (new)
@@ -25,7 +25,7 @@ export default {
   navNote: 'Giá tại quầy · cập nhật hằng tuần',
   skipToContent: 'Bỏ qua, tới nội dung chính', // (new)
   mainNavLabel: 'Điều hướng chính', // (new)
-  homeLink: 'Về trang chủ Siêu Thị 7Map', // (new)
+  homeLink: 'Về trang chủ Bách Hoá & Thời Trang 7MAP', // (new)
 
   // Home — hero and banners
   heroKicker: 'Khuyến mãi tuần này',
@@ -71,7 +71,7 @@ export default {
   forYouSub: 'Hàng gia dụng, quần áo và thực phẩm chọn sẵn cho gia đình', // (new)
   suggestedTitle: 'Gợi ý cho bạn', // (new)
   suggestedSub: 'Đồ du lịch, dã ngoại và tiện ích mang theo', // (new)
-  homeH1: 'Siêu Thị 7Map — vựa gạo và siêu thị tổng hợp tại Bình Tân, TP.HCM', // (new)
+  homeH1: 'Bách Hoá & Thời Trang 7MAP — vựa gạo, bách hoá và thời trang tại Bình Tân, TP.HCM', // (new)
   bannerAlt: 'Vựa gạo 7Map — gạo ngon từ đất Việt, hotline 070 779 6663', // (new)
 
   // Home — store band
@@ -166,12 +166,12 @@ export default {
   backHome: 'Về trang chủ',
 
   // Contact
-  contactTitle: 'Liên hệ Siêu Thị 7Map',
+  contactTitle: 'Liên hệ Bách Hoá & Thời Trang 7MAP',
   contactSub: 'Gọi hotline hoặc nhắn Zalo để đặt hàng, hỏi giá sỉ, hoặc kiểm tra tồn kho trước khi tới.',
   zaloNote: 'Zalo cùng số · trả lời trong giờ mở cửa',
   hoursNote: 'Kể cả Chủ nhật và ngày lễ',
   openMap: 'Mở trên Google Maps',
-  mapAlt: 'Bản đồ vị trí Siêu Thị 7Map', // (new)
+  mapAlt: 'Bản đồ vị trí Bách Hoá & Thời Trang 7MAP', // (new)
   formTitle: 'Gửi tin nhắn cho chúng tôi',
   formSub: 'Chúng tôi trả lời trong vòng một ngày làm việc.',
   fTopic: 'Nội dung',
@@ -188,7 +188,7 @@ export default {
 
   // Policies
   policyTitle: 'Chính sách khách hàng',
-  policySub: 'Điều kiện đổi trả, giao hàng, bảo hành và bảo mật thông tin tại Siêu Thị 7Map.',
+  policySub: 'Điều kiện đổi trả, giao hàng, bảo hành và bảo mật thông tin tại Bách Hoá & Thời Trang 7MAP.',
   updated: 'Cập nhật',
   policyFoot: 'Cần hỗ trợ thêm? Gọi hotline',
   policyNavLabel: 'Danh sách chính sách', // (new)
@@ -221,5 +221,5 @@ export default {
   specReturnsVal: 'Trong 7 ngày',
   shipFree: 'Đơn của bạn được miễn phí giao hàng nội thành.',
   shipShortfall: 'Mua thêm {amount} để được miễn phí giao hàng.',
-  documentTitle: '{page} · Siêu Thị 7Map', // (new)
+  documentTitle: '{page} · Bách Hoá & Thời Trang 7MAP', // (new)
 };

@@ -14,21 +14,28 @@
   --c-warm-tint: #faf7f5; /* image wells */
   --c-warm-tint-2: #f7f2ef; /* cart thumbnails */
 
-  /* -------------------------------------------------------- 30 · orange --- */
-  --c-orange: #b4522f; /* text-bearing orange — 5.0:1 with white */
-  --c-orange-brand: #d97757; /* brand/decorative ONLY — never behind small white text */
-  --c-orange-hover: #8f3f22; /* hover on any --c-orange fill */
-  --c-orange-text: #a64e30; /* orange text <=16px on white/tint — 5.4:1 */
-  --c-orange-display: #c2603f; /* PDP price only (25–34px, large-text rule) */
-  --c-orange-tint: #fbede6; /* active chips, pills, stepper hover */
-  --c-orange-tint-2: #fff4ef; /* selected payment method */
-  --c-orange-panel: #fff9f6; /* flash panel, help card, ship note, order confirmed */
-  --c-orange-border: #f0ddd3;
-  --c-orange-border-2: #f5e7df; /* flash card gaps, progress track */
+  /* -------------------------------------------------------- 30 · orange ---
+     A bright red-orange, sampled from the shop's own banner artwork: #EE4723
+     is the single most common warm colour in it (28% of saturated pixels).
+     That exact hue only reaches 3.8:1 with white, so it cannot carry small
+     white text. The scale below keeps the hue (10.6°) and varies lightness to
+     hit the contrast each role needs — the values are derived, not eyeballed,
+     and every pairing used in the UI was audited. Don't hand-tune one without
+     re-checking the pair it sits against. */
+  --c-orange: #dc3511; /* text-bearing: white text on it — 4.6:1 */
+  --c-orange-brand: #ee4723; /* the banner colour. DECORATIVE ONLY — 3.8:1, never behind text */
+  --c-orange-hover: #a9280d; /* hover on any --c-orange fill — 7.0:1 */
+  --c-orange-text: #d13210; /* orange text <=16px on white or tint — 5.0:1 */
+  --c-orange-display: #f05432; /* large text only (>=22px bold): PDP price, grand totals — 3.5:1 */
+  --c-orange-tint: #fff1ee; /* active chips, pills, stepper hover — carries --c-orange-text at 4.6:1 */
+  --c-orange-tint-2: #fff4f2; /* selected payment method */
+  --c-orange-panel: #fff7f5; /* flash panel, help card, ship note, order confirmed */
+  --c-orange-border: #f1cbc3;
+  --c-orange-border-2: #f6dbd5; /* flash card gaps, progress track */
 
   /* Image-well grounds behind the hero and promo banners. */
-  --c-well-hero: #f7e3d9;
-  --c-well-banner: #f0e7e1;
+  --c-well-hero: #f5cfc7;
+  --c-well-banner: #eee0dd;
 
   /* ---------------------------------------------------------- 10 · teal --- */
   --c-teal: #0b7d71; /* badges, countdown, in-stock, free shipping — 4.9:1 */
@@ -36,8 +43,8 @@
   /* ------------------------------------------------------------- neutral -- */
   --c-ink: #1f1b18; /* body text and headings — text only, never a surface */
   --c-ink-2: #5c5249; /* secondary text, form labels */
-  --c-muted: #8a7d75; /* metadata, helper text */
-  --c-muted-2: #a69a92; /* struck was-prices, footer meta */
+  --c-muted: #6f645e; /* metadata, helper text — 5.6:1 on off-white */
+  --c-muted-2: #807268; /* struck was-prices, footer meta — 4.6:1 */
   --c-border: #ede7e3; /* card and input borders */
   --c-border-light: #f5f1ee; /* row dividers, nav top rule */
   --c-radio: #d5ccc6; /* unselected radio ring */

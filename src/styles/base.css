@@ -49,13 +49,15 @@ img {
   display: block;
 }
 
+/* --c-orange-display is reserved for large text; a body link is 13–15px, so
+   links take the AA-rated text orange. */
 a {
-  color: var(--c-orange-display);
+  color: var(--c-orange-text);
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--c-orange-text);
+  color: var(--c-orange-hover);
 }
 
 button,

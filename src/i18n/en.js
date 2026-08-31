@@ -11,7 +11,7 @@ export default {
   langLabel: 'Language',
 
   // Header + nav
-  tagline: 'General supermarket · Ho Chi Minh City',
+  tagline: 'Grocery & fashion · Ho Chi Minh City',
   searchPh: 'Search noodles, rice cookers, diapers…',
   searchBtn: 'Search',
   searchLabel: 'Search products',
@@ -24,7 +24,7 @@ export default {
   navNote: 'In-store prices · updated weekly',
   skipToContent: 'Skip to main content',
   mainNavLabel: 'Main navigation',
-  homeLink: 'Back to the 7Map Supermarket home page',
+  homeLink: 'Back to the Bách Hoá & Thời Trang 7MAP home page',
 
   // Home — hero and banners
   heroKicker: "This week's deals",
@@ -70,7 +70,7 @@ export default {
   forYouSub: 'Homeware, clothing and food chosen for the household',
   suggestedTitle: 'You might also like',
   suggestedSub: 'Travel, camping and take-along gear',
-  homeH1: '7Map Supermarket — rice merchant and general store in Bình Tân, Ho Chi Minh City',
+  homeH1: 'Bách Hoá & Thời Trang 7MAP — rice merchant, grocery and clothing in Bình Tân, Ho Chi Minh City',
   bannerAlt: '7Map rice merchant — fine Vietnamese rice, hotline 070 779 6663',
 
   // Home — store band
@@ -165,12 +165,12 @@ export default {
   backHome: 'Back to home',
 
   // Contact
-  contactTitle: 'Contact 7Map Supermarket',
+  contactTitle: 'Contact Bách Hoá & Thời Trang 7MAP',
   contactSub: 'Call the hotline or message Zalo to order, ask for wholesale prices, or check stock before you visit.',
   zaloNote: 'Same number on Zalo · replies during opening hours',
   hoursNote: 'Including Sundays and public holidays',
   openMap: 'Open in Google Maps',
-  mapAlt: 'Map showing the 7Map Supermarket location',
+  mapAlt: 'Map showing the Bách Hoá & Thời Trang 7MAP location',
   formTitle: 'Send us a message',
   formSub: 'We reply within one business day.',
   fTopic: 'Topic',
@@ -187,7 +187,7 @@ export default {
 
   // Policies
   policyTitle: 'Customer policies',
-  policySub: 'Exchange, delivery, warranty and privacy terms at 7Map Supermarket.',
+  policySub: 'Exchange, delivery, warranty and privacy terms at Bách Hoá & Thời Trang 7MAP.',
   updated: 'Updated',
   policyFoot: 'Need more help? Call the hotline',
   policyNavLabel: 'Policy list',
@@ -220,5 +220,5 @@ export default {
   specReturnsVal: 'Within 7 days',
   shipFree: 'Your order qualifies for free city delivery.',
   shipShortfall: 'Add {amount} more for free delivery.',
-  documentTitle: '{page} · 7Map Supermarket',
+  documentTitle: '{page} · Bách Hoá & Thời Trang 7MAP',
 };

@@ -12,8 +12,8 @@ import { decorate, bestSellers, shelfProducts, flashProducts } from '../lib/cata
  * Home.
  *
  * Everything the shop curated lives here, in the order they asked for: their
- * banner, then the three shelves they grouped by hand — best sellers,
- * "Gợi ý riêng cho bạn", "Gợi ý cho bạn".
+ * banner, then the three shelves they grouped by hand — "Gợi ý cho bạn"
+ * first, then best sellers, then "Gợi ý riêng cho bạn".
  *
  * Each shelf shows at most two rows; anything beyond that becomes a carousel
  * page, swipeable on touch and driven by the arrows in the section header.
@@ -28,17 +28,18 @@ export function homePage(ctx) {
     storeBanner(ctx),
     config.showHeroPanel || config.showPromoBanners ? heroRow(ctx) : null,
     trustStrip(ctx),
+    // "Gợi ý cho bạn" leads the shelves, at the shop's request.
+    shelfSection(ctx, {
+      shelf: 'suggested',
+      title: ctx.t('suggestedTitle'),
+      sub: ctx.t('suggestedSub'),
+    }),
     bestSellerSection(ctx),
     config.showFlashSale ? flashSection(ctx) : null,
     shelfSection(ctx, {
       shelf: 'for-you',
       title: ctx.t('forYouTitle'),
       sub: ctx.t('forYouSub'),
-    }),
-    shelfSection(ctx, {
-      shelf: 'suggested',
-      title: ctx.t('suggestedTitle'),
-      sub: ctx.t('suggestedSub'),
     }),
     storeBand(ctx),
   );

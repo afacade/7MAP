@@ -41,8 +41,8 @@ const RAW = [
   },
   {
     id: 'luong-kho-bay', cat: 'food', shelf: 'best', rank: 3,
-    nameVi: 'Lương khô Bảy — Công ty Cổ phần 22',
-    nameEn: 'Lương khô Bảy energy bar — Company 22',
+    nameVi: 'Lương Khô Bay — Công ty Cổ phần 22',
+    nameEn: 'Lương Khô Bay energy bar — Company 22',
     price: 18000, unitVi: 'Thanh 200g', unitEn: '200g bar', pop: 93,
     image: '/images/best-sellers/bs-03.jpg',
     descVi: 'Lương khô của Công ty Cổ phần 22 — khẩu phần gọn, giàu năng lượng, dùng cho dã ngoại, đi rừng, tập luyện hoặc dự trữ trong nhà. Đóng gói kín, để được lâu.',
@@ -68,8 +68,8 @@ const RAW = [
   },
 
   // ------------------------------------------------ Gợi ý riêng cho bạn ---
-  { id: 'combo-luong-kho-22', cat: 'food', shelf: 'for-you', nameVi: 'Combo lương khô Công ty 22 — Cacao 22, BB702, Bảy', nameEn: 'Company 22 ration bundle — Cacao 22, BB702, Bảy', price: 120000, unitVi: 'Combo 6 thanh', unitEn: 'Bundle of 6 bars', pop: 82, image: '/images/for-you/fy-01.jpg' },
-  { id: 'luong-kho-bay-tui-180g', cat: 'food', shelf: 'for-you', nameVi: 'Lương khô Bảy túi zip 180g', nameEn: 'Lương khô Bảy zip pouch 180g', price: 35000, unitVi: 'Túi zip 180g', unitEn: '180g zip pouch', pop: 76, image: '/images/for-you/fy-02.jpg' },
+  { id: 'combo-luong-kho-22', cat: 'food', shelf: 'for-you', nameVi: 'Combo lương khô Công ty 22 — Cacao 22, BB702, Bay', nameEn: 'Company 22 ration bundle — Cacao 22, BB702, Bay', price: 120000, unitVi: 'Combo 6 thanh', unitEn: 'Bundle of 6 bars', pop: 82, image: '/images/for-you/fy-01.jpg' },
+  { id: 'luong-kho-bay-tui-180g', cat: 'food', shelf: 'for-you', nameVi: 'Lương Khô Bay túi zip 180g', nameEn: 'Lương Khô Bay zip pouch 180g', price: 35000, unitVi: 'Túi zip 180g', unitEn: '180g zip pouch', pop: 76, image: '/images/for-you/fy-02.jpg' },
   { id: 'non-chong-nang-che-co', cat: 'cloth', shelf: 'for-you', nameVi: 'Nón chống nắng vành rộng che cổ', nameEn: 'Wide-brim sun hat with neck flap', price: 89000, unitVi: 'Vải dù, lưới thoáng', unitEn: 'Ripstop with mesh vents', pop: 78, image: '/images/for-you/fy-03.jpg' },
   { id: 'ong-tay-chong-nang', cat: 'cloth', shelf: 'for-you', nameVi: 'Bộ ống tay chống nắng kèm nón lưỡi trai', nameEn: 'UV arm sleeves with visor cap', price: 75000, unitVi: 'Ống tay + nón', unitEn: 'Sleeves + visor', pop: 74, image: '/images/for-you/fy-04.jpg' },
   { id: 'gang-tay-chong-nang', cat: 'cloth', shelf: 'for-you', nameVi: 'Găng tay chống nắng hở ngón hạt chống trượt', nameEn: 'Fingerless sun gloves with grip dots', price: 39000, unitVi: 'Đôi, freesize', unitEn: 'Pair, one size', pop: 70, image: '/images/for-you/fy-05.jpg' },

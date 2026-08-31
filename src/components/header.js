@@ -3,6 +3,7 @@ import { routes, href, navigate } from '../core/router.js';
 import { setLang, cartCount } from '../core/store.js';
 import { storeInfo } from '../config.js';
 import { LANGS } from '../i18n/index.js';
+import { asset } from '../core/base.js';
 
 /**
  * Global chrome above the page: the orange utility bar, the sticky header with
@@ -97,7 +98,9 @@ function header({ t, state, route }) {
       h(
         'a',
         { class: 'brand', href: routes.home, 'aria-label': t('homeLink') },
-        h('span', { class: 'brand__tile', 'aria-hidden': 'true' }, '7M'),
+        // alt="" on purpose: the shop name sits right beside it, so a screen
+        // reader would otherwise announce the brand twice.
+        h('img', { class: 'brand__logo', src: asset('/images/logo-7map.png'), alt: '', width: '360', height: '77' }),
         h(
           'span',
           { class: 'brand__text' },

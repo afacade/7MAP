@@ -32,7 +32,7 @@ export const config = {
 };
 
 export const storeInfo = {
-  name: 'Siêu Thị 7Map',
+  name: 'Bách Hoá & Thời Trang 7MAP',
   hotline: '+84 707 796 663',
   /** Digits only, for tel: and Zalo links. */
   hotlineHref: '+84707796663',
