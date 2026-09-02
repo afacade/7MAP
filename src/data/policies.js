@@ -33,7 +33,7 @@ export const policies = {
         { h: 'Khu vực giao hàng', p: 'Giao hàng nội thành TP.HCM. Đơn đặt trước 15:00 được giao trong ngày; sau 15:00 giao vào sáng hôm sau.' },
         { h: 'Phí giao hàng', p: 'Miễn phí cho đơn từ 300.000₫ trong bán kính 7km. Đơn nhỏ hơn hoặc xa hơn tính phí 25.000₫ – 45.000₫ tuỳ khoảng cách, nhân viên báo trước khi chốt đơn.' },
         { h: 'Cách đặt hàng', p: 'Gọi hotline hoặc nhắn Zalo +84 707 796 663 kèm danh sách hàng. Nhân viên soạn đơn, xác nhận tổng tiền rồi mới giao.' },
-        { h: 'Kiểm tra khi nhận', p: 'Vui lòng kiểm tra hàng trước khi thanh toán COD. Nếu thiếu hoặc hư hỏng, từ chối nhận phần hàng đó và thông báo ngay cho nhân viên giao hàng.' },
+        { h: 'Kiểm tra khi nhận', p: 'Vui lòng kiểm tra hàng ngay khi nhận. Nếu thiếu hoặc hư hỏng, từ chối nhận phần hàng đó và thông báo ngay cho nhân viên giao hàng để được đổi hoặc hoàn tiền.' },
       ],
     },
     {
@@ -56,6 +56,18 @@ export const policies = {
         { h: 'Thông tin chúng tôi thu thập', p: 'Họ tên, số điện thoại và địa chỉ giao hàng — chỉ những thông tin cần thiết để xử lý và giao đơn hàng của bạn.' },
         { h: 'Cách sử dụng thông tin', p: 'Dùng để xác nhận đơn, giao hàng, xử lý đổi trả và bảo hành. Chúng tôi không bán hoặc chia sẻ dữ liệu khách hàng cho bên thứ ba vì mục đích quảng cáo.' },
         { h: 'Lưu trữ và quyền của bạn', p: 'Thông tin đơn hàng được lưu tối đa 24 tháng cho mục đích bảo hành và kế toán. Bạn có thể yêu cầu xem, sửa hoặc xoá thông tin bằng cách gọi hotline.' },
+      ],
+    },
+    {
+      id: 'points',
+      slug: 'tich-diem',
+      title: 'Chương trình tích điểm chiết khấu',
+      updatedAt: UPDATED,
+      blocks: [
+        { h: 'Cách tích điểm', p: 'Mỗi 10.000₫ giá trị hàng hoá trên hoá đơn được tính 1 điểm. Điểm tính trên giá trị hàng, không tính phí giao hàng. Phần lẻ dưới 10.000₫ không được làm tròn thành điểm.' },
+        { h: 'Đổi điểm lấy voucher', p: '100 điểm đổi được 1 voucher chiết khấu trị giá 10.000₫. Voucher được trừ trực tiếp vào hoá đơn khi thanh toán.' },
+        { h: 'Điều kiện sử dụng', p: 'Voucher áp dụng cho lần mua tiếp theo. Không áp dụng tách hoá đơn để voucher khả dụng ngay trong cùng một lần mua.' },
+        { h: 'Hạn sử dụng', p: 'Voucher chiết khấu có hạn sử dụng 3 tháng kể từ ngày phát hành. Quá hạn, voucher không còn giá trị sử dụng và không được quy đổi thành tiền mặt.' },
       ],
     },
     {
@@ -92,7 +104,7 @@ export const policies = {
         { h: 'Delivery area', p: 'We deliver within Ho Chi Minh City. Orders placed before 3:00 PM arrive the same day; later orders arrive the next morning.' },
         { h: 'Delivery fees', p: 'Free for orders over 300,000₫ within a 7km radius. Smaller or more distant orders cost 25,000₫ – 45,000₫ depending on distance, always confirmed before we pack.' },
         { h: 'How to order', p: 'Call the hotline or message Zalo +84 707 796 663 with your list. Staff pack the order and confirm the total before dispatch.' },
-        { h: 'Check on arrival', p: 'Please inspect the goods before paying cash on delivery. If anything is missing or damaged, refuse that item and tell the driver immediately.' },
+        { h: 'Check on arrival', p: 'Please inspect the goods as soon as they arrive. If anything is missing or damaged, refuse that item and tell the driver immediately so we can replace or refund it.' },
       ],
     },
     {
@@ -115,6 +127,18 @@ export const policies = {
         { h: 'What we collect', p: 'Name, phone number and delivery address — only what we need to process and deliver your order.' },
         { h: 'How we use it', p: 'To confirm orders, deliver goods, and handle returns and warranty claims. We do not sell or share customer data with third parties for advertising.' },
         { h: 'Retention and your rights', p: 'Order records are kept for up to 24 months for warranty and accounting purposes. You may request access, correction or deletion by calling the hotline.' },
+      ],
+    },
+    {
+      id: 'points',
+      slug: 'tich-diem',
+      title: 'Loyalty points',
+      updatedAt: UPDATED,
+      blocks: [
+        { h: 'Earning points', p: 'Every 10,000₫ of goods on an invoice earns 1 point. Points are calculated on the value of the goods, not on delivery, and amounts under 10,000₫ are not rounded up to a point.' },
+        { h: 'Redeeming points', p: '100 points converts to one discount voucher worth 10,000₫, deducted directly from the bill at payment.' },
+        { h: 'Conditions', p: 'Vouchers apply to a later purchase. Splitting a bill so that a voucher becomes usable within the same purchase is not accepted.' },
+        { h: 'Validity', p: 'Discount vouchers are valid for 3 months from the date of issue. After that they expire, and they cannot be exchanged for cash at any time.' },
       ],
     },
     {

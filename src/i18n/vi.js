@@ -16,10 +16,13 @@ export default {
   searchPh: 'Tìm mì gói, nồi cơm điện, tã em bé…',
   searchBtn: 'Tìm',
   searchLabel: 'Tìm sản phẩm', // (new)
+  trendingLabel: 'Tìm nhiều:', // (new)
+  zaloChat: 'Nhắn tin Zalo', // (new)
   cart: 'Giỏ hàng',
   cartCountLabel: 'sản phẩm trong giỏ', // (new)
   navHome: 'Trang chủ',
   navCats: 'Danh mục sản phẩm',
+  navPrograms: 'Chương trình', // (new)
   navContact: 'Liên hệ',
   navPolicy: 'Chính sách',
   navNote: 'Giá tại quầy · cập nhật hằng tuần',
@@ -42,8 +45,8 @@ export default {
   // Home — trust strip
   tr1: 'Miễn phí giao hàng',
   tr1s: 'Đơn từ 300.000₫ nội thành TP.HCM',
-  tr2: 'Thanh toán COD',
-  tr2s: 'Nhận hàng, kiểm tra rồi trả tiền',
+  tr2: 'Đổi trả trong 7 ngày',
+  tr2s: 'Giữ nguyên tem, nhãn và hoá đơn',
   tr3: 'Đặt qua Zalo',
   tr3s: 'Nhắn tin danh sách, nhân viên soạn đơn',
   tr4: 'Bảo hành chính hãng',
@@ -143,17 +146,14 @@ export default {
   fPhone: 'Số điện thoại',
   fPhonePh: '0909 000 000',
   fAddr: 'Địa chỉ giao hàng',
+  fDeliveryAddr: 'Địa chỉ nhận hàng', // (new)
   fAddrPh: 'Số nhà, đường, phường, quận',
   fNote: 'Ghi chú',
   fNotePh: 'Giao buổi chiều, gọi trước khi tới…',
   placeOrder: 'Xác nhận đặt hàng',
   coFine: 'Nhân viên sẽ gọi lại xác nhận trong 30 phút giờ mở cửa.',
-  payCod: 'Thanh toán khi nhận hàng (COD)',
-  payCodSub: 'Kiểm tra hàng trước khi trả tiền',
   payBank: 'Chuyển khoản ngân hàng',
   payBankSub: 'Nhân viên gửi số tài khoản qua Zalo',
-  payStore: 'Thanh toán tại quầy',
-  payStoreSub: 'Đặt giữ hàng, tới quầy trả tiền',
   errRequired: 'Vui lòng nhập thông tin này', // (new)
   errName: 'Vui lòng nhập họ và tên', // (new)
   errPhone: 'Số điện thoại không hợp lệ — ví dụ 0909 000 000', // (new)
@@ -186,9 +186,28 @@ export default {
   errMsg: 'Vui lòng nhập nội dung tin nhắn', // (new)
   contactSent: 'Đã gửi tin nhắn. Chúng tôi sẽ liên hệ lại trong một ngày làm việc.', // (new)
 
+  // Programmes (new)
+  programsTitle: 'Chương trình đang áp dụng',
+  programsSub: 'Các chương trình ưu đãi đang chạy tại Bách Hoá & Thời Trang 7MAP. Điều kiện đầy đủ nằm trong từng chính sách.',
+  programActive: 'Đang áp dụng',
+  programTerms: 'Xem điều kiện đầy đủ',
+  progLoyaltyTitle: 'Tích điểm chiết khấu',
+  progLoyaltySummary: 'Mua sắm tích điểm, đổi điểm lấy voucher chiết khấu cho lần mua sau.',
+  progLoyaltyB1: 'Mỗi {per} giá trị hàng hoá được 1 điểm',
+  progLoyaltyB2: '{points} điểm đổi 1 voucher chiết khấu {value}',
+  progLoyaltyB3: 'Voucher dùng cho lần mua tiếp theo — không tách hoá đơn để dùng ngay',
+  progLoyaltyB4: 'Voucher có hạn sử dụng {months} tháng kể từ ngày phát hành',
+  progShipTitle: 'Miễn phí giao hàng nội thành',
+  progShipSummary: 'Đơn hàng từ {amount} được miễn phí giao trong nội thành TP.HCM.',
+  progShipB1: 'Miễn phí cho đơn từ {amount} trong bán kính 7km',
+  progShipB2: 'Đặt trước 15:00 được giao trong ngày',
+  progShipB3: 'Đơn nhỏ hơn hoặc xa hơn tính phí 25.000₫ – 45.000₫ tuỳ khoảng cách',
+
   // Policies
   policyTitle: 'Chính sách khách hàng',
   policySub: 'Điều kiện đổi trả, giao hàng, bảo hành và bảo mật thông tin tại Bách Hoá & Thời Trang 7MAP.',
+  pointsEarned: 'Đơn này tích được {n} điểm', // (new)
+  pointsRule: '{per} điểm = voucher chiết khấu {value}₫, dùng cho lần mua sau', // (new)
   updated: 'Cập nhật',
   policyFoot: 'Cần hỗ trợ thêm? Gọi hotline',
   policyNavLabel: 'Danh sách chính sách', // (new)
@@ -199,7 +218,7 @@ export default {
   footHelp: 'Hỗ trợ',
   footContact: 'Liên hệ',
   rights: 'Mọi quyền được bảo lưu.',
-  footPay: 'Thanh toán: COD · Chuyển khoản · Tiền mặt tại quầy',
+  footPay: 'Thanh toán: Chuyển khoản ngân hàng',
 
   // Shared
   freeLabel: 'Miễn phí',

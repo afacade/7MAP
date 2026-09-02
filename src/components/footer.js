@@ -28,6 +28,7 @@ export function siteFooter({ t }) {
         { label: t('cart'), url: routes.cart },
       ]),
       column(t('footHelp'), [
+        { label: t('navPrograms'), url: routes.programs },
         { label: t('navContact'), url: routes.contact },
         { label: t('navPolicy'), url: policyHref(DEFAULT_POLICY_SLUG) },
       ]),

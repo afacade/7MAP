@@ -6,6 +6,7 @@ import { translator, assertCataloguesMatch } from './i18n/index.js';
 import { config, storeInfo } from './config.js';
 import { siteHeader } from './components/header.js';
 import { siteFooter } from './components/footer.js';
+import { zaloButton } from './components/zalo-button.js';
 import { homePage } from './pages/home.js';
 import { categoriesPage } from './pages/categories.js';
 import { productPage } from './pages/product.js';
@@ -13,6 +14,7 @@ import { cartPage } from './pages/cart.js';
 import { checkoutPage } from './pages/checkout.js';
 import { contactPage } from './pages/contact.js';
 import { policiesPage } from './pages/policies.js';
+import { programsPage } from './pages/programs.js';
 import { getProduct } from './data/products.js';
 import { getCategory } from './data/categories.js';
 import { getPolicy } from './data/policies.js';
@@ -25,6 +27,7 @@ const PAGES = {
   product: productPage,
   cart: cartPage,
   checkout: checkoutPage,
+  programs: programsPage,
   contact: contactPage,
   policies: policiesPage,
 };
@@ -66,6 +69,7 @@ function render({ scroll = false } = {}) {
       siteHeader(ctx),
       h('main', { id: 'main', tabindex: '-1' }, page ? page(ctx) : notFoundPage(ctx)),
       siteFooter(ctx),
+      zaloButton(ctx),
     ),
   );
 
@@ -137,6 +141,9 @@ function titleFor({ t, lang, route }) {
       break;
     case 'checkout':
       page = t('checkoutTitle');
+      break;
+    case 'programs':
+      page = t('programsTitle');
       break;
     case 'contact':
       page = t('navContact');

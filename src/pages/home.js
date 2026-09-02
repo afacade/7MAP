@@ -29,20 +29,29 @@ export function homePage(ctx) {
     config.showHeroPanel || config.showPromoBanners ? heroRow(ctx) : null,
     trustStrip(ctx),
     // "Gợi ý cho bạn" leads the shelves, at the shop's request.
-    shelfSection(ctx, {
+    band('tint', shelfSection(ctx, {
       shelf: 'suggested',
       title: ctx.t('suggestedTitle'),
       sub: ctx.t('suggestedSub'),
-    }),
-    bestSellerSection(ctx),
+    })),
+    band('plain', bestSellerSection(ctx)),
     config.showFlashSale ? flashSection(ctx) : null,
-    shelfSection(ctx, {
+    // The shop asked for this one to scroll down the page rather than page
+    // sideways — it is the browse-everything shelf, so all 36 are laid out.
+    band('tint', shelfSection(ctx, {
       shelf: 'for-you',
       title: ctx.t('forYouTitle'),
       sub: ctx.t('forYouSub'),
-    }),
+      mode: 'grid',
+    })),
     storeBand(ctx),
   );
+}
+
+/** Full-bleed ground behind a shelf, so consecutive shelves stay distinct. */
+function band(kind, section) {
+  if (!section) return null;
+  return h('div', { class: `band band--${kind}` }, section);
 }
 
 /* --------------------------------------------------------------- banner -- */
@@ -202,11 +211,25 @@ function bestSellerSection(ctx) {
 
 /* --------------------------------------------------------------- shelves -- */
 
-/** One of the curated homepage shelves. */
-function shelfSection(ctx, { shelf, title, sub }) {
+/**
+ * One of the curated homepage shelves.
+ *
+ *   mode 'carousel'  two rows, the rest on swipeable pages (default)
+ *   mode 'grid'      every product laid out vertically; the page scrolls
+ */
+function shelfSection(ctx, { shelf, title, sub, mode = 'carousel' }) {
   const { t, lang } = ctx;
   const items = shelfProducts(shelf).map((p) => decorate(p, lang, t));
   if (!items.length) return null;
+
+  if (mode === 'grid') {
+    return h(
+      'section',
+      { class: 'section section--spaced' },
+      sectionHead({ title, sub }),
+      h('div', { class: 'product-grid' }, ...items.map((item) => productCard(item, ctx))),
+    );
+  }
 
   const strip = carousel({
     items,

@@ -52,6 +52,8 @@
 
   /* ---------------------------------------------------------- typography -- */
   --font-sans: 'Be Vietnam Pro', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Display face for nav tabs and section headings — see index.html. */
+  --font-display: 'Montserrat', 'Be Vietnam Pro', 'Segoe UI', Helvetica, Arial, sans-serif;
 
   --fs-page-h1: clamp(24px, 2.5vw, 33px);
   --fs-hero-h1: clamp(27px, 3.1vw, 44px);

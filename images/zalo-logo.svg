@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Zalo">
+  <!--
+    Stand-in Zalo mark, hand-built: blue rounded square with a white speech
+    balloon carrying the Zalo wordmark. It is a likeness, not the official
+    artwork. Replace this file with the asset from Zalo's brand page and the
+    button picks it up with no code change.
+  -->
+  <rect width="48" height="48" rx="12" fill="#0068FF"/>
+  <path fill="#FFFFFF" d="M24 11c-7.7 0-14 4.9-14 11 0 3.5 2.1 6.6 5.3 8.6-.3 1.6-1.1 3.4-2.5 4.9-.4.4-.1 1.1.5 1 2.9-.4 5.3-1.6 6.9-2.7 1.2.3 2.5.4 3.8.4 7.7 0 14-4.9 14-11S31.7 11 24 11z"/>
+  <text x="24" y="26.6" text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700"
+        fill="#0068FF" letter-spacing="-0.3">Zalo</text>
+</svg>

@@ -1,9 +1,10 @@
 import { h } from '../core/dom.js';
 import { routes, href, navigate } from '../core/router.js';
 import { setLang, cartCount } from '../core/store.js';
-import { storeInfo } from '../config.js';
+import { storeInfo, config } from '../config.js';
 import { LANGS } from '../i18n/index.js';
 import { asset } from '../core/base.js';
+import { queryCatalogue } from '../lib/catalog.js';
 
 /**
  * Global chrome above the page: the orange utility bar, the sticky header with
@@ -89,6 +90,20 @@ function header({ t, state, route }) {
     h('button', { class: 'search__btn', type: 'submit' }, t('searchBtn')),
   );
 
+  // Popular searches, sitting under the field they act on.
+  const suggestions = h(
+    'div',
+    { class: 'search-suggest' },
+    h('span', { class: 'search-suggest__label' }, t('trendingLabel')),
+    ...config.trendingSearches
+      .filter((term) => queryCatalogue({ query: term }).length > 0)
+      .map((term) =>
+        h('a', { class: 'search-suggest__chip', href: href(routes.categories, { q: term }) }, term),
+      ),
+  );
+
+  const searchColumn = h('div', { class: 'search-col' }, form, suggestions);
+
   return h(
     'header',
     { class: 'site-header' },
@@ -100,7 +115,7 @@ function header({ t, state, route }) {
         { class: 'brand', href: routes.home, 'aria-label': t('homeLink') },
         // alt="" on purpose: the shop name sits right beside it, so a screen
         // reader would otherwise announce the brand twice.
-        h('img', { class: 'brand__logo', src: asset('/images/logo-7map.png'), alt: '', width: '360', height: '77' }),
+        h('img', { class: 'brand__logo', src: asset('/images/logo-7map-white.png'), alt: '', width: '360', height: '77' }),
         h(
           'span',
           { class: 'brand__text' },
@@ -108,7 +123,7 @@ function header({ t, state, route }) {
           h('span', { class: 'brand__tagline' }, t('tagline')),
         ),
       ),
-      form,
+      searchColumn,
       h(
         'div',
         { class: 'header__actions' },
@@ -135,11 +150,12 @@ function nav({ t, route }) {
   const items = [
     { name: 'home', label: t('navHome'), url: routes.home },
     { name: 'categories', label: t('navCats'), url: routes.categories },
+    { name: 'programs', label: t('navPrograms'), url: routes.programs },
     { name: 'contact', label: t('navContact'), url: routes.contact },
     { name: 'policies', label: t('navPolicy'), url: routes.policies },
   ];
 
-  return h(
+  const bar = h(
     'nav',
     { class: 'site-nav', 'aria-label': t('mainNavLabel') },
     ...items.map((item) =>
@@ -155,4 +171,7 @@ function nav({ t, route }) {
     ),
     h('span', { class: 'site-nav__note' }, t('navNote')),
   );
+
+  // Full-bleed darker band behind the tabs.
+  return h('div', { class: 'site-nav-bar' }, bar);
 }

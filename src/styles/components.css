@@ -9,7 +9,7 @@
 /* ====================================================== utility bar ====== */
 
 .utility-bar {
-  background: var(--c-orange);
+  background: var(--c-ink);
   color: var(--c-on-orange);
   font-size: 12.5px;
   letter-spacing: 0.01em;
@@ -86,18 +86,19 @@
 
 .lang-toggle__btn[aria-pressed='true'] {
   background: var(--c-base);
-  color: var(--c-orange-text);
+  color: var(--c-ink);
 }
 
 /* ========================================================== header ======= */
 
+/* A solid two-tone bar: brand orange over a darker band, so the chrome reads
+   as one confident block instead of a pale strip. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--c-border);
+  background: var(--c-orange);
+  border-bottom: 0;
 }
 
 .site-header__bar {
@@ -116,11 +117,11 @@
   gap: 11px;
   flex: 0 1 auto;
   min-width: 0;
-  color: var(--c-ink);
+  color: var(--c-on-orange);
 }
 
 .brand:hover {
-  color: var(--c-ink);
+  color: var(--c-on-orange);
 }
 
 /* The shop's wordmark, lifted from their banner artwork and recoloured to the
@@ -141,11 +142,12 @@
   font-size: 17px;
   font-weight: 800;
   letter-spacing: var(--ls-flat);
+  color: var(--c-on-orange);
 }
 
 .brand__tagline {
   font-size: 10.5px;
-  color: var(--c-muted);
+  color: var(--c-on-orange);
   font-weight: 500;
   letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
@@ -155,16 +157,16 @@
   flex: 1;
   display: flex;
   align-items: center;
-  border: 1.5px solid var(--c-border);
+  border: 1.5px solid transparent;
   border-radius: var(--r-card);
   padding: 0 4px 0 14px;
   max-width: 560px;
-  background: var(--c-off-white);
+  background: var(--c-base);
   min-width: 0;
 }
 
 .search:focus-within {
-  border-color: var(--c-orange-brand);
+  border-color: var(--c-ink);
 }
 
 .search__input {
@@ -180,7 +182,7 @@
 
 .search__btn {
   border: 0;
-  background: var(--c-orange);
+  background: var(--c-orange-hover);
   color: var(--c-on-orange);
   font-weight: 600;
   font-size: 13px;
@@ -190,7 +192,7 @@
 }
 
 .search__btn:hover {
-  background: var(--c-orange-hover);
+  background: var(--c-ink);
 }
 
 .header__actions {
@@ -205,19 +207,20 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  border: 1.5px solid var(--c-border);
-  background: var(--c-base);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
   border-radius: var(--r-card);
   padding: 10px 16px;
   font-size: 13.5px;
   font-weight: 600;
-  color: var(--c-ink);
+  color: var(--c-on-orange);
   white-space: nowrap;
 }
 
 .cart-btn:hover {
-  border-color: var(--c-orange-brand);
-  color: var(--c-orange-text);
+  border-color: var(--c-on-orange);
+  background: var(--c-orange-hover);
+  color: var(--c-on-orange);
 }
 
 .cart-btn__count {
@@ -225,8 +228,8 @@
   height: 20px;
   padding: 0 6px;
   border-radius: var(--r-pill);
-  background: var(--c-orange);
-  color: var(--c-on-orange);
+  background: var(--c-base);
+  color: var(--c-orange-text);
   font-size: 11.5px;
   font-weight: 700;
   display: flex;
@@ -236,38 +239,60 @@
 
 /* ============================================================= nav ======= */
 
+.site-nav-bar {
+  background: var(--c-orange-hover);
+}
+
 .site-nav {
   max-width: var(--page-max);
   margin: 0 auto;
   padding: 0 var(--page-pad);
   display: flex;
-  align-items: center;
-  gap: 4px;
-  border-top: 1px solid var(--c-border-light);
+  align-items: stretch;
+  gap: 0;
 }
 
+/* Hairline dividers give the tabs edges to read against, and the active tab
+   inverts to a white block so the current section is unmistakable. */
 .site-nav__link {
-  padding: 13px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--c-ink-2);
-  border-bottom: 2.5px solid transparent;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-on-orange);
   white-space: nowrap;
+  border-right: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.site-nav__link:first-child {
+  border-left: 1px solid rgba(255, 255, 255, 0.24);
 }
 
 .site-nav__link:hover {
-  color: var(--c-orange-text);
+  color: var(--c-on-orange);
+  background: rgba(0, 0, 0, 0.18);
 }
 
 .site-nav__link.is-active {
+  background: var(--c-base);
   color: var(--c-orange-text);
-  border-bottom-color: var(--c-orange-brand);
+}
+
+.site-nav__link.is-active:hover {
+  background: var(--c-base);
+  color: var(--c-orange-text);
 }
 
 .site-nav__note {
   margin-left: auto;
+  align-self: center;
+  padding-left: 16px;
   font-size: 12.5px;
-  color: var(--c-muted);
+  color: var(--c-on-orange);
   font-weight: 500;
   white-space: nowrap;
 }
@@ -667,22 +692,37 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
+}
+
+/* A short, heavy orange rule above each heading — the cheapest way to give the
+   shelves a strong, repeatable anchor. */
+.section-head__title::before {
+  content: '';
+  display: block;
+  width: 46px;
+  height: 5px;
+  border-radius: var(--r-pill);
+  background: var(--c-orange-brand);
+  margin-bottom: 12px;
 }
 
 .section-head__title {
-  font-size: var(--fs-section-h2);
+  font-family: var(--font-display);
+  font-size: clamp(23px, 2.3vw, 31px);
   font-weight: 800;
-  letter-spacing: var(--ls-snug);
-  margin-bottom: 5px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 6px;
 }
 
 .section-head__sub {
-  font-size: 14px;
-  color: var(--c-muted);
+  font-size: 14.5px;
+  color: var(--c-ink-2);
 }
 
 .page-title {
+  font-family: var(--font-display);
   font-size: var(--fs-page-h1);
   font-weight: 800;
   letter-spacing: var(--ls-tight);
@@ -1089,4 +1129,111 @@ textarea.field__control {
   gap: 20px;
   font-size: 12.5px;
   color: var(--c-on-orange);
+}
+
+/* ===================================================== section bands ==== */
+
+/* Alternating full-bleed grounds so each shelf reads as its own block rather
+   than three lists running together. */
+.band {
+  padding: 42px 0;
+}
+
+.band--tint {
+  background: var(--c-warm-tint);
+}
+
+.band + .band {
+  padding-top: 42px;
+}
+
+.band .section--spaced {
+  margin-top: 0;
+}
+
+/* ================================================ search suggestions ==== */
+
+.search-col {
+  flex: 1;
+  min-width: 0;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.search-col .search {
+  max-width: none;
+  flex: 0 0 auto;
+}
+
+.search-suggest {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  line-height: 1.2;
+  /* Never let a long keyword list push the header wider. */
+  max-height: 15px;
+  overflow: hidden;
+}
+
+.search-suggest__label {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+.search-suggest__chip {
+  color: var(--c-on-orange);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.search-suggest__chip:hover {
+  color: var(--c-on-orange);
+  text-decoration: underline;
+}
+
+/* ==================================================== zalo floating ===== */
+
+.zalo-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  /* Above page content and the sticky header (40), below the filter drawer
+     and its backdrop (55/60) so it never floats over an open drawer. */
+  z-index: 45;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 104, 255, 0.34);
+}
+
+.zalo-fab:hover {
+  box-shadow: 0 8px 22px rgba(0, 104, 255, 0.46);
+}
+
+.zalo-fab__logo {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (max-width: 720px) {
+  .zalo-fab {
+    right: 14px;
+    bottom: 14px;
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+  }
+
+  /* The chips would crowd an already tight phone header. */
+  .search-suggest {
+    display: none;
+  }
 }

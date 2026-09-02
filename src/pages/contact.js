@@ -89,6 +89,14 @@ function messageForm(ctx) {
     rows: 5,
   });
 
+  const address = field({
+    t,
+    key: 'contact-address',
+    label: t('fDeliveryAddr'),
+    placeholder: t('fAddrPh'),
+    autocomplete: 'street-address',
+  });
+
   const topic = selectField({
     key: 'contact-topic',
     label: t('fTopic'),
@@ -108,11 +116,13 @@ function messageForm(ctx) {
         const errors = {
           [name.key]: name.value().trim() ? null : t('errName'),
           [phone.key]: phone.value().trim() ? null : t('errRequired'),
+          [address.key]: address.value().trim() ? null : t('errAddr'),
           [message.key]: message.value().trim() ? null : t('errMsg'),
         };
-        for (const f of [name, phone, message]) f.setError(errors[f.key]);
+        const fields = [name, phone, address, message];
+        for (const f of fields) f.setError(errors[f.key]);
 
-        const firstInvalid = [name, phone, message].find((f) => errors[f.key]);
+        const firstInvalid = fields.find((f) => errors[f.key]);
         if (firstInvalid) {
           firstInvalid.focus();
           success.hidden = true;
@@ -122,6 +132,7 @@ function messageForm(ctx) {
         await submitContactMessage({
           name: name.value().trim(),
           phone: phone.value().trim(),
+          address: address.value().trim(),
           topic: topic.value(),
           message: message.value().trim(),
         });
@@ -138,6 +149,7 @@ function messageForm(ctx) {
     ),
     success,
     h('div', { class: 'form-row' }, name.node, phone.node),
+    address.node,
     topic.node,
     message.node,
     h('button', { type: 'submit', class: 'btn btn--primary btn--block' }, t('send')),

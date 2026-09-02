@@ -14,7 +14,7 @@ Vietnamese-primary, with a complete English toggle.
 Everything the shop curated is on the front page, in the order they asked for:
 
 1. **Banner** — their own artwork, full width, linking to the rice shelf
-2. **Trust strip** — delivery, COD, Zalo ordering, warranty
+2. **Trust strip** — delivery, 7-day exchanges, Zalo ordering, warranty
 3. **Gợi ý cho bạn** — the 14 travel and outdoor items
 4. **Sản phẩm bán chạy** — the top 5, each with the description written for it
 5. **Gợi ý riêng cho bạn** — the 36 household, clothing and food items
@@ -23,10 +23,18 @@ Everything the shop curated is on the front page, in the order they asked for:
 The shelves are driven by a `shelf` field on each product record, so moving an
 item between them is a one-word edit in `src/data/products.js`.
 
-### Two rows, then a carousel
+### Shelf layouts
 
-Every shelf shows **at most two rows**; the rest becomes carousel pages, driven
-by the arrows and dots in the section header. [`components/carousel.js`](src/components/carousel.js)
+Each shelf picks a `mode` in [`pages/home.js`](src/pages/home.js):
+
+| Shelf | Mode | Why |
+|---|---|---|
+| Gợi ý cho bạn (14) | `carousel` | pages sideways, two rows at a time |
+| Sản phẩm bán chạy (5) | `carousel` | one page at desktop, so no controls show |
+| Gợi ý riêng cho bạn (36) | `grid` | the browse-everything shelf — all 36 laid out, the page scrolls |
+
+A carousel shelf shows **at most two rows**; the rest becomes pages, driven by
+the arrows and dots in the section header. [`components/carousel.js`](src/components/carousel.js)
 is built on native scroll-snap rather than transforms, which buys a real swipe
 gesture on touch, keyboard scrolling, and off-screen slides that are *scrolled
 to* rather than `display:none` — so nothing leaves the accessibility tree.
@@ -154,6 +162,7 @@ a real API a change in two files.
 | `/gio-hang` | Cart |
 | `/thanh-toan` | Checkout |
 | `/thanh-toan?order=7M-#####` | Order confirmation |
+| `/chuong-trinh` | Programmes currently running |
 | `/lien-he` | Contact |
 | `/chinh-sach/:slug` | Policy document |
 
@@ -209,6 +218,47 @@ hard-codes a threshold or a phone number.
 ## Fidelity notes
 
 `tokens.css` is the single source for colour, type scale, spacing and radii.
+
+### Chrome, type and payment
+
+- **The header is a solid three-tone stack** — ink utility bar, brand-orange bar
+  with the white wordmark, darker orange nav band — replacing the handoff's white
+  header, which read as washed out next to the banner.
+- **Two typefaces.** Be Vietnam Pro carries body copy; **Montserrat** is the
+  display face for nav tabs and section headings. Both were verified in-browser
+  to render the full Vietnamese diacritic set rather than silently falling back —
+  `document.fonts.load()` with a Vietnamese sample, then a per-glyph advance-width
+  comparison against the fallback. **Check any replacement the same way**; a font
+  that advertises a `vietnamese` subset can still miss glyphs.
+- **Shelves sit on alternating full-bleed bands** with a heavy orange rule above
+  each heading, so the three groups read as separate blocks.
+- **Nav tabs are divided by hairline rules and the active tab inverts** to a
+  white block with orange text — an underline alone did not read against the
+  orange band.
+- **Loyalty programme.** 1 point per 10.000₫ of goods (not delivery, rounded
+  down); 100 points = one 10.000₫ voucher, valid 3 months, usable on a *later*
+  purchase — a bill cannot be split to redeem within the same one. The rules
+  live in a policy document; the cart and checkout show what the current order
+  earns. The numbers are all in `config.loyalty` and the arithmetic is isolated
+  in [`lib/loyalty.js`](src/lib/loyalty.js). **There is no account system, so
+  the site can say what an order earns but not what a customer has banked** —
+  balances, issuing and redeeming vouchers all need the backend.
+- **Bank transfer is the only payment method.** The shop does not take COD or
+  cash at the counter, so the payment step states the method instead of offering
+  a radio group of one.
+- **Trending search chips** under the search field are filtered at render time
+  against the live catalogue — a term that returns nothing is never shown, so the
+  list cannot rot into dead links as stock changes.
+- **A floating Zalo button** sits bottom-right on every page, using
+  `images/zalo-logo.svg`. ⚠ **That file is a hand-built likeness, not Zalo's
+  official artwork** — replace it with the asset from Zalo's brand page, same
+  filename, and the button picks it up with no code change.
+- **A "Chương trình" page** at `/chuong-trinh` lists every programme currently
+  running, built by [`data/programs.js`](src/data/programs.js) from `config`
+  rather than written out as prose — so the free-shipping threshold and the
+  points rate shown there can never drift from the ones the cart applies. Each
+  card links to the policy holding its full terms. Adding a programme means
+  appending one entry and its i18n keys; only genuinely running offers belong.
 
 **The orange is not the handoff's.** The design shipped an earthy orange
 (`#B4522F` / `#D97757`); the shop asked for a bright one. The scale is now

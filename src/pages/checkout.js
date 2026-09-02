@@ -2,7 +2,7 @@ import { h } from '../core/dom.js';
 import { routes, href, navigate } from '../core/router.js';
 import { clearCart } from '../core/store.js';
 import { cartLines, orderTotals } from '../lib/catalog.js';
-import { totalsRows } from '../components/order-summary.js';
+import { totalsRows, loyaltyRow } from '../components/order-summary.js';
 import { isValidVnPhone, generateOrderNumber } from '../lib/format.js';
 import { submitOrder } from '../lib/orders.js';
 import { field } from '../components/field.js';
@@ -103,37 +103,29 @@ function checkoutForm(ctx, action) {
 
     return {
       ...values,
-      payment: node.querySelector('input[name="pay"]:checked')?.value || 'cod',
+      // Bank transfer is the shop's only payment method.
+      payment: 'bank',
     };
   }
 
   return { node, validate };
 }
 
+/**
+ * The shop takes bank transfer only, so there is nothing to choose. A radio
+ * group of one is a control that cannot do anything — this states the method
+ * instead, in the same visual language as the selected option had.
+ */
 function paymentMethods({ t }) {
-  const methods = [
-    { id: 'cod', label: t('payCod'), sub: t('payCodSub') },
-    { id: 'bank', label: t('payBank'), sub: t('payBankSub') },
-    { id: 'store', label: t('payStore'), sub: t('payStoreSub') },
-  ];
-
   return h(
-    'fieldset',
-    { class: 'pay-list' },
-    h('legend', { class: 'u-visually-hidden' }, t('coPay')),
-    ...methods.map((method) =>
-      h(
-        'label',
-        { class: 'pay-option' },
-        h('input', { type: 'radio', name: 'pay', value: method.id, checked: method.id === 'cod' }),
-        h('span', { class: 'pay-option__dot', 'aria-hidden': 'true' }),
-        h(
-          'span',
-          { class: 'pay-option__text' },
-          h('span', { class: 'pay-option__label' }, method.label),
-          h('span', { class: 'pay-option__sub' }, method.sub),
-        ),
-      ),
+    'div',
+    { class: 'pay-single' },
+    h('span', { class: 'pay-single__mark', 'aria-hidden': 'true' }),
+    h(
+      'span',
+      { class: 'pay-option__text' },
+      h('span', { class: 'pay-option__label' }, t('payBank')),
+      h('span', { class: 'pay-option__sub' }, t('payBankSub')),
     ),
   );
 }
@@ -202,6 +194,7 @@ function checkoutSummary(lines, totals, ctx, form, action) {
       h('span', { class: 'summary__total-label' }, t('grandTotal')),
       h('span', { class: 'summary__total-value summary__total-value--checkout' }, totals.totalStr),
     ),
+    loyaltyRow(totals, t),
     error,
     submit,
     h('p', { class: 'summary__fine' }, t('coFine')),

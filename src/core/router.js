@@ -26,6 +26,7 @@ const PATHS = {
   product: '/san-pham',
   cart: '/gio-hang',
   checkout: '/thanh-toan',
+  programs: '/chuong-trinh',
   contact: '/lien-he',
   policies: '/chinh-sach',
 };
@@ -44,6 +45,7 @@ const PATTERNS = [
   { name: 'product', re: /^\/san-pham\/([^/]+)\/?$/, keys: ['id'] },
   { name: 'cart', re: /^\/gio-hang\/?$/ },
   { name: 'checkout', re: /^\/thanh-toan\/?$/ },
+  { name: 'programs', re: /^\/chuong-trinh\/?$/ },
   { name: 'contact', re: /^\/lien-he\/?$/ },
   { name: 'policies', re: /^\/chinh-sach(?:\/([^/]+))?\/?$/, keys: ['slug'] },
 ];

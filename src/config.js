@@ -25,6 +25,26 @@ export const config = {
   freeShipThreshold: 300000,
   /** Flat delivery fee (₫) below the threshold. */
   shippingFee: 30000,
+
+  /**
+   * Loyalty programme. Points are earned on the value of the goods, not on
+   * delivery, and are redeemed as fixed-value vouchers.
+   *   1 điểm      per 10.000₫ spent
+   *   100 điểm    = 1 voucher worth 10.000₫
+   *   voucher     valid 3 months from issue
+   */
+  loyalty: {
+    dongPerPoint: 10000,
+    pointsPerVoucher: 100,
+    voucherValue: 10000,
+    voucherValidMonths: 3,
+  },
+  /**
+   * Keyword chips under the search box. Each one must actually return results —
+   * a suggestion that leads to an empty shelf is worse than no suggestion.
+   */
+  trendingSearches: ['Gạo ST25', 'Lương Khô', 'Áo mưa', 'Balo', 'Áo polo', 'Dép', 'Milo', 'Bánh gạo'],
+
   /** Flash sale duration (seconds) — the countdown loops back to this at zero. */
   flashSaleDuration: 6 * 3600,
   /** Where the countdown starts on first paint. */
