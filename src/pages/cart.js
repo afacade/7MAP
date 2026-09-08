@@ -2,6 +2,7 @@ import { h } from '../core/dom.js';
 import { routes, productHref } from '../core/router.js';
 import { setQty, removeFromCart } from '../core/store.js';
 import { imageWell } from '../components/image.js';
+import { SIZES } from '../lib/images.js';
 import { totalsRows, loyaltyRow } from '../components/order-summary.js';
 import { cartLines, orderTotals } from '../lib/catalog.js';
 
@@ -36,7 +37,7 @@ function cartRow(line, { t }) {
     h(
       'div',
       { class: 'cart-row__thumb' },
-      imageWell({ src: line.image, alt: '', label: '' }),
+      imageWell({ src: line.image, alt: '', label: '', sizes: SIZES.thumbnail }),
     ),
     h(
       'div',

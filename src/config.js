@@ -21,6 +21,12 @@ export const config = {
   showFlashSale: false,
   /** Product cards per row on wide screens: 3 or 4. */
   productsPerRow: 4,
+  /**
+   * Products per page on the category listing. The catalogue runs to ~8,800
+   * lines, so this is what stands between a shopper and a page that builds
+   * ninety thousand DOM nodes in one go.
+   */
+  pageSize: 48,
   /** Order subtotal (₫) at or above which delivery is free. */
   freeShipThreshold: 300000,
   /** Flat delivery fee (₫) below the threshold. */
@@ -53,7 +59,12 @@ export const config = {
 
 export const storeInfo = {
   name: 'Bách Hoá & Thời Trang 7MAP',
-  hotline: '+84 707 796 663',
+  /**
+   * One number, grouped the way each audience reads it: Vietnamese customers
+   * dial the national form, English speakers get the international one.
+   * `hotlineFor(lang)` in lib/format.js is the only place that should pick.
+   */
+  hotline: { vi: '070 779 6663', en: '+84 70 779 6663' },
   /** Digits only, for tel: and Zalo links. */
   hotlineHref: '+84707796663',
   zaloUrl: 'https://zalo.me/84707796663',

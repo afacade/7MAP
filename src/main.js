@@ -1,6 +1,6 @@
 import { h, mount } from './core/dom.js';
 import { currentRoute, startRouter, onRouteChange, routes } from './core/router.js';
-import { getState, subscribe } from './core/store.js';
+import { getState, setState, subscribe } from './core/store.js';
 import { mountAnnouncer } from './core/announce.js';
 import { translator, assertCataloguesMatch } from './i18n/index.js';
 import { config, storeInfo } from './config.js';
@@ -14,8 +14,7 @@ import { cartPage } from './pages/cart.js';
 import { checkoutPage } from './pages/checkout.js';
 import { contactPage } from './pages/contact.js';
 import { policiesPage } from './pages/policies.js';
-import { programsPage } from './pages/programs.js';
-import { getProduct } from './data/products.js';
+import { getProduct, loadCatalogue } from './data/catalogue.js';
 import { getCategory } from './data/categories.js';
 import { getPolicy } from './data/policies.js';
 
@@ -27,7 +26,6 @@ const PAGES = {
   product: productPage,
   cart: cartPage,
   checkout: checkoutPage,
-  programs: programsPage,
   contact: contactPage,
   policies: policiesPage,
 };
@@ -133,7 +131,9 @@ function titleFor({ t, lang, route }) {
     }
     case 'product': {
       const product = getProduct(route.params.id);
-      page = product ? (lang === 'vi' ? product.nameVi : product.nameEn) : t('notFoundTitle');
+      page = product
+        ? (lang === 'vi' ? product.nameVi : product.nameEn) ?? product.nameVi
+        : t('notFoundTitle');
       break;
     }
     case 'cart':
@@ -141,9 +141,6 @@ function titleFor({ t, lang, route }) {
       break;
     case 'checkout':
       page = t('checkoutTitle');
-      break;
-    case 'programs':
-      page = t('programsTitle');
       break;
     case 'contact':
       page = t('navContact');
@@ -177,6 +174,34 @@ if (config.productsPerRow === 3) document.documentElement.classList.add('cols-3'
 
 mountAnnouncer(document.body);
 assertCataloguesMatch();
+
+/**
+ * A cart line whose product is no longer stocked is dropped when the cart is
+ * rendered, but `cartCount` sums the stored quantities blind — so without this
+ * the header badge would keep counting items the shopper cannot see. Pruning
+ * once the catalogue is known makes the two agree.
+ *
+ * Returns true when it changed something, which re-renders via `subscribe`.
+ */
+function pruneCart() {
+  const { cart } = getState();
+  const ids = Object.keys(cart);
+  const known = ids.filter((id) => getProduct(id));
+  if (known.length === ids.length) return false;
+
+  setState({ cart: Object.fromEntries(known.map((id) => [id, cart[id]])) });
+  return true;
+}
+
+/**
+ * The imported catalogue is fetched, not imported, so the first paint never
+ * waits on it — the homepage renders from the curated records alone. Pages
+ * that need the rest show a skeleton and this re-render fills them in.
+ */
+loadCatalogue().then(() => {
+  if (!pruneCart()) render({ scroll: false });
+});
+
 startRouter();
 onRouteChange((route, detail) => render({ scroll: detail?.scroll !== false }));
 subscribe(() => render());

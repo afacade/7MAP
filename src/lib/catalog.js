@@ -1,7 +1,7 @@
-import { products, getProduct, countByCategory } from '../data/products.js';
+import { allProducts, getProduct, countByCategory } from '../data/catalogue.js';
 import { categories, getCategory, priceBands } from '../data/categories.js';
 import { config } from '../config.js';
-import { money, discountPercent } from './format.js';
+import { money, discountPercent, fold } from './format.js';
 
 /**
  * Read model over the catalogue.
@@ -22,10 +22,12 @@ export function decorate(product, lang, t) {
   return {
     id: product.id,
     sku: product.sku,
-    name: lang === 'vi' ? product.nameVi : product.nameEn,
+    // The POS export carries no English, so English falls back to Vietnamese
+    // rather than rendering the string "undefined" on 8,800 cards.
+    name: (lang === 'vi' ? product.nameVi : product.nameEn) ?? product.nameVi ?? '',
     categoryId: product.cat,
     categoryName: category ? (lang === 'vi' ? category.nameVi : category.nameEn) : '',
-    unit: lang === 'vi' ? product.unitVi : product.unitEn,
+    unit: (lang === 'vi' ? product.unitVi : product.unitEn) ?? product.unitVi ?? '',
     /** Long copy, when the shop has written some for this product. */
     description: (lang === 'vi' ? product.descVi : product.descEn) || '',
     price: product.price,
@@ -68,29 +70,58 @@ export function decoratePriceBands(lang) {
  * Category ∧ price band ∧ search query, then sort — the composition order the
  * handoff specifies.
  */
-export function queryCatalogue({ cat = 'all', band = 'all', sort = 'pop', query = '' } = {}) {
+export function queryCatalogue({ cat = 'all', band = 'all', sort = 'pop', query = '', page = 1 } = {}) {
   const bandDef = priceBands.find((b) => b.id === band) || priceBands[0];
-  const needle = query.trim().toLowerCase();
+  // Fold the needle the same way the products were folded at load, so a search
+  // for "gao" finds "Gạo".
+  const needle = fold(query.trim());
 
-  let list = products.filter((p) => cat === 'all' || p.cat === cat);
-  list = list.filter((p) => bandDef.test(p));
-  if (needle) {
-    list = list.filter((p) => `${p.nameVi} ${p.nameEn}`.toLowerCase().includes(needle));
-  }
+  // One pass rather than three intermediate arrays.
+  const list = allProducts().filter(
+    (p) =>
+      (cat === 'all' || p.cat === cat) &&
+      bandDef.test(p) &&
+      (!needle || p.search.includes(needle)),
+  );
 
+  /**
+   * Every comparator ends on id. The imported products all carry `pop: 0`, so
+   * without a tie-break the sort order would be unspecified between them and a
+   * product could show up on two pages — or on none.
+   */
+  const byId = (a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
   const sorted = list.slice();
-  if (sort === 'asc') sorted.sort((a, b) => a.price - b.price);
-  else if (sort === 'desc') sorted.sort((a, b) => b.price - a.price);
+  if (sort === 'asc') sorted.sort((a, b) => a.price - b.price || byId(a, b));
+  else if (sort === 'desc') sorted.sort((a, b) => b.price - a.price || byId(a, b));
   else if (sort === 'disc') {
-    sorted.sort((a, b) => discountPercent(b.price, b.was) - discountPercent(a.price, a.was));
-  } else sorted.sort((a, b) => b.pop - a.pop);
+    sorted.sort(
+      (a, b) =>
+        discountPercent(b.price, b.was) - discountPercent(a.price, a.was) || byId(a, b),
+    );
+  } else sorted.sort((a, b) => b.pop - a.pop || byId(a, b));
 
-  return sorted;
+  const pages = Math.max(1, Math.ceil(sorted.length / config.pageSize));
+  const current = Math.min(Math.max(1, Math.floor(page) || 1), pages);
+  const start = (current - 1) * config.pageSize;
+
+  return {
+    items: sorted.slice(start, start + config.pageSize),
+    total: sorted.length,
+    page: current,
+    pages,
+  };
 }
 
-/** The five the shop named as its best sellers, in the order they gave them. */
+/**
+ * The five the shop named as its best sellers, in the order they gave them.
+ *
+ * Only the curated records carry a `shelf`, so the homepage shelves are
+ * unaffected by the POS import and render before the catalogue has loaded.
+ */
 export function bestSellers() {
-  return products.filter((p) => p.shelf === 'best').sort((a, b) => a.rank - b.rank);
+  return allProducts()
+    .filter((p) => p.shelf === 'best')
+    .sort((a, b) => a.rank - b.rank);
 }
 
 /**
@@ -99,17 +130,35 @@ export function bestSellers() {
  * Order follows the order of the photos in the message.
  */
 export function shelfProducts(shelf) {
-  return products.filter((p) => p.shelf === shelf);
+  return allProducts().filter((p) => p.shelf === shelf);
 }
 
 export function flashProducts() {
-  return products.filter((p) => p.flash);
+  return allProducts().filter((p) => p.flash);
 }
 
-/** Same category first, then anything else, capped at four. */
+/**
+ * Same category first, then anything else, capped at four.
+ *
+ * Stops as soon as it has enough. The previous version built two arrays
+ * covering the entire catalogue to return four cards, which at 8,800 products
+ * meant two full-length allocations on every product view.
+ */
 export function relatedProducts(product, limit = 4) {
-  const sameCat = products.filter((p) => p.cat === product.cat && p.id !== product.id);
-  const others = products.filter((p) => p.cat !== product.cat && p.id !== product.id);
+  const list = allProducts();
+  const sameCat = [];
+  const others = [];
+
+  for (const candidate of list) {
+    if (candidate.id === product.id) continue;
+    if (candidate.cat === product.cat) {
+      sameCat.push(candidate);
+      if (sameCat.length >= limit) break;
+    } else if (others.length < limit) {
+      others.push(candidate);
+    }
+  }
+
   return sameCat.concat(others).slice(0, limit);
 }
 

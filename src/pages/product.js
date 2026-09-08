@@ -1,9 +1,10 @@
 import { h } from '../core/dom.js';
 import { routes, href, navigate } from '../core/router.js';
-import { getProduct } from '../data/products.js';
+import { getProduct, isLoaded } from '../data/catalogue.js';
 import { addToCart } from '../core/store.js';
 import { announce } from '../core/announce.js';
 import { imageWell } from '../components/image.js';
+import { SIZES } from '../lib/images.js';
 import { asset } from '../core/base.js';
 import { relatedCard } from '../components/product-card.js';
 import { decorate, productSpecs, relatedProducts } from '../lib/catalog.js';
@@ -12,7 +13,10 @@ export function productPage(ctx) {
   const { t, lang, route } = ctx;
   const product = getProduct(route.params.id);
 
-  if (!product) return notFound(ctx);
+  // Most products live in the fetched catalogue. Until it lands, an unknown
+  // id is 'not loaded yet', not 'does not exist' — main.js re-renders when
+  // the fetch resolves.
+  if (!product) return isLoaded() ? notFound(ctx) : loading(ctx);
 
   const d = decorate(product, lang, t);
   const gallery = productGallery(d, ctx);
@@ -37,7 +41,13 @@ export function productPage(ctx) {
 /* ------------------------------------------------------------- gallery --- */
 
 function productGallery(d, { t }) {
-  const main = imageWell({ src: d.images[0], alt: d.name, label: t('imagePending'), eager: true });
+  const main = imageWell({
+    src: d.images[0],
+    alt: d.name,
+    label: t('imagePending'),
+    eager: true,
+    sizes: SIZES.hero,
+  });
   const mainImg = main.querySelector('.well__img');
 
   const thumbs = d.images.map((src, index) =>
@@ -50,7 +60,7 @@ function productGallery(d, { t }) {
         'aria-pressed': String(index === 0),
         onClick: (event) => selectView(event.currentTarget, src),
       },
-      imageWell({ src, alt: '', label: t('imagePending') }),
+      imageWell({ src, alt: '', label: t('imagePending'), sizes: SIZES.thumb }),
     ),
   );
 
@@ -61,7 +71,9 @@ function productGallery(d, { t }) {
       thumb.setAttribute('aria-pressed', String(isCurrent));
     }
     main.classList.remove('is-missing');
-    mainImg.src = asset(src);
+    // No `<img>` exists when the product has no photo yet — and then there are
+    // no thumbnails to click either, so this is belt and braces.
+    if (mainImg) mainImg.src = asset(src);
   }
 
   return h(
@@ -180,6 +192,15 @@ function relatedSection(product, ctx) {
     { class: 'pdp__related' },
     h('h2', { class: 'pdp__related-title' }, t('related')),
     h('div', { class: 'product-grid product-grid--four' }, ...items.map((item) => relatedCard(item, ctx))),
+  );
+}
+
+/** Shown for the moment between opening a product link and the catalogue arriving. */
+function loading({ t }) {
+  return h(
+    'section',
+    { class: 'page page-top' },
+    h('div', { class: 'empty-state' }, h('div', { class: 'empty-state__sub' }, t('loadingCatalogue'))),
   );
 }
 

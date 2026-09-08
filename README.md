@@ -13,12 +13,17 @@ Vietnamese-primary, with a complete English toggle.
 
 Everything the shop curated is on the front page, in the order they asked for:
 
-1. **Banner** — their own artwork, full width, linking to the rice shelf
-2. **Trust strip** — delivery, 7-day exchanges, Zalo ordering, warranty
-3. **Gợi ý cho bạn** — the 14 travel and outdoor items
+1. **Gợi ý cho bạn** — the 14 travel and outdoor items; stock before artwork
+2. **Hero row** — store video on the left, the shop's banner on the right
+3. **Trust strip** — delivery, exchanges, Zalo, warranty, loyalty points
 4. **Sản phẩm bán chạy** — the top 5, each with the description written for it
 5. **Gợi ý riêng cho bạn** — the 36 household, clothing and food items
 6. **Store band** — address, hours, hotline
+
+The video slot is empty until a file lands at `videos/store.mp4`; see
+[`videos/README.md`](videos/README.md). It only enters the DOM once the browser
+confirms it can play, so a missing file leaves a labelled placeholder rather
+than a black box.
 
 The shelves are driven by a `shelf` field on each product record, so moving an
 item between them is a one-word edit in `src/data/products.js`.
@@ -69,8 +74,21 @@ real paths, so deep links and refreshes must fall back to `index.html`.
 
 ## Deploying
 
-Live at **<https://afacade.github.io/7MAP/>**, served by GitHub Pages from the
-root of `main`. Push to `main` and Pages republishes; there is nothing to build.
+**Production is AZDIGI.** GitHub Pages (<https://afacade.github.io/7MAP/>) is a
+preview only — it serves the same repo from a `/7MAP/` subpath, which is why the
+base-path machinery below exists. Production runs at a domain root, where that
+code path is inert.
+
+Deploy by syncing the repo contents to the web root. Use `rsync` over SSH rather
+than FTP — at ~26,000 image files once the catalogue is converted, only
+transferring what changed is the difference between seconds and hours:
+
+```bash
+rsync -az --delete   --exclude '.git' --exclude 'tools' --exclude 'design_handoff_7map_storefront'   ./ user@host:/path/to/public_html/
+```
+
+`tools/` and the handoff bundle are build-time only and do not belong on the
+server. Nothing needs compiling — the site is ES modules served as-is.
 
 Two things make that work, and both matter if you move the site:
 
@@ -162,7 +180,6 @@ a real API a change in two files.
 | `/gio-hang` | Cart |
 | `/thanh-toan` | Checkout |
 | `/thanh-toan?order=7M-#####` | Order confirmation |
-| `/chuong-trinh` | Programmes currently running |
 | `/lien-he` | Contact |
 | `/chinh-sach/:slug` | Policy document |
 
@@ -235,6 +252,28 @@ hard-codes a threshold or a phone number.
 - **Nav tabs are divided by hairline rules and the active tab inverts** to a
   white block with orange text — an underline alone did not read against the
   orange band.
+- **Images are pre-sized, not resized on the fly.** AZDIGI serves files as they
+  are, so `tools/make_variants.py` generates a 320/480/800 ladder (plus
+  640/960/1280 for the banner) and the image component picks with `srcset`. That
+  took the homepage from 4,258 KB to 603 KB on desktop and 1,551 KB to 563 KB on
+  a DPR-2 phone. **The widths are declared in three files that must agree** —
+  see [`images/README.md`](images/README.md).
+- **The hotline is formatted per language** — `070 779 6663` in Vietnamese,
+  `+84 70 779 6663` in English. Same digits; only the grouping differs.
+  `hotlineFor(lang)` in [`lib/format.js`](src/lib/format.js) is the only place
+  that chooses, and `storeInfo.hotlineHref` stays the dialable form.
+- **Never write "siêu thị" (or "supermarket")** in customer-facing copy. The
+  shop trades as *Bách Hoá & Thời Trang*, and that is the only wording allowed.
+- **The floating Zalo button opens a menu** of the ten things people message
+  about. Every entry opens the same Zalo account — Zalo has no supported way to
+  prefill a message from a link, so the menu tells the customer what the shop
+  handles rather than routing anywhere different.
+- **The contact page embeds a live Google Map** instead of a screenshot: always
+  current, no asset to maintain, and the shop's own listing is one tap away.
+- **The marketplace-style links in the utility bar are a deliberate sketch.**
+  Entries with a real destination render as links; "Tra cứu đơn" and "Tài khoản"
+  are inert placeholders marked `is-soon`, and are hidden on phones. They show
+  the intended shape without promising a page that would 404.
 - **Loyalty programme.** 1 point per 10.000₫ of goods (not delivery, rounded
   down); 100 points = one 10.000₫ voucher, valid 3 months, usable on a *later*
   purchase — a bill cannot be split to redeem within the same one. The rules

@@ -3,6 +3,7 @@ import { productHref } from '../core/router.js';
 import { addToCart } from '../core/store.js';
 import { announce } from '../core/announce.js';
 import { imageWell } from './image.js';
+import { SIZES } from '../lib/images.js';
 
 /**
  * The product card used on the homepage, the category listing and the PDP's
@@ -20,7 +21,7 @@ export function productCard(product, ctx) {
     h(
       'a',
       { class: 'product-card__media', href: productHref(product.id), tabindex: '-1', 'aria-hidden': 'true' },
-      imageWell({ src: product.image, alt: '', label: t('imagePending') }),
+      imageWell({ src: product.image, alt: '', label: t('imagePending'), sizes: SIZES.card }),
       product.badge && h('span', { class: 'product-card__badge' }, product.badge),
     ),
     h('div', { class: 'product-card__cat' }, product.categoryName),
@@ -45,7 +46,7 @@ export function bestSellerCard(product, ctx) {
     h(
       'a',
       { class: 'product-card__media', href: productHref(product.id), tabindex: '-1', 'aria-hidden': 'true' },
-      imageWell({ src: product.image, alt: '', label: t('imagePending') }),
+      imageWell({ src: product.image, alt: '', label: t('imagePending'), sizes: SIZES.card }),
       product.rank &&
         h('span', { class: 'best-card__rank' }, `#${product.rank}`),
     ),
@@ -67,7 +68,7 @@ export function relatedCard(product, ctx) {
     h(
       'a',
       { class: 'product-card__media', href: productHref(product.id), tabindex: '-1', 'aria-hidden': 'true' },
-      imageWell({ src: product.image, alt: '', label: t('imagePending') }),
+      imageWell({ src: product.image, alt: '', label: t('imagePending'), sizes: SIZES.card }),
     ),
     h('h3', null, h('a', { class: 'product-card__title', href: productHref(product.id) }, product.name)),
     h('span', { class: 'price', style: { fontSize: '16.5px' } }, product.priceStr),
@@ -83,7 +84,7 @@ export function flashCard(product, ctx) {
     h(
       'a',
       { class: 'product-card__media', href: productHref(product.id), tabindex: '-1', 'aria-hidden': 'true' },
-      imageWell({ src: product.image, alt: '', label: t('imagePending') }),
+      imageWell({ src: product.image, alt: '', label: t('imagePending'), sizes: SIZES.card }),
       h('span', { class: 'product-card__badge product-card__badge--discount' }, product.discountLabel),
     ),
     h('h3', null, h('a', { class: 'flash-card__title', href: productHref(product.id) }, product.name)),

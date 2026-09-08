@@ -24,7 +24,7 @@ ROOT = Path(__file__).parent.resolve()
 # Directories whose contents are served as files. Anything else falls back to
 # index.html so client-side routes resolve — the same behaviour GitHub Pages
 # gets from 404.html.
-STATIC_PREFIXES = ("/src/", "/images/", "/design_handoff_7map_storefront/")
+STATIC_PREFIXES = ("/src/", "/images/", "/videos/", "/data/", "/design_handoff_7map_storefront/")
 
 
 class StorefrontHandler(SimpleHTTPRequestHandler):

@@ -1,6 +1,7 @@
 import { h } from '../core/dom.js';
 import { policyHref } from '../core/router.js';
 import { storeInfo } from '../config.js';
+import { hotlineFor } from '../lib/format.js';
 import { policyList, getPolicy } from '../data/policies.js';
 
 export function policiesPage(ctx) {
@@ -41,7 +42,7 @@ export function policiesPage(ctx) {
   );
 }
 
-function article(policy, { t }) {
+function article(policy, { t, lang }) {
   return h(
     'article',
     { class: 'policy-article' },
@@ -54,7 +55,7 @@ function article(policy, { t }) {
       'p',
       { class: 'policy-article__foot' },
       `${t('policyFoot')} `,
-      h('a', { href: `tel:${storeInfo.hotlineHref}` }, storeInfo.hotline),
+      h('a', { href: `tel:${storeInfo.hotlineHref}` }, hotlineFor(lang)),
     ),
   );
 }

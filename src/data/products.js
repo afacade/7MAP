@@ -70,9 +70,9 @@ const RAW = [
   // ------------------------------------------------ Gợi ý riêng cho bạn ---
   { id: 'combo-luong-kho-22', cat: 'food', shelf: 'for-you', nameVi: 'Combo lương khô Công ty 22 — Cacao 22, BB702, Bay', nameEn: 'Company 22 ration bundle — Cacao 22, BB702, Bay', price: 120000, unitVi: 'Combo 6 thanh', unitEn: 'Bundle of 6 bars', pop: 82, image: '/images/for-you/fy-01.jpg' },
   { id: 'luong-kho-bay-tui-180g', cat: 'food', shelf: 'for-you', nameVi: 'Lương Khô Bay túi zip 180g', nameEn: 'Lương Khô Bay zip pouch 180g', price: 35000, unitVi: 'Túi zip 180g', unitEn: '180g zip pouch', pop: 76, image: '/images/for-you/fy-02.jpg' },
-  { id: 'non-chong-nang-che-co', cat: 'cloth', shelf: 'for-you', nameVi: 'Nón chống nắng vành rộng che cổ', nameEn: 'Wide-brim sun hat with neck flap', price: 89000, unitVi: 'Vải dù, lưới thoáng', unitEn: 'Ripstop with mesh vents', pop: 78, image: '/images/for-you/fy-03.jpg' },
-  { id: 'ong-tay-chong-nang', cat: 'cloth', shelf: 'for-you', nameVi: 'Bộ ống tay chống nắng kèm nón lưỡi trai', nameEn: 'UV arm sleeves with visor cap', price: 75000, unitVi: 'Ống tay + nón', unitEn: 'Sleeves + visor', pop: 74, image: '/images/for-you/fy-04.jpg' },
-  { id: 'gang-tay-chong-nang', cat: 'cloth', shelf: 'for-you', nameVi: 'Găng tay chống nắng hở ngón hạt chống trượt', nameEn: 'Fingerless sun gloves with grip dots', price: 39000, unitVi: 'Đôi, freesize', unitEn: 'Pair, one size', pop: 70, image: '/images/for-you/fy-05.jpg' },
+  { id: 'non-chong-nang-che-co', cat: 'access', shelf: 'for-you', nameVi: 'Nón chống nắng vành rộng che cổ', nameEn: 'Wide-brim sun hat with neck flap', price: 89000, unitVi: 'Vải dù, lưới thoáng', unitEn: 'Ripstop with mesh vents', pop: 78, image: '/images/for-you/fy-03.jpg' },
+  { id: 'ong-tay-chong-nang', cat: 'access', shelf: 'for-you', nameVi: 'Bộ ống tay chống nắng kèm nón lưỡi trai', nameEn: 'UV arm sleeves with visor cap', price: 75000, unitVi: 'Ống tay + nón', unitEn: 'Sleeves + visor', pop: 74, image: '/images/for-you/fy-04.jpg' },
+  { id: 'gang-tay-chong-nang', cat: 'access', shelf: 'for-you', nameVi: 'Găng tay chống nắng hở ngón hạt chống trượt', nameEn: 'Fingerless sun gloves with grip dots', price: 39000, unitVi: 'Đôi, freesize', unitEn: 'Pair, one size', pop: 70, image: '/images/for-you/fy-05.jpg' },
   { id: 'gang-tay-cach-dien', cat: 'elec', shelf: 'for-you', nameVi: 'Găng tay bảo hộ phủ cao su cách điện', nameEn: 'Latex-coated insulating work gloves', price: 55000, unitVi: 'Đôi, phủ cao su nhám', unitEn: 'Pair, textured latex palm', pop: 68, image: '/images/for-you/fy-06.jpg' },
   { id: 'khan-giay-pulppy', cat: 'care', shelf: 'for-you', nameVi: 'Khăn giấy bỏ túi Pulppy — lốc 10 gói', nameEn: 'Pulppy pocket tissues — 10 packs', price: 28000, unitVi: 'Lốc 10 gói', unitEn: 'Pack of 10', pop: 80, image: '/images/for-you/fy-07.jpg' },
   { id: 'vien-tay-bon-cau', cat: 'clean', shelf: 'for-you', nameVi: 'Chai tẩy bồn cầu Chung Blue', nameEn: 'Chung Blue toilet cleaner', price: 45000, unitVi: 'Chai treo bồn cầu', unitEn: 'In-cistern bottle', pop: 72, image: '/images/for-you/fy-08.jpg' },
@@ -89,21 +89,21 @@ const RAW = [
   { id: 'khay-dung-hat', cat: 'home', shelf: 'for-you', nameVi: 'Khay đựng hạt 2 ngăn có hộc đựng vỏ', nameEn: 'Snack tray with shell compartment', price: 45000, unitVi: 'Nhựa, 2 ngăn', unitEn: 'Plastic, 2 compartments', pop: 64, image: '/images/for-you/fy-19.jpg' },
   { id: 'bo-do-choi-dung-cu', cat: 'toys', shelf: 'for-you', nameVi: 'Bộ đồ chơi dụng cụ sửa chữa kèm vali', nameEn: 'Toy tool workbench set with case', price: 265000, unitVi: '3 tuổi trở lên', unitEn: 'Ages 3+', pop: 74, image: '/images/for-you/fy-20.jpg' },
   { id: 'ghe-vong-treo', cat: 'home', shelf: 'for-you', nameVi: 'Ghế võng treo vải kèm gối và móc', nameEn: 'Hanging hammock chair with cushions', price: 320000, unitVi: 'Kèm 2 gối + móc treo', unitEn: 'With 2 cushions + hooks', pop: 72, image: '/images/for-you/fy-21.jpg' },
-  { id: 'ao-polo-nam-tay-dai', cat: 'cloth', shelf: 'for-you', nameVi: 'Áo polo nam tay dài — 8 màu', nameEn: "Men's long-sleeve polo — 8 colours", price: 189000, unitVi: 'Size M–3XL', unitEn: 'Sizes M–3XL', pop: 76, image: '/images/for-you/fy-22.jpg' },
-  { id: 'dep-suc-de-day', cat: 'cloth', shelf: 'for-you', nameVi: 'Dép sục nữ đế dày chống trượt', nameEn: "Women's platform clogs", price: 145000, unitVi: '4 màu, size 36–40', unitEn: '4 colours, sizes 36–40', pop: 70, image: '/images/for-you/fy-23.jpg' },
-  { id: 'bo-do-mac-nha-miliket', cat: 'cloth', shelf: 'for-you', nameVi: 'Bộ đồ mặc nhà in hoạ tiết mì Miliket', nameEn: 'Miliket-print loungewear set', price: 135000, unitVi: 'Bộ 2 món, freesize', unitEn: '2-piece set, one size', pop: 68, image: '/images/for-you/fy-24.jpg' },
+  { id: 'ao-polo-nam-tay-dai', cat: 'men', shelf: 'for-you', nameVi: 'Áo polo nam tay dài — 8 màu', nameEn: "Men's long-sleeve polo — 8 colours", price: 189000, unitVi: 'Size M–3XL', unitEn: 'Sizes M–3XL', pop: 76, image: '/images/for-you/fy-22.jpg' },
+  { id: 'dep-suc-de-day', cat: 'shoes', shelf: 'for-you', nameVi: 'Dép sục nữ đế dày chống trượt', nameEn: "Women's platform clogs", price: 145000, unitVi: '4 màu, size 36–40', unitEn: '4 colours, sizes 36–40', pop: 70, image: '/images/for-you/fy-23.jpg' },
+  { id: 'bo-do-mac-nha-miliket', cat: 'women', shelf: 'for-you', nameVi: 'Bộ đồ mặc nhà in hoạ tiết mì Miliket', nameEn: 'Miliket-print loungewear set', price: 135000, unitVi: 'Bộ 2 món, freesize', unitEn: '2-piece set, one size', pop: 68, image: '/images/for-you/fy-24.jpg' },
   { id: 'ban-ui-mini', cat: 'home', shelf: 'for-you', nameVi: 'Bàn để ủi mini gấp gọn có giá tay áo', nameEn: 'Folding tabletop ironing board with sleeve rest', price: 210000, unitVi: 'Gấp gọn, chân chống trượt', unitEn: 'Folds flat, non-slip feet', pop: 65, image: '/images/for-you/fy-25.jpg' },
   { id: 'tui-dung-phu-kien', cat: 'bag', shelf: 'for-you', nameVi: 'Túi đựng phụ kiện điện tử 2 tầng', nameEn: 'Two-layer electronics organiser pouch', price: 79000, unitVi: '4 màu', unitEn: '4 colours', pop: 73, image: '/images/for-you/fy-26.jpg' },
   { id: 'den-led-usb', cat: 'elec', shelf: 'for-you', nameVi: 'Đèn LED USB 8 bóng cắm trực tiếp', nameEn: 'USB plug-in LED light bar, 8 LEDs', price: 25000, unitVi: 'Cắm laptop, PC, củ sạc', unitEn: 'Fits laptop, PC, charger', pop: 71, image: '/images/for-you/fy-27.jpg' },
   { id: 'tai-nghe-nhet-tai', cat: 'elec', shelf: 'for-you', nameVi: 'Tai nghe nhét tai 4 driver jack 3.5mm', nameEn: 'Dual-driver wired earphones, 3.5mm', price: 95000, unitVi: 'Jack 3.5mm, có mic', unitEn: '3.5mm jack, with mic', pop: 74, image: '/images/for-you/fy-28.jpg' },
   { id: 'bao-da-deo-that-lung', cat: 'bag', shelf: 'for-you', nameVi: 'Bao da điện thoại đeo thắt lưng có ngăn thẻ', nameEn: 'Belt-clip phone holster with card slot', price: 89000, unitVi: 'Vải dù chống nước', unitEn: 'Water-resistant nylon', pop: 63, image: '/images/for-you/fy-29.jpg' },
-  { id: 'quan-ong-rong-3-soc', cat: 'cloth', shelf: 'for-you', nameVi: 'Quần ống rộng nỉ 3 sọc unisex', nameEn: 'Unisex three-stripe wide-leg joggers', price: 165000, unitVi: '3 màu, size S–XL', unitEn: '3 colours, sizes S–XL', pop: 78, image: '/images/for-you/fy-30.jpg' },
+  { id: 'quan-ong-rong-3-soc', cat: 'sport', shelf: 'for-you', nameVi: 'Quần ống rộng nỉ 3 sọc unisex', nameEn: 'Unisex three-stripe wide-leg joggers', price: 165000, unitVi: '3 màu, size S–XL', unitEn: '3 colours, sizes S–XL', pop: 78, image: '/images/for-you/fy-30.jpg' },
   { id: 'o-cam-da-nang', cat: 'elec', shelf: 'for-you', nameVi: 'Ổ cắm điện đa năng có công tắc', nameEn: 'Universal wall socket adapter with switch', price: 65000, unitVi: 'Đa chuẩn chân cắm', unitEn: 'Multi-standard sockets', pop: 69, image: '/images/for-you/fy-31.jpg' },
   { id: 'balo-laptop-chong-nuoc', cat: 'bag', shelf: 'for-you', nameVi: 'Balo laptop chống nước phản quang', nameEn: 'Water-resistant laptop backpack', price: 265000, unitVi: 'Ngăn laptop 15.6"', unitEn: 'Fits 15.6" laptop', pop: 84, image: '/images/for-you/fy-32.jpg' },
-  { id: 'giay-da-nam-de-cao', cat: 'cloth', shelf: 'for-you', nameVi: 'Giày da nam buộc dây đế cao', nameEn: "Men's chunky-sole leather derby", price: 520000, unitVi: 'Size 39–44', unitEn: 'Sizes 39–44', pop: 62, image: '/images/for-you/fy-33.jpg' },
-  { id: 'dep-quai-ngang-the-thao', cat: 'cloth', shelf: 'for-you', nameVi: 'Dép quai ngang thể thao chống trượt', nameEn: 'Sport slide sandals', price: 79000, unitVi: '3 màu, size 39–44', unitEn: '3 colours, sizes 39–44', pop: 75, image: '/images/for-you/fy-34.jpg' },
-  { id: 'ao-polo-phoi-khoi', cat: 'cloth', shelf: 'for-you', nameVi: 'Áo polo nam phối khối màu', nameEn: "Men's colour-block polo shirt", price: 175000, unitVi: 'Cotton cá sấu, size M–2XL', unitEn: 'Piqué cotton, sizes M–2XL', pop: 72, image: '/images/for-you/fy-35.jpg' },
-  { id: 'quan-short-kaki', cat: 'cloth', shelf: 'for-you', nameVi: 'Quần short kaki nam lưng thun', nameEn: "Men's elastic-waist chino shorts", price: 145000, unitVi: '4 màu, size 28–36', unitEn: '4 colours, sizes 28–36', pop: 73, image: '/images/for-you/fy-36.jpg' },
+  { id: 'giay-da-nam-de-cao', cat: 'shoes', shelf: 'for-you', nameVi: 'Giày da nam buộc dây đế cao', nameEn: "Men's chunky-sole leather derby", price: 520000, unitVi: 'Size 39–44', unitEn: 'Sizes 39–44', pop: 62, image: '/images/for-you/fy-33.jpg' },
+  { id: 'dep-quai-ngang-the-thao', cat: 'shoes', shelf: 'for-you', nameVi: 'Dép quai ngang thể thao chống trượt', nameEn: 'Sport slide sandals', price: 79000, unitVi: '3 màu, size 39–44', unitEn: '3 colours, sizes 39–44', pop: 75, image: '/images/for-you/fy-34.jpg' },
+  { id: 'ao-polo-phoi-khoi', cat: 'men', shelf: 'for-you', nameVi: 'Áo polo nam phối khối màu', nameEn: "Men's colour-block polo shirt", price: 175000, unitVi: 'Cotton cá sấu, size M–2XL', unitEn: 'Piqué cotton, sizes M–2XL', pop: 72, image: '/images/for-you/fy-35.jpg' },
+  { id: 'quan-short-kaki', cat: 'men', shelf: 'for-you', nameVi: 'Quần short kaki nam lưng thun', nameEn: "Men's elastic-waist chino shorts", price: 145000, unitVi: '4 màu, size 28–36', unitEn: '4 colours, sizes 28–36', pop: 73, image: '/images/for-you/fy-36.jpg' },
 
   // ------------------------------------------------------ Gợi ý cho bạn ---
   { id: 'tui-du-lich-gap-banh-xe', cat: 'bag', shelf: 'suggested', nameVi: 'Túi du lịch gấp gọn có bánh xe', nameEn: 'Foldable wheeled travel duffel', price: 185000, unitVi: '40 × 32cm, nở 19cm', unitEn: '40 × 32cm, expands 19cm', pop: 81, image: '/images/travel/tv-01.jpg' },
@@ -115,28 +115,20 @@ const RAW = [
   { id: 'gio-gap-da-nang', cat: 'home', shelf: 'suggested', nameVi: 'Giỏ gấp gọn đa năng kiêm bàn dã ngoại', nameEn: 'Collapsible picnic basket with table lid', price: 265000, unitVi: '47 × 25.8 × 24cm', unitEn: '47 × 25.8 × 24cm', pop: 74, image: '/images/travel/tv-07.jpg' },
   { id: 'bom-lop-khong-day', cat: 'elec', shelf: 'suggested', nameVi: 'Bơm lốp không dây cầm tay 17 lít/phút', nameEn: 'Cordless tyre inflator, 17 L/min', price: 490000, unitVi: 'Ô tô, xe máy, xe đạp, bóng', unitEn: 'Car, motorbike, bike, balls', pop: 78, image: '/images/travel/tv-08.jpg' },
   { id: 'may-lam-sach-rang', cat: 'care', shelf: 'suggested', nameVi: 'Máy làm sạch cao răng kèm 3 đầu bàn chải', nameEn: 'Ultrasonic tooth cleaner with 3 brush heads', price: 350000, unitVi: 'Sạc USB, chống nước', unitEn: 'USB rechargeable, waterproof', pop: 72, image: '/images/travel/tv-09.jpg' },
-  { id: 'ao-mua-mang-to', cat: 'cloth', shelf: 'suggested', nameVi: 'Áo mưa măng tô EVA có nón', nameEn: 'EVA hooded rain poncho', price: 95000, unitVi: 'Freesize, 5 màu', unitEn: 'One size, 5 colours', pop: 82, image: '/images/travel/tv-10.jpg' },
+  { id: 'ao-mua-mang-to', cat: 'access', shelf: 'suggested', nameVi: 'Áo mưa măng tô EVA có nón', nameEn: 'EVA hooded rain poncho', price: 95000, unitVi: 'Freesize, 5 màu', unitEn: 'One size, 5 colours', pop: 82, image: '/images/travel/tv-10.jpg' },
   { id: 'ghe-xep-gac-chan', cat: 'home', shelf: 'suggested', nameVi: 'Ghế xếp dã ngoại có gác chân và gối', nameEn: 'Reclining camp chair with footrest', price: 480000, unitVi: 'Kèm gối tựa, giá để ly', unitEn: 'Headrest and cup holder', pop: 75, image: '/images/travel/tv-11.jpg' },
   { id: 'ghe-xep-nhua-mong', cat: 'home', shelf: 'suggested', nameVi: 'Ghế xếp nhựa gấp phẳng bỏ balo', nameEn: 'Flat-folding plastic camp stool', price: 95000, unitVi: '3 màu, gấp phẳng', unitEn: '3 colours, folds flat', pop: 70, image: '/images/travel/tv-12.jpg' },
-  { id: 'do-boi-giu-nhiet', cat: 'cloth', shelf: 'suggested', nameVi: 'Bộ đồ lặn giữ nhiệt tay ngắn nữ', nameEn: "Women's short-sleeve shorty wetsuit", price: 690000, unitVi: 'Neoprene, size S–XL', unitEn: 'Neoprene, sizes S–XL', pop: 64, image: '/images/travel/tv-13.jpg' },
+  { id: 'do-boi-giu-nhiet', cat: 'sport', shelf: 'suggested', nameVi: 'Bộ đồ lặn giữ nhiệt tay ngắn nữ', nameEn: "Women's short-sleeve shorty wetsuit", price: 690000, unitVi: 'Neoprene, size S–XL', unitEn: 'Neoprene, sizes S–XL', pop: 64, image: '/images/travel/tv-13.jpg' },
   { id: 'den-pin-moc-khoa-cob', cat: 'elec', shelf: 'suggested', nameVi: 'Đèn pin móc khoá COB sạc USB', nameEn: 'COB keychain work light, USB rechargeable', price: 69000, unitVi: 'Có nam châm, móc treo', unitEn: 'Magnetic base, carabiner', pop: 83, image: '/images/travel/tv-14.jpg' },
 ];
 
-export const products = RAW.map((p) => ({
-  was: 0,
-  ...p,
-  sku: `7M-${p.cat.toUpperCase()}-${p.id.slice(0, 8).toUpperCase()}`,
-  // One photograph per product today. When the shop sends alternate angles,
-  // push them onto this array and the product page grows a thumbnail strip.
-  images: [p.image],
-}));
-
-const byId = new Map(products.map((p) => [p.id, p]));
-
-export function getProduct(id) {
-  return byId.get(id) || null;
-}
-
-export function countByCategory(catId) {
-  return products.reduce((n, p) => (p.cat === catId ? n + 1 : n), 0);
-}
+/**
+ * The shop's curated records, exactly as written above.
+ *
+ * These are the products the shop chose for the homepage shelves and wrote copy
+ * for. They are merged with the much larger POS import in `data/catalogue.js`,
+ * which is where `products`, `getProduct` and the category counts now live —
+ * both sets get the same post-processing there, so nothing downstream has to
+ * know which of the two a record came from.
+ */
+export const curated = RAW;

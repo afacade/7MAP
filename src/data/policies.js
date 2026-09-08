@@ -31,8 +31,9 @@ export const policies = {
       updatedAt: UPDATED,
       blocks: [
         { h: 'Khu vực giao hàng', p: 'Giao hàng nội thành TP.HCM. Đơn đặt trước 15:00 được giao trong ngày; sau 15:00 giao vào sáng hôm sau.' },
+        { h: 'Hình thức giao hàng', p: 'Ba lựa chọn: giao hoả tốc trong vài giờ, giao nhanh trong ngày, và giao tiết kiệm với chi phí thấp nhất. Nhân viên tư vấn hình thức phù hợp khi xác nhận đơn.' },
         { h: 'Phí giao hàng', p: 'Miễn phí cho đơn từ 300.000₫ trong bán kính 7km. Đơn nhỏ hơn hoặc xa hơn tính phí 25.000₫ – 45.000₫ tuỳ khoảng cách, nhân viên báo trước khi chốt đơn.' },
-        { h: 'Cách đặt hàng', p: 'Gọi hotline hoặc nhắn Zalo +84 707 796 663 kèm danh sách hàng. Nhân viên soạn đơn, xác nhận tổng tiền rồi mới giao.' },
+        { h: 'Cách đặt hàng', p: 'Gọi hotline hoặc nhắn Zalo 070 779 6663 kèm danh sách hàng. Nhân viên soạn đơn, xác nhận tổng tiền rồi mới giao.' },
         { h: 'Kiểm tra khi nhận', p: 'Vui lòng kiểm tra hàng ngay khi nhận. Nếu thiếu hoặc hư hỏng, từ chối nhận phần hàng đó và thông báo ngay cho nhân viên giao hàng để được đổi hoặc hoàn tiền.' },
       ],
     },
@@ -76,7 +77,7 @@ export const policies = {
       title: 'Tiếp nhận khiếu nại',
       updatedAt: UPDATED,
       blocks: [
-        { h: 'Kênh tiếp nhận', p: 'Gọi hotline +84 707 796 663, nhắn Zalo cùng số, hoặc gặp trực tiếp quầy dịch vụ khách hàng trong giờ mở cửa.' },
+        { h: 'Kênh tiếp nhận', p: 'Gọi hotline 070 779 6663, nhắn Zalo cùng số, hoặc gặp trực tiếp quầy dịch vụ khách hàng trong giờ mở cửa.' },
         { h: 'Thời gian phản hồi', p: 'Phản hồi đầu tiên trong vòng 24 giờ làm việc. Các trường hợp cần kiểm tra với nhà cung cấp được xử lý trong tối đa 7 ngày làm việc.' },
         { h: 'Cam kết của chúng tôi', p: 'Mọi khiếu nại đều được ghi nhận bằng văn bản, có mã theo dõi và phản hồi cụ thể về hướng xử lý — đổi hàng, hoàn tiền hoặc bảo hành.' },
       ],
@@ -102,8 +103,9 @@ export const policies = {
       updatedAt: UPDATED,
       blocks: [
         { h: 'Delivery area', p: 'We deliver within Ho Chi Minh City. Orders placed before 3:00 PM arrive the same day; later orders arrive the next morning.' },
+        { h: 'Delivery options', p: 'Three speeds: express within a few hours, fast same-day, and economy at the lowest cost. Staff advise which fits when they confirm the order.' },
         { h: 'Delivery fees', p: 'Free for orders over 300,000₫ within a 7km radius. Smaller or more distant orders cost 25,000₫ – 45,000₫ depending on distance, always confirmed before we pack.' },
-        { h: 'How to order', p: 'Call the hotline or message Zalo +84 707 796 663 with your list. Staff pack the order and confirm the total before dispatch.' },
+        { h: 'How to order', p: 'Call the hotline or message Zalo +84 70 779 6663 with your list. Staff pack the order and confirm the total before dispatch.' },
         { h: 'Check on arrival', p: 'Please inspect the goods as soon as they arrive. If anything is missing or damaged, refuse that item and tell the driver immediately so we can replace or refund it.' },
       ],
     },
@@ -147,7 +149,7 @@ export const policies = {
       title: 'Complaint handling',
       updatedAt: UPDATED,
       blocks: [
-        { h: 'How to reach us', p: 'Call +84 707 796 663, message the same number on Zalo, or visit the customer service counter during opening hours.' },
+        { h: 'How to reach us', p: 'Call +84 70 779 6663, message the same number on Zalo, or visit the customer service counter during opening hours.' },
         { h: 'Response time', p: 'First response within 24 business hours. Cases needing supplier checks are resolved within 7 business days.' },
         { h: 'Our commitment', p: 'Every complaint is logged with a tracking code and answered with a concrete resolution — exchange, refund or warranty repair.' },
       ],

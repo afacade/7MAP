@@ -64,6 +64,37 @@
   flex: 0 0 auto;
 }
 
+.utility-bar__group--end {
+  gap: 16px;
+  /* Shrinkable and wrappable: fixed at auto it pushed the page wider than the
+     viewport on a phone. */
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.utility-bar__link {
+  color: var(--c-on-orange);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.utility-bar__link:hover {
+  color: var(--c-on-orange);
+  text-decoration: underline;
+}
+
+/* Placeholders for features that do not exist yet: visible, but plainly not
+   clickable, so the bar shows its intended shape without promising anything. */
+.utility-bar__link.is-soon {
+  opacity: 0.62;
+  cursor: default;
+}
+
+.utility-bar__link.is-soon:hover {
+  text-decoration: none;
+}
+
 .lang-toggle {
   display: flex;
   align-items: center;
@@ -1021,6 +1052,84 @@ textarea.field__control {
   margin-bottom: 22px;
 }
 
+/* ============================================================= pager ===== */
+
+/* The catalogue runs to thousands of lines, so the listing is paged. Pages are
+   ordinary links, so they work with middle-click and keyboard like any other
+   navigation on the site. */
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 28px;
+}
+
+.pager__page,
+.pager__step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 11px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  color: var(--c-ink-2);
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+
+.pager__page:hover,
+.pager__step:hover {
+  border-color: var(--c-orange-border);
+  background: var(--c-orange-tint);
+  color: var(--c-orange-text);
+}
+
+.pager__page.is-current {
+  background: var(--c-orange);
+  border-color: var(--c-orange);
+  color: var(--c-on-orange);
+  font-weight: 600;
+}
+
+.pager__page.is-current:hover {
+  background: var(--c-orange-hover);
+  border-color: var(--c-orange-hover);
+  color: var(--c-on-orange);
+}
+
+/* Kept in the flow rather than removed, so the row does not jump width on the
+   first and last pages. */
+.pager__step.is-disabled {
+  opacity: 0.4;
+  border-style: dashed;
+}
+
+.pager__step.is-disabled:hover {
+  border-color: var(--c-border);
+  background: none;
+  color: var(--c-ink-2);
+}
+
+.pager__gap {
+  padding: 0 2px;
+  color: var(--c-muted);
+}
+
+@media (max-width: 560px) {
+  /* Prev/Next and the current page are enough on a phone. */
+  .pager__page:not(.is-current) {
+    display: none;
+  }
+  .pager__gap {
+    display: none;
+  }
+}
+
 /* Toast-free confirmation: a polite live region announces cart additions. */
 .sr-status {
   position: absolute;
@@ -1198,13 +1307,63 @@ textarea.field__control {
 
 /* ==================================================== zalo floating ===== */
 
-.zalo-fab {
+/* The widget is the positioned element; the button and its menu sit inside so
+   the menu anchors to the button rather than to the viewport. */
+.zalo-fab__wrap {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  /* Above page content and the sticky header (40), below the filter drawer
-     and its backdrop (55/60) so it never floats over an open drawer. */
   z-index: 45;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.zalo-fab__menu {
+  width: min(268px, calc(100vw - 40px));
+  background: var(--c-base);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-panel);
+  box-shadow: 0 12px 32px rgba(31, 27, 24, 0.16);
+  padding: 14px 8px 8px;
+  max-height: min(60vh, 460px);
+  overflow-y: auto;
+}
+
+.zalo-fab__menu-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-muted);
+  padding: 0 10px 8px;
+}
+
+.zalo-fab__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.zalo-fab__item {
+  display: block;
+  padding: 10px;
+  border-radius: var(--r-input);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--c-ink);
+  line-height: 1.35;
+}
+
+.zalo-fab__item:hover {
+  background: var(--c-orange-tint);
+  color: var(--c-orange-text);
+}
+
+.zalo-fab {
+  border: 0;
+  padding: 0;
   width: 56px;
   height: 56px;
   border-radius: 14px;
@@ -1224,9 +1383,12 @@ textarea.field__control {
 }
 
 @media (max-width: 720px) {
-  .zalo-fab {
+  .zalo-fab__wrap {
     right: 14px;
     bottom: 14px;
+  }
+
+  .zalo-fab {
     width: 52px;
     height: 52px;
     border-radius: 13px;

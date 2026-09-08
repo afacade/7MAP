@@ -1,18 +1,54 @@
 import { h } from '../core/dom.js';
-import { routes, href, navigate } from '../core/router.js';
+import { routes, href, navigate, policyHref } from '../core/router.js';
 import { setLang, cartCount } from '../core/store.js';
 import { storeInfo, config } from '../config.js';
+import { hotlineFor } from '../lib/format.js';
 import { LANGS } from '../i18n/index.js';
 import { asset } from '../core/base.js';
 import { queryCatalogue } from '../lib/catalog.js';
+import { isLoaded } from '../data/catalogue.js';
 
 /**
  * Global chrome above the page: the orange utility bar, the sticky header with
  * search and cart, and the four-item nav.
  */
+
+/**
+ * Trending chips, cached.
+ *
+ * A suggestion that leads to an empty shelf is worse than no suggestion, so
+ * each term has to be tried against the catalogue — but the header re-renders
+ * on every route change, cart change and language switch, and at ~8,800
+ * products eight full scans per render is real work on the critical path. The
+ * answer only changes when the catalogue finishes loading, so it is computed
+ * at most twice.
+ */
+let trendingCache = null;
+let trendingCachedFor = null;
+
+function trendingTerms() {
+  const state = isLoaded();
+  if (trendingCache && trendingCachedFor === state) return trendingCache;
+  trendingCachedFor = state;
+  trendingCache = config.trendingSearches.filter((term) => queryCatalogue({ query: term }).total > 0);
+  return trendingCache;
+}
 export function siteHeader(ctx) {
   return h('div', { class: 'site-chrome' }, utilityBar(ctx), header(ctx), nav(ctx));
 }
+
+/**
+ * The right-hand side of the utility bar, modelled on the marketplace layout
+ * the shop pointed at. Entries without an `href` are deliberate placeholders —
+ * rendered but inert — so the structure is visible before the features exist.
+ */
+const UTILITY_LINKS = [
+  { key: 'utilSupport', href: () => routes.contact },
+  { key: 'utilZalo', href: storeInfo.zaloUrl, external: true },
+  { key: 'utilWholesale', href: () => policyHref('giao-hang') },
+  { key: 'utilTrack' },
+  { key: 'utilAccount' },
+];
 
 function utilityBar({ t, lang }) {
   return h(
@@ -29,11 +65,36 @@ function utilityBar({ t, lang }) {
           { class: 'utility-bar__hotline' },
           h('span', { class: 'pulse-dot', 'aria-hidden': 'true' }),
           `${t('topHotline')} `,
-          h('a', { href: `tel:${storeInfo.hotlineHref}` }, storeInfo.hotline),
+          h('a', { href: `tel:${storeInfo.hotlineHref}` }, hotlineFor(lang)),
         ),
         h('span', { class: 'utility-bar__ship' }, t('topShip')),
       ),
-      langToggle({ t, lang }),
+      h(
+        'div',
+        { class: 'utility-bar__group utility-bar__group--end' },
+        // Marketplace-style links, sketched at the shop's request for later
+        // build-out. Only entries with a real destination are rendered as
+        // links; anything not built yet carries `is-soon` and is inert, so the
+        // bar shows the intended shape without promising a page that 404s.
+        ...UTILITY_LINKS.map((item) =>
+          item.href
+            ? h(
+                'a',
+                {
+                  class: 'utility-bar__link',
+                  href: typeof item.href === 'function' ? item.href() : item.href,
+                  ...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
+                },
+                t(item.key),
+              )
+            : h(
+                'span',
+                { class: 'utility-bar__link is-soon', title: t('comingSoon') },
+                t(item.key),
+              ),
+        ),
+        langToggle({ t, lang }),
+      ),
     ),
   );
 }
@@ -95,11 +156,9 @@ function header({ t, state, route }) {
     'div',
     { class: 'search-suggest' },
     h('span', { class: 'search-suggest__label' }, t('trendingLabel')),
-    ...config.trendingSearches
-      .filter((term) => queryCatalogue({ query: term }).length > 0)
-      .map((term) =>
-        h('a', { class: 'search-suggest__chip', href: href(routes.categories, { q: term }) }, term),
-      ),
+    ...trendingTerms().map((term) =>
+      h('a', { class: 'search-suggest__chip', href: href(routes.categories, { q: term }) }, term),
+    ),
   );
 
   const searchColumn = h('div', { class: 'search-col' }, form, suggestions);
@@ -119,7 +178,7 @@ function header({ t, state, route }) {
         h(
           'span',
           { class: 'brand__text' },
-          h('span', { class: 'brand__name' }, storeInfo.name),
+          h('span', { class: 'brand__name' }, t('brandName')),
           h('span', { class: 'brand__tagline' }, t('tagline')),
         ),
       ),
@@ -150,7 +209,6 @@ function nav({ t, route }) {
   const items = [
     { name: 'home', label: t('navHome'), url: routes.home },
     { name: 'categories', label: t('navCats'), url: routes.categories },
-    { name: 'programs', label: t('navPrograms'), url: routes.programs },
     { name: 'contact', label: t('navContact'), url: routes.contact },
     { name: 'policies', label: t('navPolicy'), url: routes.policies },
   ];

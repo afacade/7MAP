@@ -8,18 +8,34 @@
  * Departments with nothing in stock are kept here but hidden from the
  * storefront until they have products — see `decorateCategories`.
  */
+/**
+ * The order here is the order of the sidebar. It follows what the shop actually
+ * stocks — the POS export puts 54% of in-stock lines in fashion and only 7% in
+ * food — rather than the food-first order the design prototype assumed.
+ *
+ * Each department maps to one or more three-digit `Phân loại` groups in the
+ * POS; the mapping lives in `tools/build_catalogue.py` and is the only place it
+ * is written down. Departments with nothing in stock are hidden automatically.
+ */
 export const categories = [
-  { id: 'food',  nameVi: 'Thực phẩm khô & đóng gói', nameEn: 'Dry & packaged food',  heroProduct: 'gao-st25-5kg' },
-  { id: 'drink', nameVi: 'Nước uống & bia',          nameEn: 'Beverages',            heroProduct: 'milo-hop-110ml' },
-  { id: 'cloth', nameVi: 'Quần áo & giày dép',       nameEn: 'Clothing & footwear',  heroProduct: 'ao-polo-phoi-khoi' },
-  { id: 'home',  nameVi: 'Đồ gia dụng & nhà bếp',    nameEn: 'Home & kitchen',       heroProduct: 'gio-gap-da-nang' },
-  { id: 'elec',  nameVi: 'Thiết bị điện',            nameEn: 'Electric appliances',  heroProduct: 'am-dun-thuy-tinh' },
-  { id: 'bag',   nameVi: 'Túi xách & du lịch',       nameEn: 'Bags & travel',        heroProduct: 'balo-laptop-chong-nuoc' },
-  { id: 'toys',  nameVi: 'Đồ chơi & trẻ em',         nameEn: 'Toys & kids',          heroProduct: 'bo-do-choi-dung-cu' },
-  { id: 'care',  nameVi: 'Chăm sóc cá nhân',         nameEn: 'Personal care',        heroProduct: 'khan-giay-pulppy' },
-  { id: 'clean', nameVi: 'Vệ sinh & giặt giũ',       nameEn: 'Cleaning & household', heroProduct: 'omo-nuoc-giat-do-lot' },
-  { id: 'baby',  nameVi: 'Sản phẩm cho bé',          nameEn: 'Baby products',        heroProduct: 'bo-do-be-ke-soc' },
-  { id: 'stat',  nameVi: 'Văn phòng phẩm',           nameEn: 'Stationery',           heroProduct: null },
+  { id: 'women',   nameVi: 'Thời trang nữ',        nameEn: "Women's fashion",     heroProduct: 'bo-do-mac-nha-miliket' },
+  { id: 'men',     nameVi: 'Thời trang nam',       nameEn: "Men's fashion",       heroProduct: 'ao-polo-phoi-khoi' },
+  { id: 'kids',    nameVi: 'Thời trang trẻ em',    nameEn: "Kids' fashion",       heroProduct: null },
+  { id: 'baby',    nameVi: 'Sản phẩm cho bé',      nameEn: 'Baby products',       heroProduct: 'bo-do-be-ke-soc' },
+  { id: 'shoes',   nameVi: 'Giày dép',             nameEn: 'Footwear',            heroProduct: 'dep-suc-de-day' },
+  { id: 'bag',     nameVi: 'Túi xách & ví',        nameEn: 'Bags & wallets',      heroProduct: 'tui-dung-phu-kien' },
+  { id: 'access',  nameVi: 'Phụ kiện thời trang',  nameEn: 'Fashion accessories', heroProduct: 'non-chong-nang-che-co' },
+  { id: 'sport',   nameVi: 'Đồ thể thao & đồ bơi', nameEn: 'Sport & swim',        heroProduct: 'do-boi-giu-nhiet' },
+  { id: 'home',    nameVi: 'Gia dụng & nhà bếp',   nameEn: 'Home & kitchen',      heroProduct: 'khay-dung-hat' },
+  { id: 'food',    nameVi: 'Thực phẩm',            nameEn: 'Food',                heroProduct: 'gao-st25-5kg' },
+  { id: 'drink',   nameVi: 'Đồ uống',              nameEn: 'Beverages',           heroProduct: 'milo-hop-110ml' },
+  { id: 'care',    nameVi: 'Chăm sóc cá nhân',     nameEn: 'Personal care',       heroProduct: 'khan-giay-pulppy' },
+  { id: 'clean',   nameVi: 'Vệ sinh & giặt giũ',   nameEn: 'Cleaning & laundry',  heroProduct: 'vien-tay-bon-cau' },
+  { id: 'elec',    nameVi: 'Điện & phụ kiện',      nameEn: 'Electricals',         heroProduct: 'gang-tay-cach-dien' },
+  { id: 'toys',    nameVi: 'Đồ chơi',              nameEn: 'Toys',                heroProduct: 'bo-do-choi-dung-cu' },
+  { id: 'stat',    nameVi: 'Văn phòng phẩm',       nameEn: 'Stationery',          heroProduct: null },
+  { id: 'worship', nameVi: 'Đồ thờ cúng',          nameEn: 'Worship & incense',   heroProduct: null },
+  { id: 'gift',    nameVi: 'Quà tặng & móc khóa',  nameEn: 'Gifts & keyrings',    heroProduct: null },
 ];
 
 const byId = new Map(categories.map((c) => [c.id, c]));

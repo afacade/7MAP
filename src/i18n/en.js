@@ -8,23 +8,39 @@ export default {
   // Utility bar
   topHotline: 'Order by Zalo / phone:',
   topShip: 'Free city delivery on orders over 300,000₫',
+  utilSupport: 'Support',
+  utilZalo: 'Zalo',
+  utilWholesale: 'Wholesale',
+  utilTrack: 'Track order',
+  utilAccount: 'Account',
+  comingSoon: 'Coming soon',
   langLabel: 'Language',
 
   // Header + nav
-  tagline: 'Grocery & fashion · Ho Chi Minh City',
+  tagline: 'Ho Chi Minh City, Vietnam',
+  brandName: 'Grocery & Fashion',
   searchPh: 'Search noodles, rice cookers, diapers…',
   searchBtn: 'Search',
   searchLabel: 'Search products',
   trendingLabel: 'Popular:',
   zaloChat: 'Chat on Zalo',
+  zaloMenuTitle: 'What can we help with?',
+  zaloFeedback: 'Feedback',
+  zaloReturns: 'Returns & exchanges',
+  zaloDelivery: 'Delivery',
+  zaloWarranty: 'Warranty',
+  zaloWholesale: 'Wholesale',
+  zaloCharity: 'Charity',
+  zaloVendor: 'Supplier enquiry',
+  zaloJobs: 'Jobs',
+  zaloPartner: 'Agency · distribution · manufacturing',
   cart: 'Cart',
   cartCountLabel: 'items in cart',
   navHome: 'Home',
   navCats: 'Product categories',
-  navPrograms: 'Programmes',
   navContact: 'Contact',
   navPolicy: 'Policies',
-  navNote: 'In-store prices · updated weekly',
+  navNote: 'Wholesale · combo · flat pricing — ask us',
   skipToContent: 'Skip to main content',
   mainNavLabel: 'Main navigation',
   homeLink: 'Back to the Bách Hoá & Thời Trang 7MAP home page',
@@ -43,13 +59,15 @@ export default {
 
   // Home — trust strip
   tr1: 'Free delivery',
-  tr1s: 'Orders over 300,000₫ within HCMC',
+  tr1s: 'Express · Fast · Economy — orders over 300,000₫',
   tr2: '7-day exchanges',
   tr2s: 'Keep the seal, label and receipt',
   tr3: 'Order via Zalo',
   tr3s: 'Send your list, staff packs it up',
   tr4: 'Genuine warranty',
   tr4s: '12 months on electric appliances',
+  tr5: 'Loyalty points',
+  tr5s: '1 point per 10,000₫ · redeem for vouchers',
 
   // Home — sections
   catsTitle: 'Shop by category',
@@ -74,6 +92,9 @@ export default {
   suggestedTitle: 'You might also like',
   suggestedSub: 'Travel, camping and take-along gear',
   homeH1: 'Bách Hoá & Thời Trang 7MAP — rice merchant, grocery and clothing in Bình Tân, Ho Chi Minh City',
+  videoPending: 'Video coming soon',
+  videoHint: 'Store intro video — drop it at videos/store.mp4',
+  videoLabel: 'Store intro video',
   bannerAlt: '7Map rice merchant — fine Vietnamese rice, hotline 070 779 6663',
 
   // Home — store band
@@ -146,7 +167,7 @@ export default {
   fPhonePh: '0909 000 000',
   fAddr: 'Delivery address',
   fDeliveryAddr: 'Delivery address',
-  fAddrPh: 'Number, street, ward, district',
+  fAddrPh: 'Number, street, ward, district, city/province',
   fNote: 'Note',
   fNotePh: 'Deliver in the afternoon, call before arriving…',
   placeOrder: 'Place order',
@@ -185,23 +206,6 @@ export default {
   errMsg: 'Please write a message',
   contactSent: 'Message sent. We will get back to you within one business day.',
 
-  // Programmes
-  programsTitle: 'Programmes running now',
-  programsSub: 'Offers currently running at Bách Hoá & Thời Trang 7MAP. Full conditions live in the matching policy.',
-  programActive: 'Running',
-  programTerms: 'Read the full conditions',
-  progLoyaltyTitle: 'Loyalty points',
-  progLoyaltySummary: 'Earn points as you shop and turn them into discount vouchers for a later purchase.',
-  progLoyaltyB1: '1 point for every {per} of goods',
-  progLoyaltyB2: '{points} points converts to a {value} discount voucher',
-  progLoyaltyB3: 'Vouchers apply to a later purchase — a bill cannot be split to use one immediately',
-  progLoyaltyB4: 'Vouchers are valid for {months} months from issue',
-  progShipTitle: 'Free city delivery',
-  progShipSummary: 'Orders of {amount} or more are delivered free within Ho Chi Minh City.',
-  progShipB1: 'Free on orders from {amount} within a 7km radius',
-  progShipB2: 'Order before 3:00 PM for same-day delivery',
-  progShipB3: 'Smaller or more distant orders cost 25,000₫ – 45,000₫ by distance',
-
   // Policies
   policyTitle: 'Customer policies',
   policySub: 'Exchange, delivery, warranty and privacy terms at Bách Hoá & Thời Trang 7MAP.',
@@ -212,7 +216,7 @@ export default {
   policyNavLabel: 'Policy list',
 
   // Footer
-  footAbout: 'A general supermarket in An Lac, Binh Tan — dry food, clothing, homeware, appliances, toys and stationery.',
+  footAbout: 'Grocery and fashion in An Lac, Binh Tan — dry food, clothing, homeware, appliances, toys and stationery.',
   footShop: 'Shop',
   footHelp: 'Support',
   footContact: 'Contact',
@@ -240,4 +244,13 @@ export default {
   shipFree: 'Your order qualifies for free city delivery.',
   shipShortfall: 'Add {amount} more for free delivery.',
   documentTitle: '{page} · Bách Hoá & Thời Trang 7MAP',
+
+  // Catalogue paging and loading — the POS import runs to thousands of lines
+  // per department, so the listing is paged.
+  loadingCatalogue: 'Loading the catalogue…',
+  pagerLabel: 'Pagination',
+  pagePrev: 'Previous',
+  pageNext: 'Next',
+  pageNumber: 'Page {n}',
+  pageOf: 'page {page} of {pages}',
 };

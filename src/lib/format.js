@@ -1,8 +1,19 @@
+import { storeInfo } from '../config.js';
+
 /**
  * Formatting helpers. Prices and quantities render with
  * `font-variant-numeric: tabular-nums` in the stylesheet so figures line up
  * between rows.
  */
+
+/**
+ * The hotline as each audience writes it — `070 779 6663` in Vietnamese, the
+ * international `+84 70 779 6663` in English. Same digits either way; only the
+ * grouping differs, and `storeInfo.hotlineHref` remains the dialable form.
+ */
+export function hotlineFor(lang) {
+  return storeInfo.hotline[lang === 'en' ? 'en' : 'vi'];
+}
 
 /**
  * Money, e.g. 175000 → "175.000₫" (vi) or "175,000₫" (en).
@@ -15,6 +26,23 @@
 export function money(amount, lang = 'vi') {
   const locale = lang === 'en' ? 'en-US' : 'vi-VN';
   return `${Math.round(amount).toLocaleString(locale)}₫`;
+}
+
+/**
+ * Fold a string for searching: no diacritics, no case.
+ *
+ * Vietnamese shoppers type without tone marks — "gao" for "Gạo", "quan lot" for
+ * "Quần lót" — and a plain `includes()` on the raw name finds neither. NFD
+ * splits each letter from its accents so the combining marks can be dropped;
+ * đ/Đ carry no combining mark and are mapped by hand.
+ */
+export function fold(value) {
+  return String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase();
 }
 
 /** Discount as a whole percent; 0 when the product has no previous price. */

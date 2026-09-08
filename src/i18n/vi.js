@@ -9,23 +9,39 @@ export default {
   // Utility bar
   topHotline: 'Đặt hàng qua Zalo / điện thoại:',
   topShip: 'Miễn phí giao hàng nội thành cho đơn từ 300.000₫',
+  utilSupport: 'Hỗ trợ', // (new)
+  utilZalo: 'Zalo', // (new)
+  utilWholesale: 'Bán sỉ', // (new)
+  utilTrack: 'Tra cứu đơn', // (new) — placeholder, not built
+  utilAccount: 'Tài khoản', // (new) — placeholder, not built
+  comingSoon: 'Sắp có', // (new)
   langLabel: 'Ngôn ngữ', // (new)
 
   // Header + nav
-  tagline: 'Bách hoá & thời trang · TP.HCM',
+  tagline: 'TP.HCM, Việt Nam',
+  brandName: 'Bách hoá & Thời trang', // (new) — the logo supplies "7MAP"
   searchPh: 'Tìm mì gói, nồi cơm điện, tã em bé…',
   searchBtn: 'Tìm',
   searchLabel: 'Tìm sản phẩm', // (new)
   trendingLabel: 'Tìm nhiều:', // (new)
   zaloChat: 'Nhắn tin Zalo', // (new)
+  zaloMenuTitle: 'Bạn cần hỗ trợ về?', // (new)
+  zaloFeedback: 'Góp ý', // (new)
+  zaloReturns: 'Đổi trả', // (new)
+  zaloDelivery: 'Giao hàng', // (new)
+  zaloWarranty: 'Bảo hành', // (new)
+  zaloWholesale: 'Mua sỉ', // (new)
+  zaloCharity: 'Từ thiện', // (new)
+  zaloVendor: 'Cần chào hàng', // (new)
+  zaloJobs: 'Tìm việc', // (new)
+  zaloPartner: 'Tìm đại lý · phân phối · sản xuất', // (new)
   cart: 'Giỏ hàng',
   cartCountLabel: 'sản phẩm trong giỏ', // (new)
   navHome: 'Trang chủ',
   navCats: 'Danh mục sản phẩm',
-  navPrograms: 'Chương trình', // (new)
   navContact: 'Liên hệ',
   navPolicy: 'Chính sách',
-  navNote: 'Giá tại quầy · cập nhật hằng tuần',
+  navNote: 'Liên hệ Giá sỉ · Giá combo · Đồng giá',
   skipToContent: 'Bỏ qua, tới nội dung chính', // (new)
   mainNavLabel: 'Điều hướng chính', // (new)
   homeLink: 'Về trang chủ Bách Hoá & Thời Trang 7MAP', // (new)
@@ -44,13 +60,15 @@ export default {
 
   // Home — trust strip
   tr1: 'Miễn phí giao hàng',
-  tr1s: 'Đơn từ 300.000₫ nội thành TP.HCM',
+  tr1s: 'Hoả tốc · Nhanh · Tiết kiệm — đơn từ 300.000₫',
   tr2: 'Đổi trả trong 7 ngày',
   tr2s: 'Giữ nguyên tem, nhãn và hoá đơn',
   tr3: 'Đặt qua Zalo',
   tr3s: 'Nhắn tin danh sách, nhân viên soạn đơn',
   tr4: 'Bảo hành chính hãng',
   tr4s: '12 tháng cho thiết bị điện',
+  tr5: 'Tích điểm chiết khấu', // (new)
+  tr5s: '1 điểm mỗi 10.000₫ · đổi voucher',
 
   // Home — sections
   catsTitle: 'Danh mục nổi bật',
@@ -75,10 +93,13 @@ export default {
   suggestedTitle: 'Gợi ý cho bạn', // (new)
   suggestedSub: 'Đồ du lịch, dã ngoại và tiện ích mang theo', // (new)
   homeH1: 'Bách Hoá & Thời Trang 7MAP — vựa gạo, bách hoá và thời trang tại Bình Tân, TP.HCM', // (new)
+  videoPending: 'Video sắp có', // (new)
+  videoHint: 'Video giới thiệu cửa hàng — đặt tại videos/store.mp4', // (new)
+  videoLabel: 'Video giới thiệu cửa hàng', // (new)
   bannerAlt: 'Vựa gạo 7Map — gạo ngon từ đất Việt, hotline 070 779 6663', // (new)
 
   // Home — store band
-  storeKicker: 'Ghé siêu thị',
+  storeKicker: 'Ghé cửa hàng',
   storeTitle: 'Một cửa hàng lớn tại An Lạc, Bình Tân',
   storeSub: 'Mặt bằng rộng, lối đi thoáng, có bãi giữ xe. Nhân viên hỗ trợ soạn đơn số lượng lớn cho quán ăn và văn phòng.',
   storeCta: 'Xem thông tin liên hệ',
@@ -147,7 +168,7 @@ export default {
   fPhonePh: '0909 000 000',
   fAddr: 'Địa chỉ giao hàng',
   fDeliveryAddr: 'Địa chỉ nhận hàng', // (new)
-  fAddrPh: 'Số nhà, đường, phường, quận',
+  fAddrPh: 'Số nhà, Đường, Xã/Phường, Quận/Huyện, Tỉnh/Thành phố',
   fNote: 'Ghi chú',
   fNotePh: 'Giao buổi chiều, gọi trước khi tới…',
   placeOrder: 'Xác nhận đặt hàng',
@@ -161,7 +182,7 @@ export default {
   errSummary: 'Vui lòng kiểm tra lại các ô được đánh dấu.', // (new)
   submitting: 'Đang gửi…', // (new)
   doneTitle: 'Đã nhận đơn hàng!',
-  doneSub: 'Cảm ơn bạn. Nhân viên siêu thị sẽ gọi xác nhận và hẹn giờ giao trong ít phút.',
+  doneSub: 'Cảm ơn bạn. Nhân viên cửa hàng sẽ gọi xác nhận và hẹn giờ giao trong ít phút.',
   orderNo: 'Mã đơn:',
   backHome: 'Về trang chủ',
 
@@ -186,23 +207,6 @@ export default {
   errMsg: 'Vui lòng nhập nội dung tin nhắn', // (new)
   contactSent: 'Đã gửi tin nhắn. Chúng tôi sẽ liên hệ lại trong một ngày làm việc.', // (new)
 
-  // Programmes (new)
-  programsTitle: 'Chương trình đang áp dụng',
-  programsSub: 'Các chương trình ưu đãi đang chạy tại Bách Hoá & Thời Trang 7MAP. Điều kiện đầy đủ nằm trong từng chính sách.',
-  programActive: 'Đang áp dụng',
-  programTerms: 'Xem điều kiện đầy đủ',
-  progLoyaltyTitle: 'Tích điểm chiết khấu',
-  progLoyaltySummary: 'Mua sắm tích điểm, đổi điểm lấy voucher chiết khấu cho lần mua sau.',
-  progLoyaltyB1: 'Mỗi {per} giá trị hàng hoá được 1 điểm',
-  progLoyaltyB2: '{points} điểm đổi 1 voucher chiết khấu {value}',
-  progLoyaltyB3: 'Voucher dùng cho lần mua tiếp theo — không tách hoá đơn để dùng ngay',
-  progLoyaltyB4: 'Voucher có hạn sử dụng {months} tháng kể từ ngày phát hành',
-  progShipTitle: 'Miễn phí giao hàng nội thành',
-  progShipSummary: 'Đơn hàng từ {amount} được miễn phí giao trong nội thành TP.HCM.',
-  progShipB1: 'Miễn phí cho đơn từ {amount} trong bán kính 7km',
-  progShipB2: 'Đặt trước 15:00 được giao trong ngày',
-  progShipB3: 'Đơn nhỏ hơn hoặc xa hơn tính phí 25.000₫ – 45.000₫ tuỳ khoảng cách',
-
   // Policies
   policyTitle: 'Chính sách khách hàng',
   policySub: 'Điều kiện đổi trả, giao hàng, bảo hành và bảo mật thông tin tại Bách Hoá & Thời Trang 7MAP.',
@@ -213,7 +217,7 @@ export default {
   policyNavLabel: 'Danh sách chính sách', // (new)
 
   // Footer
-  footAbout: 'Siêu thị tổng hợp tại An Lạc, Bình Tân — thực phẩm khô, quần áo, gia dụng, thiết bị điện, đồ chơi và văn phòng phẩm.',
+  footAbout: 'Bách hoá & thời trang tại An Lạc, Bình Tân — thực phẩm khô, quần áo, gia dụng, thiết bị điện, đồ chơi và văn phòng phẩm.',
   footShop: 'Mua sắm',
   footHelp: 'Hỗ trợ',
   footContact: 'Liên hệ',
@@ -241,4 +245,13 @@ export default {
   shipFree: 'Đơn của bạn được miễn phí giao hàng nội thành.',
   shipShortfall: 'Mua thêm {amount} để được miễn phí giao hàng.',
   documentTitle: '{page} · Bách Hoá & Thời Trang 7MAP', // (new)
+
+  // Catalogue paging and loading — the POS import runs to thousands of lines
+  // per department, so the listing is paged.
+  loadingCatalogue: 'Đang tải danh mục sản phẩm…',
+  pagerLabel: 'Phân trang',
+  pagePrev: 'Trước',
+  pageNext: 'Sau',
+  pageNumber: 'Trang {n}',
+  pageOf: 'trang {page}/{pages}',
 };

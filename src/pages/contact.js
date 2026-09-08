@@ -1,6 +1,6 @@
 import { h } from '../core/dom.js';
 import { storeInfo } from '../config.js';
-import { imageWell } from '../components/image.js';
+import { hotlineFor } from '../lib/format.js';
 import { field, selectField } from '../components/field.js';
 import { submitContactMessage } from '../lib/orders.js';
 
@@ -31,7 +31,7 @@ function detailsColumn({ t, lang }) {
         'div',
         { class: 'info-card' },
         h('h2', { class: 'info-card__label' }, t('hotlineH')),
-        h('a', { class: 'info-card__hotline', href: `tel:${storeInfo.hotlineHref}` }, storeInfo.hotline),
+        h('a', { class: 'info-card__hotline', href: `tel:${storeInfo.hotlineHref}` }, hotlineFor(lang)),
         h('p', { class: 'info-card__note' }, t('zaloNote')),
       ),
       h(
@@ -53,15 +53,19 @@ function detailsColumn({ t, lang }) {
         `${t('openMap')} →`,
       ),
     ),
+    // A live Google Maps embed rather than a screenshot: always current, needs
+    // no asset, and the shop's own listing (with its photos) is one tap away.
+    // `output=embed` needs no API key. Lazy so it costs nothing until scrolled to.
     h(
       'div',
       { class: 'contact-map' },
-      imageWell({
-        src: '/images/store-map.jpg',
-        alt: t('mapAlt'),
-        className: 'well--cover',
-        label: t('imagePending'),
-        hint: 'Map screenshot of the store location, 1200×600',
+      h('iframe', {
+        class: 'contact-map__frame',
+        src: `https://www.google.com/maps?q=${encodeURIComponent(storeInfo.addressVi)}&output=embed`,
+        title: t('mapAlt'),
+        loading: 'lazy',
+        referrerpolicy: 'no-referrer-when-downgrade',
+        allowfullscreen: '',
       }),
     ),
   );

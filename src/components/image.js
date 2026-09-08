@@ -1,5 +1,6 @@
 import { h } from '../core/dom.js';
 import { asset } from '../core/base.js';
+import { responsiveSources } from '../lib/images.js';
 
 /**
  * An image well: a warm-tinted, fixed-ratio frame with a real `<img>` inside.
@@ -22,14 +23,26 @@ export function imageWell({
   eager = false,
   sizes,
 }) {
-  const img = h('img', {
-    class: 'well__img',
-    src: asset(src),
-    alt,
-    loading: eager ? 'eager' : 'lazy',
-    decoding: 'async',
-    sizes,
-  });
+  // Most of the imported catalogue has no web-sized photo yet. An `<img src="">`
+  // resolves to the page itself and behaves differently in every browser, so a
+  // record without an image gets no `<img>` at all — just the placeholder that
+  // would have shown through anyway.
+  // Pre-generated size variants, so a 262px card does not download an 800px
+  // photo. See lib/images.js — the widths must match tools/make_variants.py.
+  const sources = responsiveSources(src);
+  const img = src
+    ? h('img', {
+        class: 'well__img',
+        src: asset(sources ? sources.src : src),
+        srcset: sources
+          ? sources.candidates.map(([path, width]) => `${asset(path)} ${width}w`).join(', ')
+          : null,
+        alt,
+        loading: eager ? 'eager' : 'lazy',
+        decoding: 'async',
+        sizes: sources ? sizes : null,
+      })
+    : null;
 
   const well = h(
     'div',
@@ -43,6 +56,19 @@ export function imageWell({
     img,
   );
 
-  img.addEventListener('error', () => well.classList.add('is-missing'));
+  if (img) {
+    img.addEventListener('error', () => {
+      // A missing variant should degrade to the master, not to a placeholder.
+      // Dropping srcset makes the browser retry with `src` alone; only if that
+      // fails too is the photo genuinely absent.
+      if (img.hasAttribute('srcset')) {
+        img.removeAttribute('srcset');
+        img.removeAttribute('sizes');
+        img.src = asset(src);
+        return;
+      }
+      well.classList.add('is-missing');
+    });
+  }
   return well;
 }
