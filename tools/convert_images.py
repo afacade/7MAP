@@ -58,9 +58,16 @@ def sniff(data: bytes) -> str | None:
 def strip_padding(data: bytes) -> bytes:
     """Drop the NUL padding the WebDAV mount appends.
 
-    Only trailing zeros are removed, so a file that genuinely ends in a zero
-    byte loses nothing a decoder needs — every format here ends on a marker.
+    PNG and JPEG end on a marker (the IEND chunk, FFD9), so stripping trailing
+    zeros only ever removes padding. BMP has no end marker: its last bytes are
+    pixels, and a black edge makes them zeros. Stripping those cut real data off
+    21540103 and 21540301 and Pillow rejected both as truncated. A BMP records
+    its own length in the header, so it is cut there instead.
     """
+    if data[:2] == b"BM" and len(data) >= 6:
+        declared = int.from_bytes(data[2:6], "little")
+        if 54 <= declared <= len(data):
+            return data[:declared]
     end = len(data)
     while end > 0 and data[end - 1] == 0:
         end -= 1
