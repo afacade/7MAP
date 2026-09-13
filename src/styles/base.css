@@ -49,6 +49,13 @@ img {
   display: block;
 }
 
+/* The `hidden` attribute has to win. The browser's own [hidden] rule loses to
+   any class that sets `display` — below 960px the filter drawer's backdrop
+   stayed on screen while hidden and swallowed every tap on the catalogue. */
+[hidden] {
+  display: none !important;
+}
+
 /* --c-orange-display is reserved for large text; a body link is 13–15px, so
    links take the AA-rated text orange. */
 a {
