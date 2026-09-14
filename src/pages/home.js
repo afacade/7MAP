@@ -8,6 +8,7 @@ import { asset } from '../core/base.js';
 import { productCard, bestSellerCard, flashCard } from '../components/product-card.js';
 import { flashCountdown } from '../components/countdown.js';
 import { carousel } from '../components/carousel.js';
+import { categoryStrip } from '../components/category-strip.js';
 import { decorate, bestSellers, shelfProducts, flashProducts } from '../lib/catalog.js';
 
 /**
@@ -27,6 +28,8 @@ export function homePage(ctx) {
   return h(
     'div',
     null,
+    // The Shopee-style "Danh mục" row comes first, at the shop's request.
+    band('plain', categoryStrip(ctx, { className: 'section' })),
     // "Gợi ý cho bạn" sits above the hero, at the shop's request — the first
     // thing a returning customer sees is stock, not artwork.
     band('tint', shelfSection(ctx, {

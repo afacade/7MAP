@@ -8,7 +8,6 @@
 export default {
   // Utility bar
   topHotline: 'Đặt hàng qua Zalo / điện thoại:',
-  topShip: 'Miễn phí giao hàng nội thành cho đơn từ 300.000₫',
   utilSupport: 'Hỗ trợ', // (new)
   utilZalo: 'Zalo', // (new)
   utilWholesale: 'Bán sỉ', // (new)
@@ -38,10 +37,11 @@ export default {
   cart: 'Giỏ hàng',
   cartCountLabel: 'sản phẩm trong giỏ', // (new)
   navHome: 'Trang chủ',
-  navCats: 'Danh mục sản phẩm',
+  navCats: 'Sản phẩm',
   navContact: 'Liên hệ',
   navPolicy: 'Chính sách',
   navNote: 'Liên hệ Giá sỉ · Giá combo · Đồng giá',
+  navNoteTitle: 'Hỏi giá qua Zalo của cửa hàng', // (new)
   skipToContent: 'Bỏ qua, tới nội dung chính', // (new)
   mainNavLabel: 'Điều hướng chính', // (new)
   homeLink: 'Về trang chủ Bách Hoá & Thời Trang 7MAP', // (new)
@@ -59,8 +59,8 @@ export default {
   b3Sub: 'Áp dụng cho đồ chơi xếp hình và văn phòng phẩm',
 
   // Home — trust strip
-  tr1: 'Miễn phí giao hàng',
-  tr1s: 'Hoả tốc · Nhanh · Tiết kiệm — đơn từ 300.000₫',
+  tr1: 'Giao hàng Hoả tốc',
+  tr1s: 'Giao hàng Nhanh · Giao hàng Tiết kiệm',
   tr2: 'Đổi trả trong 7 ngày',
   tr2s: 'Giữ nguyên tem, nhãn và hoá đơn',
   tr3: 'Đặt qua Zalo',
@@ -71,7 +71,7 @@ export default {
   tr5s: '1 điểm mỗi 10.000₫ · đổi voucher',
 
   // Home — sections
-  catsTitle: 'Danh mục nổi bật',
+  catsTitle: 'Danh mục',
   catsSub: '10 nhóm hàng, hơn 4.000 mặt hàng tại quầy',
   viewAll: 'Xem tất cả',
   carouselPrev: 'Xem các sản phẩm trước', // (new)
@@ -153,7 +153,7 @@ export default {
   summary: 'Tóm tắt đơn hàng',
   subtotal: 'Tạm tính',
   shipping: 'Phí giao hàng',
-  grandTotal: 'Tổng cộng',
+  grandTotal: 'Tổng tiền hàng',
   checkout: 'Tiến hành đặt hàng',
   keepShopping: 'Tiếp tục mua sắm',
   addedToCart: 'Đã thêm {name} vào giỏ hàng', // (new)
@@ -225,7 +225,6 @@ export default {
   footPay: 'Thanh toán: Chuyển khoản ngân hàng',
 
   // Shared
-  freeLabel: 'Miễn phí',
   cur: '₫',
   itemsCount: '{n} mặt hàng', // (new)
   productsCount: '{n} sản phẩm', // (new)
@@ -242,8 +241,8 @@ export default {
   specOriginVal: 'Việt Nam',
   specReturns: 'Đổi trả',
   specReturnsVal: 'Trong 7 ngày',
-  shipFree: 'Đơn của bạn được miễn phí giao hàng nội thành.',
-  shipShortfall: 'Mua thêm {amount} để được miễn phí giao hàng.',
+  shipConfirm: 'Nhân viên báo khi xác nhận đơn', // (new)
+  shipNote: 'Phí giao hàng tuỳ hình thức Hoả tốc, Nhanh hoặc Tiết kiệm bạn chọn — nhân viên báo trước khi chốt đơn.', // (new)
   documentTitle: '{page} · Bách Hoá & Thời Trang 7MAP', // (new)
 
   // Catalogue paging and loading — the POS import runs to thousands of lines

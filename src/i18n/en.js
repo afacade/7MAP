@@ -7,7 +7,6 @@
 export default {
   // Utility bar
   topHotline: 'Order by Zalo / phone:',
-  topShip: 'Free city delivery on orders over 300,000₫',
   utilSupport: 'Support',
   utilZalo: 'Zalo',
   utilWholesale: 'Wholesale',
@@ -37,10 +36,11 @@ export default {
   cart: 'Cart',
   cartCountLabel: 'items in cart',
   navHome: 'Home',
-  navCats: 'Product categories',
+  navCats: 'Products',
   navContact: 'Contact',
   navPolicy: 'Policies',
   navNote: 'Wholesale · combo · flat pricing — ask us',
+  navNoteTitle: "Ask on the shop's Zalo",
   skipToContent: 'Skip to main content',
   mainNavLabel: 'Main navigation',
   homeLink: 'Back to the Bách Hoá & Thời Trang 7MAP home page',
@@ -58,8 +58,8 @@ export default {
   b3Sub: 'On building blocks and stationery',
 
   // Home — trust strip
-  tr1: 'Free delivery',
-  tr1s: 'Express · Fast · Economy — orders over 300,000₫',
+  tr1: 'Express delivery',
+  tr1s: 'Fast delivery · Economy delivery',
   tr2: '7-day exchanges',
   tr2s: 'Keep the seal, label and receipt',
   tr3: 'Order via Zalo',
@@ -70,7 +70,7 @@ export default {
   tr5s: '1 point per 10,000₫ · redeem for vouchers',
 
   // Home — sections
-  catsTitle: 'Shop by category',
+  catsTitle: 'Categories',
   catsSub: '10 departments, over 4,000 items in store',
   viewAll: 'View all',
   carouselPrev: 'Previous products',
@@ -152,7 +152,7 @@ export default {
   summary: 'Order summary',
   subtotal: 'Subtotal',
   shipping: 'Delivery',
-  grandTotal: 'Total',
+  grandTotal: 'Goods total',
   checkout: 'Proceed to order',
   keepShopping: 'Keep shopping',
   addedToCart: 'Added {name} to your cart',
@@ -224,7 +224,6 @@ export default {
   footPay: 'Payment: Bank transfer',
 
   // Shared
-  freeLabel: 'Free',
   cur: '₫',
   itemsCount: '{n} items',
   productsCount: '{n} products',
@@ -241,8 +240,8 @@ export default {
   specOriginVal: 'Vietnam',
   specReturns: 'Returns',
   specReturnsVal: 'Within 7 days',
-  shipFree: 'Your order qualifies for free city delivery.',
-  shipShortfall: 'Add {amount} more for free delivery.',
+  shipConfirm: 'Confirmed by staff with your order',
+  shipNote: 'The delivery fee depends on the option you choose — express, fast or economy — and staff confirm it before packing.',
   documentTitle: '{page} · Bách Hoá & Thời Trang 7MAP',
 
   // Catalogue paging and loading — the POS import runs to thousands of lines

@@ -31,10 +31,11 @@ export function loyaltyRow(totals, t) {
   );
 }
 
-/** Subtotal + delivery, shared by both summaries. */
+/**
+ * The delivery line, shared by both summaries. Staff quote delivery when they
+ * confirm the order, so the goods total that follows is the whole figure the
+ * site knows; a subtotal row would only repeat it.
+ */
 export function totalsRows(totals, t) {
-  return [
-    summaryRow(t('subtotal'), totals.subtotalStr),
-    summaryRow(t('shipping'), totals.shippingStr, { free: totals.shippingIsFree }),
-  ];
+  return [summaryRow(t('shipping'), totals.shippingStr)];
 }

@@ -69,6 +69,8 @@ export const SIZES = {
   thumb: '(max-width: 960px) 22vw, 140px',
   // fixed 62px tile in a cart row
   thumbnail: '62px',
+  // round department icon in the "Danh mục" strip
+  icon: '88px',
   // wide decorative panels
   wide: '(max-width: 960px) 96vw, 560px',
 };

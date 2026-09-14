@@ -6,6 +6,7 @@ import { getCategory, sortOptions } from '../data/categories.js';
 import { isLoaded } from '../data/catalogue.js';
 import { decorate, decorateCategories, decoratePriceBands, queryCatalogue } from '../lib/catalog.js';
 import { productCard } from '../components/product-card.js';
+import { categoryStrip } from '../components/category-strip.js';
 
 /**
  * Category listing. Filters live in the query string — `?cat=&band=&sort=&q=` —
@@ -50,6 +51,7 @@ export function categoriesPage(ctx) {
       ' / ',
       h('span', { class: 'breadcrumb__current' }, t('navCats')),
     ),
+    categoryStrip(ctx, { active: category ? cat : null }),
     h(
       'div',
       { class: 'catalogue' },

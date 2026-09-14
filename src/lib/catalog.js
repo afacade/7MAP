@@ -1,4 +1,4 @@
-import { allProducts, getProduct, countByCategory } from '../data/catalogue.js';
+import { allProducts, getProduct, countByCategory, isLoaded } from '../data/catalogue.js';
 import { categories, getCategory, priceBands } from '../data/categories.js';
 import { config } from '../config.js';
 import { money, discountPercent, fold } from './format.js';
@@ -59,6 +59,24 @@ export function decorateCategories(lang, t) {
       name: lang === 'vi' ? category.nameVi : category.nameEn,
       countLabel: t('itemsCount', { n: count }),
       image: category.image || getProduct(category.heroProduct)?.image || '',
+    }));
+}
+
+/**
+ * Departments for the "Danh mục" strip on the home and products pages.
+ *
+ * Same rule as the sidebar - a department with nothing in stock is left out -
+ * but applied only once the imported catalogue has loaded. Before that only the
+ * 55 curated products are counted, and the four departments they do not cover
+ * would pop in a moment after the first paint.
+ */
+export function stripCategories(lang) {
+  return categories
+    .filter((c) => !isLoaded() || countByCategory(c.id) > 0)
+    .map((c) => ({
+      id: c.id,
+      name: lang === 'vi' ? c.nameVi : c.nameEn,
+      image: c.image || getProduct(c.heroProduct)?.image || '',
     }));
 }
 
@@ -187,25 +205,23 @@ export function cartLines(cart, lang, t) {
 }
 
 /**
- * Subtotal, delivery and grand total.
+ * Goods total and the delivery line.
  *
- * An empty cart is charged nothing; otherwise delivery is free at or above the
- * threshold and a flat fee below it.
+ * Delivery is not priced on the site. The fee depends on the option the
+ * customer picks - Hoả tốc, Nhanh or Tiết kiệm - and on distance, so staff
+ * quote it when they confirm the order. `shipping` is null, meaning "not known
+ * yet", rather than 0, which would read as free.
  */
 export function orderTotals(lines, lang, t) {
   const subtotal = lines.reduce((n, line) => n + line.lineTotal, 0);
-  const isFree = subtotal >= config.freeShipThreshold;
-  const shipping = subtotal === 0 || isFree ? 0 : config.shippingFee;
-  const shortfall = Math.max(0, config.freeShipThreshold - subtotal);
 
   return {
     subtotal,
     subtotalStr: money(subtotal, lang),
-    shipping,
-    shippingStr: shipping === 0 ? t('freeLabel') : money(shipping, lang),
-    shippingIsFree: shipping === 0,
-    total: subtotal + shipping,
-    totalStr: money(subtotal + shipping, lang),
-    note: isFree ? t('shipFree') : t('shipShortfall', { amount: money(shortfall, lang) }),
+    shipping: null,
+    shippingStr: t('shipConfirm'),
+    total: subtotal,
+    totalStr: money(subtotal, lang),
+    note: t('shipNote'),
   };
 }

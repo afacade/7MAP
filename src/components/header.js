@@ -67,7 +67,6 @@ function utilityBar({ t, lang }) {
           `${t('topHotline')} `,
           h('a', { href: `tel:${storeInfo.hotlineHref}` }, hotlineFor(lang)),
         ),
-        h('span', { class: 'utility-bar__ship' }, t('topShip')),
       ),
       h(
         'div',
@@ -203,7 +202,7 @@ function header({ t, state, route }) {
 }
 
 function nav({ t, route }) {
-  // The product detail page keeps "Danh mục sản phẩm" lit, as specified.
+  // The product detail page keeps "Sản phẩm" lit, as specified.
   const active = route.name === 'product' ? 'categories' : route.name;
 
   const items = [
@@ -227,7 +226,19 @@ function nav({ t, route }) {
         item.label,
       ),
     ),
-    h('span', { class: 'site-nav__note' }, t('navNote')),
+    // Wholesale, combo and flat-price questions are handled on Zalo, so the
+    // note is a way in rather than a label.
+    h(
+      'a',
+      {
+        class: 'site-nav__note',
+        href: storeInfo.zaloUrl,
+        target: '_blank',
+        rel: 'noopener',
+        title: t('navNoteTitle'),
+      },
+      t('navNote'),
+    ),
   );
 
   // Full-bleed darker band behind the tabs.

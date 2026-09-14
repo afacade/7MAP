@@ -307,6 +307,92 @@
   margin-top: 2px;
 }
 
+/* --- "Danh mục" strip --- */
+
+/* Every department as a round photo over its name, after the marketplace
+   category row the shop asked for. The carousel pages it two rows at a time,
+   with --cats-per-row columns. */
+.cat-strip {
+  padding-top: 18px;
+  padding-bottom: 8px;
+}
+
+.cat-strip__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.cat-strip__title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.cat-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cats-per-row), minmax(0, 1fr));
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-panel);
+  background: var(--c-base);
+}
+
+.cat-strip__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 6px 12px;
+  color: var(--c-ink);
+  text-align: center;
+  border-radius: var(--r-panel);
+}
+
+.cat-strip__tile:hover {
+  color: var(--c-orange-text);
+  box-shadow: var(--shadow-tile);
+}
+
+/* The frame: round, white and positioned, because .well is absolute and fills
+   whatever frame holds it. The photo keeps the product wells' contain rule,
+   inset so the circle does not clip its corners. */
+.cat-strip__icon {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: min(84px, 100%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c-base);
+  border: 1px solid var(--c-border);
+  overflow: hidden;
+}
+
+.cat-strip__icon .well__img {
+  padding: 11%;
+}
+
+.cat-strip__tile.is-active .cat-strip__icon {
+  border-color: var(--c-orange);
+  box-shadow: 0 0 0 2px var(--c-orange);
+}
+
+.cat-strip__name {
+  font-size: 12.5px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.cat-strip__tile.is-active .cat-strip__name {
+  color: var(--c-orange-text);
+  font-weight: 700;
+}
+
 /* --- flash sale --- */
 
 .flash {
@@ -1337,6 +1423,7 @@
   :root,
   :root.cols-3 {
     --products-per-row: 3;
+    --cats-per-row: 8;
   }
 
   :root,
@@ -1406,6 +1493,7 @@
   :root,
   :root.cols-3 {
     --best-per-row: 2;
+    --cats-per-row: 6;
   }
 
   .flash__grid {
@@ -1505,6 +1593,7 @@
   :root,
   :root.cols-3 {
     --products-per-row: 2;
+    --cats-per-row: 5;
     --page-pad: 16px;
     --section-gap: 34px;
   }
@@ -1519,10 +1608,9 @@
     gap: 6px 16px;
   }
 
-  /* Too many links for a phone bar — drop the not-yet-built placeholders and
-     the shipping note, keeping the ones that actually go somewhere. */
-  .utility-bar__link.is-soon,
-  .utility-bar__ship {
+  /* Too many links for a phone bar — drop the not-yet-built placeholders,
+     keeping the ones that actually go somewhere. */
+  .utility-bar__link.is-soon {
     display: none;
   }
 
@@ -1719,6 +1807,7 @@
   :root,
   :root.cols-3 {
     --products-per-row: 1;
+    --cats-per-row: 4;
   }
 
   :root,

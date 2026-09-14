@@ -48,13 +48,6 @@
   text-decoration: underline;
 }
 
-/* DEVIATION, deliberate: the prototype dimmed this line to opacity .7. The
-   token table forbids alpha whites on orange (they fall to 2.3–4.3:1), so it
-   renders at full white. */
-.utility-bar__ship {
-  color: var(--c-on-orange);
-}
-
 .pulse-dot {
   width: 6px;
   height: 6px;
@@ -326,6 +319,15 @@
   color: var(--c-on-orange);
   font-weight: 500;
   white-space: nowrap;
+}
+
+/* It opens the shop's Zalo. The global a:hover would turn it orange on the
+   orange band, so hover keeps the white and underlines instead. */
+a.site-nav__note:hover,
+a.site-nav__note:focus-visible {
+  color: var(--c-on-orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* ========================================================== buttons ====== */

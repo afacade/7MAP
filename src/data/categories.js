@@ -3,7 +3,9 @@
  *
  * No dedicated department photography was supplied, so each tile borrows the
  * photo of a representative product (`heroProduct`). Set `image` on a category
- * to override that with a real department shot when one arrives.
+ * to override that with a real department shot when one arrives. The four
+ * with no curated product use `image` for a POS photo instead, picked for a
+ * clean white background so it sits well in the round "Danh mục" icon.
  *
  * Departments with nothing in stock are kept here but hidden from the
  * storefront until they have products — see `decorateCategories`.
@@ -20,7 +22,7 @@
 export const categories = [
   { id: 'women',   nameVi: 'Thời trang nữ',        nameEn: "Women's fashion",     heroProduct: 'bo-do-mac-nha-miliket' },
   { id: 'men',     nameVi: 'Thời trang nam',       nameEn: "Men's fashion",       heroProduct: 'ao-polo-phoi-khoi' },
-  { id: 'kids',    nameVi: 'Thời trang trẻ em',    nameEn: "Kids' fashion",       heroProduct: null },
+  { id: 'kids',    nameVi: 'Thời trang trẻ em',    nameEn: "Kids' fashion",       heroProduct: null, image: '/images/products/23585645.webp' },
   { id: 'baby',    nameVi: 'Sản phẩm cho bé',      nameEn: 'Baby products',       heroProduct: 'bo-do-be-ke-soc' },
   { id: 'shoes',   nameVi: 'Giày dép',             nameEn: 'Footwear',            heroProduct: 'dep-suc-de-day' },
   { id: 'bag',     nameVi: 'Túi xách & ví',        nameEn: 'Bags & wallets',      heroProduct: 'tui-dung-phu-kien' },
@@ -33,9 +35,9 @@ export const categories = [
   { id: 'clean',   nameVi: 'Vệ sinh & giặt giũ',   nameEn: 'Cleaning & laundry',  heroProduct: 'vien-tay-bon-cau' },
   { id: 'elec',    nameVi: 'Điện & phụ kiện',      nameEn: 'Electricals',         heroProduct: 'gang-tay-cach-dien' },
   { id: 'toys',    nameVi: 'Đồ chơi',              nameEn: 'Toys',                heroProduct: 'bo-do-choi-dung-cu' },
-  { id: 'stat',    nameVi: 'Văn phòng phẩm',       nameEn: 'Stationery',          heroProduct: null },
-  { id: 'worship', nameVi: 'Đồ thờ cúng',          nameEn: 'Worship & incense',   heroProduct: null },
-  { id: 'gift',    nameVi: 'Quà tặng & móc khóa',  nameEn: 'Gifts & keyrings',    heroProduct: null },
+  { id: 'stat',    nameVi: 'Văn phòng phẩm',       nameEn: 'Stationery',          heroProduct: null, image: '/images/products/8935001846413.webp' },
+  { id: 'worship', nameVi: 'Đồ thờ cúng',          nameEn: 'Worship & incense',   heroProduct: null, image: '/images/products/23335653.webp' },
+  { id: 'gift',    nameVi: 'Quà tặng & móc khóa',  nameEn: 'Gifts & keyrings',    heroProduct: null, image: '/images/products/23376168.webp' },
 ];
 
 const byId = new Map(categories.map((c) => [c.id, c]));

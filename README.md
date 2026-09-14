@@ -13,12 +13,13 @@ Vietnamese-primary, with a complete English toggle.
 
 Everything the shop curated is on the front page, in the order they asked for:
 
-1. **Gợi ý cho bạn** — the 14 travel and outdoor items; stock before artwork
-2. **Hero row** — store video on the left, the shop's banner on the right
-3. **Trust strip** — delivery, exchanges, Zalo, warranty, loyalty points
-4. **Sản phẩm bán chạy** — the top 5, each with the description written for it
-5. **Gợi ý riêng cho bạn** — the 36 household, clothing and food items
-6. **Store band** — address, hours, hotline
+1. **Danh mục** — every department as a round photo over its name, Shopee-style
+2. **Gợi ý cho bạn** — the 14 travel and outdoor items; stock before artwork
+3. **Hero row** — store video on the left, the shop's banner on the right
+4. **Trust strip** — delivery options, exchanges, Zalo, warranty, loyalty points
+5. **Sản phẩm bán chạy** — the top 5, each with the description written for it
+6. **Gợi ý riêng cho bạn** — the 36 household, clothing and food items
+7. **Store band** — address, hours, hotline
 
 The video slot is empty until a file lands at `videos/store.mp4`; see
 [`videos/README.md`](videos/README.md). It only enters the DOM once the browser
@@ -51,9 +52,14 @@ on a phone. The current page is tracked explicitly rather than derived from
 `scrollLeft`, so the arrows respond immediately instead of waiting on a scroll
 event that a smooth scroll has not produced yet.
 
-The department grid ("Danh mục nổi bật") was removed from the home page at the
-shop's request. Departments are still reachable from the nav and the category
-sidebar.
+The **"Danh mục" strip** tops both the home page and the products page:
+every department as a round photo over its name, two rows a page, paged
+sideways by the same carousel as the shelves (`--cats-per-row` sets the
+columns). It replaces the older "Danh mục nổi bật" tile grid, which the shop
+had asked to remove, with the Shopee-style row they asked for instead. Four
+departments have no curated product, so their icons borrow a POS photo — set
+`image` in [`src/data/categories.js`](src/data/categories.js) to change any of
+them.
 
 ## Running it
 
@@ -197,10 +203,14 @@ the selected payment method, the gallery thumbnail).
 
 ### Configuration
 
-`src/config.js` holds the four tweakables the handoff called out — default
-language, flash sale on/off, products per row (3 or 4), free-shipping threshold —
-plus the delivery fee and the store's address, hours and hotline. No page
-hard-codes a threshold or a phone number.
+`src/config.js` holds the tweakables the handoff called out — default language,
+flash sale on/off, products per row (3 or 4) — plus the store's address, hours
+and hotline. No page hard-codes a phone number.
+
+There is deliberately **no delivery fee or free-delivery threshold**. The shop
+quotes delivery per order, by option (Hoả tốc, Nhanh, Tiết kiệm) and distance,
+so the cart and checkout show the goods total and say that staff confirm the
+delivery fee with the order.
 
 ## What still needs doing
 
@@ -321,7 +331,7 @@ darkened: `--c-muted` `#8A7D75`→`#6F645E` (was 3.9:1) and `--c-muted-2`
 colour to `--c-orange`, because the white "7M" on them is 17px bold — not large
 text, so it needs 4.5:1.
 
-Four further places deliberately depart from the prototype:
+Three further places deliberately depart from the prototype:
 
 0. **Image wells are white and fit the photo whole** (`object-fit: contain`),
    where the design specified a warm tint (`#FAF7F5`) filled edge to edge. The
@@ -335,9 +345,7 @@ Four further places deliberately depart from the prototype:
 1. **Money formatting follows the active language** — `175.000₫` in Vietnamese,
    `175,000₫` in English. The prototype used `vi-VN` grouping in both, which put
    dot separators next to its own English copy ("orders over 300,000₫").
-2. **The utility bar's shipping note renders at full white**, not `opacity: .7`.
-   The token table forbids alpha whites on orange (they fall to 2.3–4.3:1).
-3. **The PDP price and both grand totals use `#C2603F`**, per the token table's
+2. **The PDP price and both grand totals use `#C2603F`**, per the token table's
    "orange display text" row, where the prototype markup used `#A64E30`. All
    three are large text, so the large-text contrast rule applies.
 

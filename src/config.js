@@ -27,10 +27,9 @@ export const config = {
    * ninety thousand DOM nodes in one go.
    */
   pageSize: 48,
-  /** Order subtotal (₫) at or above which delivery is free. */
-  freeShipThreshold: 300000,
-  /** Flat delivery fee (₫) below the threshold. */
-  shippingFee: 30000,
+  // No delivery fee or free-delivery threshold, deliberately: the shop quotes
+  // delivery per order, by option (Hoả tốc, Nhanh, Tiết kiệm) and distance,
+  // when staff confirm it. See orderTotals in lib/catalog.js.
 
   /**
    * Loyalty programme. Points are earned on the value of the goods, not on

@@ -102,6 +102,9 @@
      variables are read by the carousel to decide how many products fit a page —
      the stylesheet stays the single source of truth for layout. */
   --best-per-row: 5;
+  /* Departments per row in the "Danh mục" strip. The carousel shows two rows
+     a page, so 10 puts all 18 on one page on a desktop. */
+  --cats-per-row: 10;
 }
 
 :root.cols-3 {
