@@ -42,6 +42,9 @@ export default {
   navPolicy: 'Chính sách',
   navNote: 'Liên hệ Giá sỉ · Giá combo · Đồng giá',
   navNoteTitle: 'Hỏi giá qua Zalo của cửa hàng', // (new)
+  // "Gợi ý cho bạn" cells: delivery option and where the goods ship from
+  feedShip: 'Hoả tốc', // (new)
+  feedPlace: 'TP.HCM', // (new)
   skipToContent: 'Bỏ qua, tới nội dung chính', // (new)
   mainNavLabel: 'Điều hướng chính', // (new)
   homeLink: 'Về trang chủ Bách Hoá & Thời Trang 7MAP', // (new)

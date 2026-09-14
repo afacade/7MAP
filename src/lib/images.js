@@ -71,6 +71,9 @@ export const SIZES = {
   thumbnail: '62px',
   // round department icon in the "Danh mục" strip
   icon: '88px',
+  // marketplace-style cells on "Gợi ý cho bạn": photo edge to edge, two
+  // columns on a phone (see .feed-grid in components.css)
+  feed: '(max-width: 720px) 46vw, (max-width: 1180px) 31vw, 300px',
   // wide decorative panels
   wide: '(max-width: 960px) 96vw, 560px',
 };

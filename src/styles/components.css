@@ -610,6 +610,203 @@ a.site-nav__note:focus-visible {
   border-color: var(--c-orange);
 }
 
+/* --- feed cell: the "Gợi ý cho bạn" shelf --- */
+
+/* Marketplace-style cells after the Shopee feed the shop pointed at: white on
+   the shelf's tint, photo edge to edge, tight gaps, and two columns on every
+   phone, where the regular grid drops to one below 380px. */
+.feed-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(var(--feed-per-row), minmax(0, 1fr));
+}
+
+.feed-card {
+  --icon-truck: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'><path d='M2 6h12v10H2zM14 10h4l3 3v3h-7z'/><circle cx='6' cy='18' r='2' fill='black'/><circle cx='17' cy='18' r='2' fill='black'/></svg>");
+  --icon-pin: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'><path d='M12 22s7-7.1 7-12a7 7 0 1 0-14 0c0 4.9 7 12 7 12z'/><circle cx='12' cy='10' r='2.5'/></svg>");
+  --icon-cart: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M2 3h3l2.6 11.2a1 1 0 0 0 1 .8h9a1 1 0 0 0 1-.8L21 7H6'/><circle cx='9.5' cy='19.5' r='1.5' fill='black'/><circle cx='17' cy='19.5' r='1.5' fill='black'/></svg>");
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--c-base);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(31, 27, 24, 0.08);
+}
+
+.feed-card:hover {
+  border-color: var(--c-orange-brand);
+  box-shadow: var(--shadow-card);
+}
+
+.feed-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--c-base);
+}
+
+/* Edge to edge: the product wells inset their photo 4%, this one does not. */
+.feed-card__media .well__img {
+  padding: 0;
+}
+
+.feed-card__discount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--c-orange);
+  color: var(--c-on-orange);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-bottom-left-radius: 6px;
+}
+
+.feed-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px 10px;
+}
+
+/* Two lines, then an ellipsis; the reserved height keeps prices aligned
+   across a row even when one name is short. */
+.feed-card__name {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.35;
+  min-height: calc(2 * 1.35em);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.feed-card__name a {
+  color: var(--c-ink);
+}
+
+.feed-card__name a:hover {
+  color: var(--c-orange-text);
+}
+
+.feed-card__price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  margin-top: auto;
+}
+
+/* Orange like the reference. At 17px bold this is not "large text", so it
+   takes the 5.0:1 text orange rather than the brand hue. */
+.feed-card__price {
+  color: var(--c-orange-text);
+  font-size: 17px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.feed-card__cart {
+  margin-left: auto;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--c-border);
+  border-radius: 50%;
+  background: var(--c-base);
+  color: var(--c-orange-text);
+}
+
+.feed-card__cart::before,
+.feed-card__ship::before,
+.feed-card__place::before {
+  content: '';
+  flex: 0 0 auto;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.feed-card__cart::before {
+  --icon: var(--icon-cart);
+  width: 18px;
+  height: 18px;
+}
+
+.feed-card__cart:hover {
+  background: var(--c-orange);
+  border-color: var(--c-orange);
+  color: var(--c-on-orange);
+}
+
+.feed-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 12px;
+  color: var(--c-muted);
+  white-space: nowrap;
+}
+
+.feed-card__ship,
+.feed-card__place {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.feed-card__ship {
+  color: var(--c-teal);
+}
+
+.feed-card__ship::before {
+  --icon: var(--icon-truck);
+  width: 15px;
+  height: 15px;
+}
+
+.feed-card__place::before {
+  --icon: var(--icon-pin);
+  width: 13px;
+  height: 13px;
+}
+
+@media (max-width: 720px) {
+  .feed-grid {
+    gap: 8px;
+  }
+}
+
+/* The smallest phones give a cell about 140px. A full-size price plus the
+   cart button wrapped onto two lines there, so both shrink a little. */
+@media (max-width: 380px) {
+  .feed-card__body {
+    padding: 8px 8px 10px;
+  }
+
+  .feed-card__price {
+    font-size: 15.5px;
+  }
+
+  .feed-card__cart {
+    width: 30px;
+    height: 30px;
+  }
+}
+
 /* ========================================================= carousel ====== */
 
 /* Paged product shelf. Native scroll-snap does the work: a real swipe gesture

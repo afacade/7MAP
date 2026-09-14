@@ -105,6 +105,8 @@
   /* Departments per row in the "Danh mục" strip. The carousel shows two rows
      a page, so 10 puts all 18 on one page on a desktop. */
   --cats-per-row: 10;
+  /* Cells per row on the "Gợi ý cho bạn" shelf; two rows a page. */
+  --feed-per-row: 4;
 }
 
 :root.cols-3 {

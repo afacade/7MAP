@@ -5,7 +5,7 @@ import { hotlineFor } from '../lib/format.js';
 import { imageWell } from '../components/image.js';
 import { SIZES } from '../lib/images.js';
 import { asset } from '../core/base.js';
-import { productCard, bestSellerCard, flashCard } from '../components/product-card.js';
+import { productCard, bestSellerCard, flashCard, feedCard } from '../components/product-card.js';
 import { flashCountdown } from '../components/countdown.js';
 import { carousel } from '../components/carousel.js';
 import { categoryStrip } from '../components/category-strip.js';
@@ -36,6 +36,7 @@ export function homePage(ctx) {
       shelf: 'suggested',
       title: ctx.t('suggestedTitle'),
       sub: ctx.t('suggestedSub'),
+      look: 'feed',
     })),
     storeHero(ctx),
     config.showHeroPanel || config.showPromoBanners ? heroRow(ctx) : null,
@@ -292,27 +293,34 @@ function bestSellerSection(ctx) {
  *
  *   mode 'carousel'  two rows, the rest on swipeable pages (default)
  *   mode 'grid'      every product laid out vertically; the page scrolls
+ *   look 'feed'      marketplace-style cells (feedCard) instead of the card
  */
-function shelfSection(ctx, { shelf, title, sub, mode = 'carousel' }) {
+function shelfSection(ctx, { shelf, title, sub, mode = 'carousel', look = 'card' }) {
   const { t, lang } = ctx;
   const items = shelfProducts(shelf).map((p) => decorate(p, lang, t));
   if (!items.length) return null;
+
+  // 'feed' is the marketplace-style cell the shop asked for on "Gợi ý cho bạn":
+  // its own card, a tighter grid, and two columns even on the smallest phones.
+  const feed = look === 'feed';
+  const card = feed ? feedCard : productCard;
+  const gridClass = feed ? 'feed-grid' : 'product-grid';
 
   if (mode === 'grid') {
     return h(
       'section',
       { class: 'section section--spaced' },
       sectionHead({ title, sub }),
-      h('div', { class: 'product-grid' }, ...items.map((item) => productCard(item, ctx))),
+      h('div', { class: gridClass }, ...items.map((item) => card(item, ctx))),
     );
   }
 
   const strip = carousel({
     items,
-    renderItem: (item) => productCard(item, ctx),
+    renderItem: (item) => card(item, ctx),
     ctx,
-    gridClass: 'product-grid',
-    colsVar: '--products-per-row',
+    gridClass,
+    colsVar: feed ? '--feed-per-row' : '--products-per-row',
     label: title,
   });
 

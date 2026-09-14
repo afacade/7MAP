@@ -1424,6 +1424,7 @@
   :root.cols-3 {
     --products-per-row: 3;
     --cats-per-row: 8;
+    --feed-per-row: 3;
   }
 
   :root,
@@ -1594,6 +1595,7 @@
   :root.cols-3 {
     --products-per-row: 2;
     --cats-per-row: 5;
+    --feed-per-row: 2;
     --page-pad: 16px;
     --section-gap: 34px;
   }
@@ -1620,10 +1622,20 @@
     padding: 12px var(--page-pad);
   }
 
-  .search {
+  /* The search column (form plus trending chips) takes its own full-width row
+     under the logo and cart. It has to target .search-col, the bar's direct
+     child: aimed at the .search form inside it, this rule missed, and the
+     field shrank to 0px between the logo and the cart. */
+  .search-col {
     order: 3;
     flex-basis: 100%;
     max-width: none;
+  }
+
+  /* 16px stops iOS - Safari and Zalo's in-app browser - zooming the whole page
+     when the field is tapped. */
+  .search__input {
+    font-size: 16px;
   }
 
   /* On a phone the wordmark carries the brand on its own; repeating the name

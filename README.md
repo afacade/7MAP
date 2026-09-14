@@ -14,7 +14,7 @@ Vietnamese-primary, with a complete English toggle.
 Everything the shop curated is on the front page, in the order they asked for:
 
 1. **Danh mục** — every department as a round photo over its name, Shopee-style
-2. **Gợi ý cho bạn** — the 14 travel and outdoor items; stock before artwork
+2. **Gợi ý cho bạn** — the 14 travel and outdoor items, in Shopee-style cells; stock before artwork
 3. **Hero row** — store video on the left, the shop's banner on the right
 4. **Trust strip** — delivery options, exchanges, Zalo, warranty, loyalty points
 5. **Sản phẩm bán chạy** — the top 5, each with the description written for it

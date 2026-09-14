@@ -11,6 +11,7 @@ import { SIZES } from '../lib/images.js';
  *   default   image, badge, category, title, price row, unit, add button
  *   plain     related products — image, title, price only
  *   flash     the flash-sale variant with a discount chip and a sold bar
+ *   feed      the marketplace-style cell on the "Gợi ý cho bạn" shelf
  */
 export function productCard(product, ctx) {
   const { t } = ctx;
@@ -111,6 +112,48 @@ export function flashCard(product, ctx) {
   );
 }
 
+/**
+ * The marketplace-style cell on the "Gợi ý cho bạn" shelf, after the Shopee
+ * feed the shop pointed at: photo edge to edge, a two-line name, the price in
+ * orange with a small cart button beside it, and a delivery line under it.
+ *
+ * It carries only what the shop can stand behind. Shopee's sold counts,
+ * vouchers and countdowns are left out because there is no data for them; the
+ * discount tag shows only when a product has a real old price.
+ */
+export function feedCard(product, ctx) {
+  const { t } = ctx;
+
+  return h(
+    'article',
+    { class: 'feed-card' },
+    h(
+      'a',
+      { class: 'feed-card__media', href: productHref(product.id), tabindex: '-1', 'aria-hidden': 'true' },
+      imageWell({ src: product.image, alt: '', label: t('imagePending'), sizes: SIZES.feed }),
+      product.hasWas && h('span', { class: 'feed-card__discount' }, product.discountLabel),
+    ),
+    h(
+      'div',
+      { class: 'feed-card__body' },
+      h('h3', { class: 'feed-card__name' }, h('a', { href: productHref(product.id) }, product.name)),
+      h(
+        'div',
+        { class: 'feed-card__price-row' },
+        h('span', { class: 'feed-card__price' }, product.priceStr),
+        product.hasWas && h('span', { class: 'price--was' }, product.wasStr),
+        addButton(product, ctx, 'feed-card__cart', ''),
+      ),
+      h(
+        'div',
+        { class: 'feed-card__meta' },
+        h('span', { class: 'feed-card__ship' }, t('feedShip')),
+        h('span', { class: 'feed-card__place' }, t('feedPlace')),
+      ),
+    ),
+  );
+}
+
 /** The price row must wrap — unwrapped it overflows a narrow card. */
 function priceRow(product) {
   return h(
@@ -121,7 +164,9 @@ function priceRow(product) {
   );
 }
 
-function addButton(product, { t }, className) {
+/** `content` is the visible label; the feed card passes '' and shows an icon,
+ *  leaving the aria-label to name the action. */
+function addButton(product, { t }, className, content = t('addToCart')) {
   return h(
     'button',
     {
@@ -133,6 +178,6 @@ function addButton(product, { t }, className) {
         announce(t('addedToCart', { name: product.name }));
       },
     },
-    t('addToCart'),
+    content,
   );
 }

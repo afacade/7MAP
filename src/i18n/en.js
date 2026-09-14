@@ -41,6 +41,9 @@ export default {
   navPolicy: 'Policies',
   navNote: 'Wholesale · combo · flat pricing — ask us',
   navNoteTitle: "Ask on the shop's Zalo",
+  // "Gợi ý cho bạn" cells: delivery option and where the goods ship from
+  feedShip: 'Express',
+  feedPlace: 'HCMC',
   skipToContent: 'Skip to main content',
   mainNavLabel: 'Main navigation',
   homeLink: 'Back to the Bách Hoá & Thời Trang 7MAP home page',
