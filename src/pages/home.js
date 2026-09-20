@@ -1,7 +1,7 @@
 import { h } from '../core/dom.js';
-import { routes, href } from '../core/router.js';
+import { routes, href, policyHref } from '../core/router.js';
 import { config, storeInfo } from '../config.js';
-import { hotlineFor } from '../lib/format.js';
+import { hotlineFor, money } from '../lib/format.js';
 import { imageWell } from '../components/image.js';
 import { SIZES } from '../lib/images.js';
 import { asset } from '../core/base.js';
@@ -45,11 +45,14 @@ export function homePage(ctx) {
     config.showFlashSale ? flashSection(ctx) : null,
     // The shop asked for this one to scroll down the page rather than page
     // sideways — it is the browse-everything shelf, so all 36 are laid out.
+    // Same marketplace cell as "Gợi ý cho bạn", with two policy tiles woven in.
     band('tint', shelfSection(ctx, {
       shelf: 'for-you',
       title: ctx.t('forYouTitle'),
       sub: ctx.t('forYouSub'),
       mode: 'grid',
+      look: 'feed',
+      tiles: feedTiles(ctx),
     })),
     storeBand(ctx),
   );
@@ -294,24 +297,34 @@ function bestSellerSection(ctx) {
  *   mode 'carousel'  two rows, the rest on swipeable pages (default)
  *   mode 'grid'      every product laid out vertically; the page scrolls
  *   look 'feed'      marketplace-style cells (feedCard) instead of the card
+ *   tiles            `[{ at, node }]` woven into a grid at those indices
  */
-function shelfSection(ctx, { shelf, title, sub, mode = 'carousel', look = 'card' }) {
+function shelfSection(ctx, { shelf, title, sub, mode = 'carousel', look = 'card', tiles = [] }) {
   const { t, lang } = ctx;
   const items = shelfProducts(shelf).map((p) => decorate(p, lang, t));
   if (!items.length) return null;
 
-  // 'feed' is the marketplace-style cell the shop asked for on "Gợi ý cho bạn":
-  // its own card, a tighter grid, and two columns even on the smallest phones.
+  // 'feed' is the marketplace-style cell the shop asked for on both "Gợi ý"
+  // shelves: its own card, a tighter grid, and two columns even on the
+  // smallest phones.
   const feed = look === 'feed';
   const card = feed ? feedCard : productCard;
   const gridClass = feed ? 'feed-grid' : 'product-grid';
 
   if (mode === 'grid') {
+    const cells = items.map((item) => card(item, ctx));
+    // Back to front, so an earlier tile's index is not shifted by a later one.
+    [...tiles]
+      .sort((a, b) => b.at - a.at)
+      .forEach(({ at, node }) => {
+        if (node && at <= cells.length) cells.splice(at, 0, node);
+      });
+
     return h(
       'section',
       { class: 'section section--spaced' },
       sectionHead({ title, sub }),
-      h('div', { class: gridClass }, ...items.map((item) => card(item, ctx))),
+      h('div', { class: `${gridClass}${feed ? ' feed-grid--flow' : ''}` }, ...cells),
     );
   }
 
@@ -329,6 +342,70 @@ function shelfSection(ctx, { shelf, title, sub, mode = 'carousel', look = 'card'
     { class: 'section section--spaced' },
     sectionHead({ title, sub, controls: strip.controls }),
     strip.node,
+  );
+}
+
+/* ----------------------------------------------------------- feed tiles -- */
+
+/**
+ * The two tiles woven into "Gợi ý riêng cho bạn".
+ *
+ * Both describe services the shop already runs — wholesale quotes over Zalo,
+ * and the loyalty scheme in config.loyalty — so neither carries a countdown or
+ * an expiry, and neither needs campaign data to render. The shop is running no
+ * promotions; if that changes, a sale banner is a new tile, not an edit to
+ * these two.
+ *
+ * Positions are counted in cells, so a tile lands at the start of a row on a
+ * four-wide desktop grid and mid-row on a two-wide phone.
+ */
+function feedTiles(ctx) {
+  const { t, lang } = ctx;
+  const { dongPerPoint, pointsPerVoucher, voucherValue, voucherValidMonths } = config.loyalty;
+
+  return [
+    {
+      at: 4,
+      node: feedTile({
+        url: storeInfo.zaloUrl,
+        external: true,
+        kicker: t('tileZaloKicker'),
+        title: t('tileZaloTitle'),
+        sub: t('tileZaloSub'),
+        cta: t('tileZaloCta'),
+      }),
+    },
+    {
+      at: 13,
+      node: feedTile({
+        url: policyHref('tich-diem'),
+        alt: true,
+        kicker: t('tilePointsKicker'),
+        title: t('tilePointsTitle', { dong: money(dongPerPoint, lang) }),
+        sub: t('tilePointsSub', {
+          points: pointsPerVoucher,
+          value: money(voucherValue, lang),
+          months: voucherValidMonths,
+        }),
+        cta: t('tilePointsCta'),
+      }),
+    },
+  ];
+}
+
+function feedTile({ url, external, alt, kicker, title, sub, cta }) {
+  return h(
+    'a',
+    {
+      class: `feed-tile${alt ? ' feed-tile--alt' : ''}`,
+      href: url,
+      target: external ? '_blank' : null,
+      rel: external ? 'noopener' : null,
+    },
+    h('span', { class: 'feed-tile__kicker' }, kicker),
+    h('span', { class: 'feed-tile__title' }, title),
+    h('span', { class: 'feed-tile__sub' }, sub),
+    h('span', { class: 'feed-tile__cta' }, cta),
   );
 }
 

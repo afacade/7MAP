@@ -621,6 +621,14 @@ a.site-nav__note:focus-visible {
   grid-template-columns: repeat(var(--feed-per-row), minmax(0, 1fr));
 }
 
+/* The browse-everything variant on "Gợi ý riêng cho bạn": cells take their own
+   height instead of stretching to the tallest in the row, so the grid ends up
+   ragged along the bottom the way the reference feed does. The carousel shelf
+   keeps the default stretch — its pages look wrong with uneven rows. */
+.feed-grid--flow {
+  align-items: start;
+}
+
 .feed-card {
   --icon-truck: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'><path d='M2 6h12v10H2zM14 10h4l3 3v3h-7z'/><circle cx='6' cy='18' r='2' fill='black'/><circle cx='17' cy='18' r='2' fill='black'/></svg>");
   --icon-pin: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'><path d='M12 22s7-7.1 7-12a7 7 0 1 0-14 0c0 4.9 7 12 7 12z'/><circle cx='12' cy='10' r='2.5'/></svg>");
@@ -696,6 +704,31 @@ a.site-nav__note:focus-visible {
   color: var(--c-orange-text);
 }
 
+/* Ranking tag, inline ahead of the name. A classification, not an offer —
+   it says the shop sells a lot of this, it does not promise a discount.
+   Renders only when a product carries `badge`; none does yet. */
+.feed-card__tag {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: var(--c-orange);
+  color: var(--c-on-orange);
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.5;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+.feed-card__unit {
+  font-size: 12px;
+  color: var(--c-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .feed-card__price-row {
   display: flex;
   flex-wrap: wrap;
@@ -713,17 +746,29 @@ a.site-nav__note:focus-visible {
   font-variant-numeric: tabular-nums;
 }
 
+/* Sits in the photo's bottom corner rather than taking a slot in the price
+   row, where at phone width the price and a 34px button wrapped onto two
+   lines. Keeping it out of the body also leaves the delivery row the full
+   width of the cell, which it needs on a 375px screen. */
+.feed-card__top {
+  position: relative;
+}
+
 .feed-card__cart {
-  margin-left: auto;
-  width: 34px;
-  height: 34px;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  border: 1px solid var(--c-border);
+  border: 0;
   border-radius: 50%;
-  background: var(--c-base);
-  color: var(--c-orange-text);
+  background: var(--c-orange);
+  color: var(--c-on-orange);
+  box-shadow: 0 1px 4px rgba(220, 53, 17, 0.38);
 }
 
 .feed-card__cart::before,
@@ -743,17 +788,15 @@ a.site-nav__note:focus-visible {
 }
 
 .feed-card__cart:hover {
-  background: var(--c-orange);
-  border-color: var(--c-orange);
-  color: var(--c-on-orange);
+  background: var(--c-orange-hover);
 }
 
 .feed-card__meta {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--c-muted);
   white-space: nowrap;
 }
@@ -764,12 +807,29 @@ a.site-nav__note:focus-visible {
   align-items: center;
   gap: 3px;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
+/* Hoả tốc is the shop's paid priority option, not free delivery, so it does
+   not take the teal this palette reserves for free shipping. Solid orange:
+   white on --c-orange is 4.6:1, and it is the one orange fill in the cell with
+   real data behind it.
+
+   A two-column cell on a 375px phone leaves about 115px for this row and the
+   two labels want more, so the delivery option never shrinks and the location
+   truncates instead — the same way the reference clips "Thành phố H…". */
 .feed-card__ship {
-  color: var(--c-teal);
+  flex: 0 0 auto;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--c-orange);
+  color: var(--c-on-orange);
+  font-weight: 600;
+}
+
+.feed-card__place {
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .feed-card__ship::before {
@@ -782,6 +842,66 @@ a.site-nav__note:focus-visible {
   --icon: var(--icon-pin);
   width: 13px;
   height: 13px;
+}
+
+/* A shop-policy tile, woven into the feed the way the reference weaves its
+   banners in — it is what gives the grid its rhythm, and the largest block of
+   orange on the page. Typographic, with no photograph: a picture here competes
+   with the product shots either side of it.
+
+   Nothing here is a campaign. Both tiles describe standing services, so
+   neither carries a countdown or an expiry. */
+.feed-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 16px 14px 17px;
+  border-radius: 8px;
+  background: linear-gradient(150deg, var(--c-orange-brand), #c02a0c);
+  color: var(--c-on-orange);
+  box-shadow: 0 1px 3px rgba(31, 27, 24, 0.1);
+}
+
+.feed-tile--alt {
+  background: linear-gradient(150deg, var(--c-orange), #8f1f07);
+}
+
+.feed-tile:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.feed-tile__kicker {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: var(--ls-eyebrow-wide);
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.feed-tile__title {
+  margin: 6px 0 5px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: var(--ls-flat);
+  line-height: 1.15;
+}
+
+.feed-tile__sub {
+  font-size: 12.5px;
+  line-height: 1.4;
+  opacity: 0.94;
+}
+
+.feed-tile__cta {
+  margin-top: 12px;
+  padding: 6px 13px;
+  border-radius: var(--r-pill);
+  background: var(--c-base);
+  color: #c02a0c;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 @media (max-width: 720px) {
@@ -802,8 +922,14 @@ a.site-nav__note:focus-visible {
   }
 
   .feed-card__cart {
-    width: 30px;
-    height: 30px;
+    right: 6px;
+    bottom: 6px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .feed-tile__title {
+    font-size: 16.5px;
   }
 }
 

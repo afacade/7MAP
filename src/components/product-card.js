@@ -113,13 +113,23 @@ export function flashCard(product, ctx) {
 }
 
 /**
- * The marketplace-style cell on the "Gợi ý cho bạn" shelf, after the Shopee
- * feed the shop pointed at: photo edge to edge, a two-line name, the price in
- * orange with a small cart button beside it, and a delivery line under it.
+ * The marketplace-style cell on both "Gợi ý" shelves, after the Shopee feed
+ * the shop pointed at: photo edge to edge, a ranking tag and a two-line name,
+ * the pack size, the price in orange, and a delivery line under it. The cart
+ * button floats in the bottom corner rather than sitting in the price row,
+ * which buys back a line of height at phone width.
  *
- * It carries only what the shop can stand behind. Shopee's sold counts,
- * vouchers and countdowns are left out because there is no data for them; the
- * discount tag shows only when a product has a real old price.
+ * It carries only what the shop can stand behind. The shop runs no promotions,
+ * so there are no vouchers, no countdowns and no campaign stamps here — and no
+ * sold counts either, because nothing exports them yet. Two elements are built
+ * but dormant, and light up on their own the day the data exists:
+ *
+ *   discount tag   needs `was` on a product — none carries one today
+ *   ranking tag    needs `badge` ('Bán chạy' / 'Mới' / 'Giá tốt'), same
+ *
+ * Leaving them wired is deliberate. Do not fill either field to make the feed
+ * look busier: a struck-through price with no real campaign behind it is a
+ * false discount.
  */
 export function feedCard(product, ctx) {
   const { t } = ctx;
@@ -127,22 +137,39 @@ export function feedCard(product, ctx) {
   return h(
     'article',
     { class: 'feed-card' },
+    // The button cannot live inside the media link, so the two share a
+    // positioned wrapper and it sits in the photo's bottom corner.
     h(
-      'a',
-      { class: 'feed-card__media', href: productHref(product.id), tabindex: '-1', 'aria-hidden': 'true' },
-      imageWell({ src: product.image, alt: '', label: t('imagePending'), sizes: SIZES.feed }),
-      product.hasWas && h('span', { class: 'feed-card__discount' }, product.discountLabel),
+      'div',
+      { class: 'feed-card__top' },
+      h(
+        'a',
+        { class: 'feed-card__media', href: productHref(product.id), tabindex: '-1', 'aria-hidden': 'true' },
+        imageWell({ src: product.image, alt: '', label: t('imagePending'), sizes: SIZES.feed }),
+        product.hasWas && h('span', { class: 'feed-card__discount' }, product.discountLabel),
+      ),
+      addButton(product, ctx, 'feed-card__cart', ''),
     ),
     h(
       'div',
       { class: 'feed-card__body' },
-      h('h3', { class: 'feed-card__name' }, h('a', { href: productHref(product.id) }, product.name)),
+      // The tag sits inside the heading so the two-line clamp counts it —
+      // a tag on its own line would push the price out of alignment.
+      h(
+        'h3',
+        { class: 'feed-card__name' },
+        product.badge && h('span', { class: 'feed-card__tag' }, product.badge),
+        h('a', { href: productHref(product.id) }, product.name),
+      ),
+      // "Thùng 48 hộp", "Size 39–44". The reference has no such line; for a
+      // grocery it is the thing customers ask about most, so it takes the
+      // place Shopee gives its star rating.
+      product.unit && h('div', { class: 'feed-card__unit' }, product.unit),
       h(
         'div',
         { class: 'feed-card__price-row' },
         h('span', { class: 'feed-card__price' }, product.priceStr),
         product.hasWas && h('span', { class: 'price--was' }, product.wasStr),
-        addButton(product, ctx, 'feed-card__cart', ''),
       ),
       h(
         'div',

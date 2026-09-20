@@ -93,6 +93,18 @@ export default {
   featSub: 'Năm mặt hàng khách quay lại mua nhiều nhất',
   forYouTitle: 'Gợi ý riêng cho bạn', // (new)
   forYouSub: 'Hàng gia dụng, quần áo và thực phẩm chọn sẵn cho gia đình', // (new)
+  // The two tiles woven into the "Gợi ý riêng cho bạn" feed. Neither is a
+  // campaign — both are standing services with no end date, so they carry no
+  // countdown and need no promotion data. The shop runs no promotions; do not
+  // turn these into discount banners without a real campaign behind them.
+  tileZaloKicker: 'Mua số lượng lớn', // (new)
+  tileZaloTitle: 'Giá sỉ & giá combo', // (new)
+  tileZaloSub: 'Nhắn Zalo danh sách hàng, nhân viên soạn đơn và báo giá trong ngày.', // (new)
+  tileZaloCta: 'Nhắn Zalo', // (new)
+  tilePointsKicker: 'Tích điểm', // (new)
+  tilePointsTitle: '1 điểm mỗi {dong}', // (new)
+  tilePointsSub: '{points} điểm đổi voucher {value}, dùng trong {months} tháng.', // (new)
+  tilePointsCta: 'Xem cách tích điểm', // (new)
   suggestedTitle: 'Gợi ý cho bạn', // (new)
   suggestedSub: 'Đồ du lịch, dã ngoại và tiện ích mang theo', // (new)
   homeH1: 'Bách Hoá & Thời Trang 7MAP — vựa gạo, bách hoá và thời trang tại Bình Tân, TP.HCM', // (new)
