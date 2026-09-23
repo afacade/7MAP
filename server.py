@@ -26,6 +26,19 @@ ROOT = Path(__file__).parent.resolve()
 # gets from 404.html.
 STATIC_PREFIXES = ("/src/", "/images/", "/videos/", "/data/", "/design_handoff_7map_storefront/")
 
+# Media is cached; code and data are not.
+#
+# `no-store` on everything meant the browser re-downloaded every photograph on
+# every render. The homepage alone carries ~90 images, and main.js deliberately
+# re-renders once the imported catalogue resolves — so each of those was
+# fetched two or three times over, which is what made the grids fill in slowly.
+# Photographs change far less often than code during a session, so they get a
+# short cache and the app shell keeps revalidating.
+#
+# Replaced a photo and still seeing the old one? Hard-reload (Cmd/Ctrl+Shift+R).
+MEDIA_PREFIXES = ("/images/", "/videos/")
+MEDIA_MAX_AGE = 3600
+
 
 class StorefrontHandler(SimpleHTTPRequestHandler):
     extensions_map = {
@@ -50,7 +63,10 @@ class StorefrontHandler(SimpleHTTPRequestHandler):
         return translated
 
     def end_headers(self) -> None:
-        self.send_header("Cache-Control", "no-store, must-revalidate")
+        if self.path.startswith(MEDIA_PREFIXES):
+            self.send_header("Cache-Control", f"public, max-age={MEDIA_MAX_AGE}")
+        else:
+            self.send_header("Cache-Control", "no-store, must-revalidate")
         super().end_headers()
 
     def log_message(self, fmt: str, *args) -> None:

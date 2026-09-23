@@ -1567,14 +1567,16 @@ textarea.field__control {
 
 /* ===================================================== section bands ==== */
 
-/* Alternating full-bleed grounds so each shelf reads as its own block rather
-   than three lists running together. */
+/* Full-bleed grounds behind the shelves. The shop asked for white throughout,
+   so what was a warm tint here is now a hairline: the shelves still read as
+   separate blocks, but the ground stays the same white as the cards. */
 .band {
   padding: 42px 0;
 }
 
 .band--tint {
-  background: var(--c-warm-tint);
+  background: var(--c-base);
+  border-top: 1px solid var(--c-border-light);
 }
 
 .band + .band {
