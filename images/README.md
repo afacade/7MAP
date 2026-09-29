@@ -46,6 +46,41 @@ Idempotent: it skips variants newer than their master, so re-running is cheap.
 New product photos coming off the NAS get their variants automatically from
 `tools/convert_images.py`; this script is for backfill and for editorial images.
 
+## White backgrounds
+
+```bash
+python tools/whiten_backgrounds.py --out /tmp/whitened          # the lot
+python tools/whiten_backgrounds.py --out /tmp/look --sample 200 # a spread, to eyeball
+```
+
+The catalogue was shot on the shop floor rather than in a lightbox, so most
+product photos sit on tile, concrete or a folded sheet. Sampling 300 masters
+found only about one in eight already on something close to white.
+
+A levels stretch cannot fix that — pushing a textured grey floor toward 255
+gives a *lighter textured floor*, and blows the highlights out of every white
+shirt and enamel bowl on the way. So the script segments the product out
+(U²-Net, via `rembg`) and composites it onto white instead.
+
+Writes the full ladder per photo, so its output directory is a drop-in
+replacement for `images/products/`. It never writes in place: point `--out`
+somewhere scratch, look at the result, then copy it across.
+
+Segmentation fails quietly, which on a storefront means a blank product photo.
+Two coverage rails catch both ends — under 3% kept means no subject was found,
+over 98.5% means no background was — and a master that trips either is copied
+through **unchanged** rather than replaced. Every decision lands in
+`report.tsv` beside the output, so the skipped and low-confidence files can be
+reviewed without re-running the pass.
+
+Roughly 0.33s per image, so the full 8,730 takes about 90 minutes on four
+cores. Expect ~97% clean. The rest are worth a look: transparent packaging
+(blister packs, PET bottles) ghosts, white-on-white gets a soft edge, and thin
+straps or lace can break up.
+
+> Needs `rembg` and `onnxruntime`, which the other scripts here do not:
+> `python -m pip install rembg onnxruntime`. First run downloads a 176 MB model.
+
 ## What's here
 
 | Folder | Contents |
