@@ -103,9 +103,15 @@ export default {
   suggestedTitle: 'You might also like',
   suggestedSub: 'Travel, camping and take-along gear',
   homeH1: 'Bách Hoá & Thời Trang 7MAP — rice merchant, grocery and clothing in Bình Tân, Ho Chi Minh City',
-  videoPending: 'Video coming soon',
-  videoHint: 'Store intro video — drop it at videos/store.mp4',
+  videoPending: 'Store video',
+  videoHint: 'Loading…',
   videoLabel: 'Store intro video',
+  videoUnmute: 'Sound on',
+  videoMute: 'Sound off',
+  reelKicker: 'Inside 7MAP',
+  reelTitle: 'Take a look around the store',
+  reelSub: 'Filmed at 442-444 Kinh Duong Vuong — full shelves, wide aisles and parking on site. Message us on Zalo and staff will price your order the same day.',
+  reelCta: 'Order on Zalo',
   bannerAlt: '7Map rice merchant — fine Vietnamese rice, hotline 070 779 6663',
 
   // Home — store band

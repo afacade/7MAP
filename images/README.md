@@ -46,6 +46,57 @@ Idempotent: it skips variants newer than their master, so re-running is cheap.
 New product photos coming off the NAS get their variants automatically from
 `tools/convert_images.py`; this script is for backfill and for editorial images.
 
+## White backgrounds
+
+```bash
+python tools/whiten_backgrounds.py --out /tmp/whitened          # the lot
+python tools/whiten_backgrounds.py --out /tmp/look --sample 200 # a spread, to eyeball
+```
+
+The catalogue was shot on the shop floor rather than in a lightbox, so most
+product photos sit on tile, concrete or a folded sheet. Sampling 300 masters
+found only about one in eight already on something close to white.
+
+A levels stretch cannot fix that — pushing a textured grey floor toward 255
+gives a *lighter textured floor*, and blows the highlights out of every white
+shirt and enamel bowl on the way. So the script segments the product out
+(U²-Net, via `rembg`) and composites it onto white instead.
+
+Writes the full ladder per photo, so its output directory is a drop-in
+replacement for `images/products/`. It never writes in place: point `--out`
+somewhere scratch, look at the result, then copy it across.
+
+Segmentation fails quietly, which on a storefront means a mangled product
+photo. Three coverage rails catch it, and a master that trips any of them is
+copied through **unchanged** rather than replaced:
+
+| Kept | Verdict | Why |
+|---|---|---|
+| < 3% | `skipped-empty` | no subject found — usually a flat-lay filling the frame |
+| < 10% | `skipped-sparse` | too close to call; see below |
+| > 98.5% | `skipped-nobg` | no background found, so nothing to gain |
+
+That middle rail is the one worth understanding. About half the band is right —
+a pair of stud earrings really does occupy 6% of its frame — and about half has
+eaten the product: a jade ring stripped of its gold setting, a bag of noodles
+reduced to fragments, a clear plastic tray gone but for its printed lettering.
+Nothing in the mask separates the two, because a small product and a
+half-erased one look identical by area. So the whole band is left alone. A grey
+background is a blemish; a destroyed product photo is a lie about what the shop
+is selling.
+
+Every decision lands in `report.tsv` beside the output, so the skipped files can
+be found and cut by hand without re-running the pass.
+
+Roughly 0.33s per image, so the full 8,730 takes about 90 minutes on four cores.
+On the current catalogue that ships **97.6%** and leaves 213 masters untouched.
+The ones it cannot help are those with no solid silhouette to find: transparent
+packaging (blister packs, clear trays, PET bottles), and products that fill the
+frame corner to corner.
+
+> Needs `rembg` and `onnxruntime`, which the other scripts here do not:
+> `python -m pip install rembg onnxruntime`. First run downloads a 176 MB model.
+
 ## What's here
 
 | Folder | Contents |

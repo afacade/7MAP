@@ -10,20 +10,73 @@
 
 /* ============================================================= home ====== */
 
-/* Hero row: video on the left, the shop's banner on the right. The banner is
-   1280x487 (2.63:1), so the video slot matches that ratio and the two halves
-   line up top and bottom without cropping the artwork. */
+/* Hero row: the shop's banner, full width. The store video used to share this
+   row, but it is shot vertically for TikTok and now has its own block below —
+   see .reel. */
 .home-hero-row {
   padding-top: 28px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--gap-grid);
-  align-items: start;
 }
 
+/* ------------------------------------------------------------------ reel -- */
+
+/* Portrait video on the left, copy on the right. The video column is sized by
+   the frame's own height cap rather than a fraction of the grid, so the copy
+   takes whatever is left. */
+.reel {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(20px, 4vw, 48px);
+  align-items: center;
+}
+
+.reel__media {
+  min-width: 0;
+}
+
+.reel__copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.reel__kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--ls-eyebrow-wide);
+  text-transform: uppercase;
+  color: var(--c-orange-text);
+}
+
+.reel__title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.reel__body {
+  margin: 0;
+  color: var(--c-ink-2);
+  max-width: 52ch;
+}
+
+.reel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* 9:16, capped by height — at half a desktop grid this frame would otherwise
+   stand over a thousand pixels tall. */
 .video-well {
   position: relative;
-  aspect-ratio: 1280 / 487;
+  aspect-ratio: 9 / 16;
+  height: min(60vh, 520px);
+  max-width: 100%;
   border-radius: var(--r-hero);
   overflow: hidden;
   background: var(--c-warm-tint);
@@ -36,11 +89,33 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 /* The placeholder stays until a real file reports it can play. */
 .video-well.is-playing .well__placeholder {
   display: none;
+}
+
+.video-well__sound {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: rgb(0 0 0 / 0.55);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.video-well__sound:hover {
+  background: rgb(0 0 0 / 0.72);
 }
 
 /* The shop's own banner artwork. It carries its own headline and hotline, so it
@@ -1462,9 +1537,38 @@
     --sticky-top: 16px;
   }
 
-  .home-hero,
-  .home-hero-row {
+  .home-hero {
     grid-template-columns: 1fr;
+  }
+
+  /* The reel stacks and the video runs full width — the shape it was shot in.
+     Height is capped by viewport so the copy below it is not pushed off. */
+  .reel {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .reel__copy {
+    align-items: center;
+  }
+
+  .reel__actions {
+    justify-content: center;
+  }
+
+  /* Width-driven now, so the 9:16 ratio stays exact and nothing is cropped.
+     The column has to be told to fill the row: `justify-items: center` above
+     shrinks each grid item to its content, and a percentage width resolved
+     against a shrink-to-fit parent collapses the frame to nothing. */
+  .reel__media {
+    width: 100%;
+  }
+
+  .video-well {
+    height: auto;
+    width: min(100%, 340px);
+    margin-inline: auto;
   }
 
   .hero {
