@@ -108,9 +108,15 @@ export default {
   suggestedTitle: 'Gợi ý cho bạn', // (new)
   suggestedSub: 'Đồ du lịch, dã ngoại và tiện ích mang theo', // (new)
   homeH1: 'Bách Hoá & Thời Trang 7MAP — vựa gạo, bách hoá và thời trang tại Bình Tân, TP.HCM', // (new)
-  videoPending: 'Video sắp có', // (new)
-  videoHint: 'Video giới thiệu cửa hàng — đặt tại videos/store.mp4', // (new)
+  videoPending: 'Video cửa hàng', // (new)
+  videoHint: 'Đang tải…', // (new)
   videoLabel: 'Video giới thiệu cửa hàng', // (new)
+  videoUnmute: 'Bật tiếng', // (new)
+  videoMute: 'Tắt tiếng', // (new)
+  reelKicker: 'Cửa hàng 7MAP', // (new)
+  reelTitle: 'Ghé xem cửa hàng của chúng tôi', // (new)
+  reelSub: 'Quay trực tiếp tại 442-444 Đ. Kinh Dương Vương — hàng đầy kệ, lối đi rộng, có bãi giữ xe. Nhắn Zalo để nhân viên soạn đơn và báo giá ngay.', // (new)
+  reelCta: 'Nhắn Zalo đặt hàng', // (new)
   bannerAlt: 'Vựa gạo 7Map — gạo ngon từ đất Việt, hotline 070 779 6663', // (new)
 
   // Home — store band

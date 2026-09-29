@@ -39,6 +39,7 @@ export function homePage(ctx) {
       look: 'feed',
     })),
     storeHero(ctx),
+    storeReel(ctx),
     config.showHeroPanel || config.showPromoBanners ? heroRow(ctx) : null,
     trustStrip(ctx),
     band('plain', bestSellerSection(ctx)),
@@ -66,28 +67,73 @@ function band(kind, section) {
 
 /* ----------------------------------------------------------------- hero -- */
 
-/**
- * Hero row: store video on the left, the shop's banner artwork on the right.
- *
- * No video file has been supplied yet, so the left half shows a labelled slot
- * in the same warm well the images use — drop a file at the path below and it
- * plays. It is muted, looping and `playsinline` so it can autoplay without
- * hijacking the page, and `preload="none"` keeps it off the critical path on
- * a phone.
- */
+/** The shop's banner artwork, full width. */
 function storeHero(ctx) {
   const { t } = ctx;
   return h(
     'section',
     { class: 'section home-hero-row' },
     h('h1', { class: 'u-visually-hidden' }, t('homeH1')),
-    h('div', { class: 'home-hero-row__video' }, storeVideo(ctx)),
     h('div', { class: 'home-hero-row__banner' }, storeBanner(ctx)),
   );
 }
 
+/* ---------------------------------------------------------------- reel -- */
+
+/**
+ * The shop's phone-shot store video, with copy and a Zalo call to action.
+ *
+ * It is vertical — the shop films on a phone for TikTok — so it gets a
+ * portrait frame of its own rather than the wide slot beside the banner it
+ * used to share. A 9:16 clip cropped into a 2.6:1 box loses about three
+ * quarters of the frame, which is most of the point of the video.
+ *
+ * The frame is capped by height, not width: left to fill half a desktop grid
+ * it would stand over a thousand pixels tall. On a phone the row stacks and
+ * the video runs full width, which is the shape it was shot in.
+ */
+function storeReel(ctx) {
+  const { t } = ctx;
+  return h(
+    'section',
+    { class: 'section section--spaced reel' },
+    h('div', { class: 'reel__media' }, storeVideo(ctx)),
+    h(
+      'div',
+      { class: 'reel__copy' },
+      h('span', { class: 'reel__kicker' }, t('reelKicker')),
+      h('h2', { class: 'reel__title' }, t('reelTitle')),
+      h('p', { class: 'reel__body' }, t('reelSub')),
+      h(
+        'div',
+        { class: 'reel__actions' },
+        h(
+          'a',
+          {
+            class: 'btn btn--primary',
+            href: storeInfo.zaloUrl,
+            target: '_blank',
+            rel: 'noopener',
+          },
+          t('reelCta'),
+        ),
+        h('a', { class: 'btn btn--outline', href: routes.contact }, t('storeCta')),
+      ),
+    ),
+  );
+}
+
+/**
+ * The video itself: muted, looping, `playsinline` — the only combination
+ * browsers let start without a tap — with a button to turn the sound on,
+ * since a reel shot for TikTok carries a voiceover worth hearing.
+ *
+ * Two things keep it off the critical path. The file is not fetched until the
+ * reel is actually scrolled near (`preload="none"` until then), and the
+ * element only joins the DOM once the browser reports a decoded frame, so a
+ * missing or broken file leaves the placeholder rather than a black rectangle.
+ */
 function storeVideo({ t }) {
-  const source = '/videos/store.mp4';
   const frame = h(
     'div',
     { class: 'video-well' },
@@ -101,21 +147,64 @@ function storeVideo({ t }) {
 
   const video = h('video', {
     class: 'video-well__media',
-    src: asset(source),
-    muted: true,
+    src: asset('/videos/store.mp4'),
     loop: true,
     playsinline: true,
-    autoplay: true,
     preload: 'none',
     'aria-label': t('videoLabel'),
   });
-  // Until the file exists the element would render a black box, so it only
-  // joins the DOM once the browser confirms it can actually play.
-  video.addEventListener('loadeddata', () => {
-    frame.classList.add('is-playing');
-    frame.appendChild(video);
+  // Autoplay is gated on the *property* being set before play() is called;
+  // the attribute alone is not enough in Safari.
+  video.muted = true;
+
+  const sound = h('button', {
+    class: 'video-well__sound',
+    type: 'button',
+    'aria-pressed': 'false',
   });
-  video.load();
+  const label = () => {
+    sound.textContent = video.muted ? t('videoUnmute') : t('videoMute');
+    sound.setAttribute('aria-pressed', String(!video.muted));
+  };
+  label();
+  sound.addEventListener('click', () => {
+    video.muted = !video.muted;
+    label();
+    // A tap is a user gesture, so this is also the moment playback can start
+    // if the browser refused to autoplay earlier.
+    video.play().catch(() => {});
+  });
+
+  video.addEventListener(
+    'loadeddata',
+    () => {
+      frame.classList.add('is-playing');
+      frame.appendChild(video);
+      frame.appendChild(sound);
+      video.play().catch(() => {});
+    },
+    { once: true },
+  );
+
+  // Nearly two megabytes is not worth spending on a phone before the reel is
+  // anywhere near the viewport.
+  const fetchNow = () => {
+    video.preload = 'auto';
+    video.load();
+  };
+  if (typeof IntersectionObserver === 'function') {
+    const watcher = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        watcher.disconnect();
+        fetchNow();
+      },
+      { rootMargin: '200px' },
+    );
+    watcher.observe(frame);
+  } else {
+    fetchNow();
+  }
 
   return frame;
 }
