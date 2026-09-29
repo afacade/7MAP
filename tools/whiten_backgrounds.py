@@ -18,22 +18,24 @@ by convert_images.py and make_variants.py. See images/README.md.
 
 ## The guard rails
 
-Segmentation fails quietly, and a silent failure here means a product photo
-that is blank or untouched shipping to the storefront. Two coverage tests catch
-both ends, and a failing master is **copied through unchanged** rather than
-replaced:
+Segmentation fails quietly, and a silent failure here means a mangled product
+photo shipping to the storefront. Three coverage tests catch that, and a master
+that trips any of them is **copied through unchanged** rather than replaced:
 
   * **< 3% kept** — the model found no subject. Usually a flat-lay that fills
     the frame edge to edge, or packaging the same colour as the floor.
+  * **< 10% kept** — too close to call, so it is not shipped. See
+    MIN_SHIP_COVERAGE below for what these look like and why.
   * **> 98.5% kept** — the model found no background. Nothing to gain, and the
     alpha edge would only soften the product's real outline.
 
-Every decision lands in `report.tsv` next to the output, so the skipped and
-low-confidence files can be eyeballed without re-running the pass.
+Every decision lands in `report.tsv` next to the output, so the skipped files
+can be eyeballed, or cut by hand, without re-running the pass.
 
-Known weak spots, all in the ~10-15% worth reviewing: transparent packaging
-(blister packs, PET bottles) ghosts, white-on-white (enamelware, cream fabric)
-gets a soft edge, and thin straps or lace can break up.
+On the real catalogue this ships about 97.6% of masters and leaves ~2.4%
+untouched. The photos it cannot do anything with are the ones with no solid
+silhouette to find: transparent packaging (blister packs, clear trays, PET
+bottles), and products that fill the frame corner to corner.
 """
 
 from __future__ import annotations
@@ -76,8 +78,19 @@ WHITE = (255, 255, 255)
 # docstring. Tuned against a 300-image sample of the real catalogue.
 MIN_COVERAGE = 0.03
 MAX_COVERAGE = 0.985
-# Below this the cutout is plausible but worth a human glance.
-REVIEW_COVERAGE = 0.10
+
+# A cutout that kept less than this is not shipped either. Eyeballing the band
+# on the real catalogue, about half of them are right — a pair of stud earrings
+# really does occupy 6% of its frame — and about half have eaten the product:
+# a jade ring stripped of its gold setting, a bag of noodles reduced to
+# fragments, a clear plastic tray gone but for its printed lettering.
+#
+# Nothing in the mask separates the two cases, because a small product and a
+# half-erased one look the same by area. So the whole band is passed through
+# untouched: a grey background is a blemish, a destroyed product photo is a
+# lie about what the shop is selling. They are listed in report.tsv as
+# `skipped-sparse` for whoever wants to cut them by hand.
+MIN_SHIP_COVERAGE = 0.10
 
 _SESSION = None
 
@@ -118,10 +131,16 @@ def write_ladder(image: Image.Image, dest_dir: Path, stem: str) -> None:
     dest_dir.mkdir(parents=True, exist_ok=True)
     image.save(dest_dir / f"{stem}.webp", "WEBP", quality=QUALITY, method=6)
     for width in sorted(SMALL_WIDTHS, reverse=True):
-        if image.width <= width:
-            continue
-        ratio = width / image.width
-        small = image.resize((width, max(1, round(image.height * ratio))), Image.LANCZOS)
+        # Every rung is written even when the master is already narrower than
+        # it — make_variants.py does the same, and `srcset` names the file
+        # whatever its pixel width turns out to be. Skipping it here instead
+        # would leave the storefront pointing at a file that does not exist.
+        # Never upscale, though: a 240px source stays 240px rather than being
+        # blown up into a blurry "320px" file that is bigger and no sharper.
+        small = image
+        if image.width > width:
+            ratio = width / image.width
+            small = image.resize((width, max(1, round(image.height * ratio))), Image.LANCZOS)
         small.save(dest_dir / f"{stem}-{width}.webp", "WEBP", quality=QUALITY, method=6)
 
 
@@ -157,6 +176,9 @@ def whiten(args: tuple[str, str]) -> tuple[str, str, float]:
         if coverage < MIN_COVERAGE:
             passthrough(source, out)
             return (source.name, "skipped-empty", coverage)
+        if coverage < MIN_SHIP_COVERAGE:
+            passthrough(source, out)
+            return (source.name, "skipped-sparse", coverage)
         if coverage > MAX_COVERAGE:
             passthrough(source, out)
             return (source.name, "skipped-nobg", coverage)
@@ -164,9 +186,7 @@ def whiten(args: tuple[str, str]) -> tuple[str, str, float]:
         flat = Image.new("RGB", cut.size, WHITE)
         flat.paste(cut, mask=cut.split()[3])
         write_ladder(flat, out, source.stem)
-
-        verdict = "review-sparse" if coverage < REVIEW_COVERAGE else "ok"
-        return (source.name, verdict, coverage)
+        return (source.name, "ok", coverage)
     except Exception as exc:  # a single bad file must not kill the run
         try:
             passthrough(source, out)
